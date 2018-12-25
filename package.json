@@ -1,0 +1,28 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "Dsign library",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha test/**/Test*.js"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "nyc": "^11.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsignn/library.git"
+  },
+  "keywords": [
+    "node",
+    "javascript"
+  ],
+  "author": "antonino visalli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsignn/library/issues"
+  },
+  "homepage": "https://github.com/dsignn/library#readme"
+}
