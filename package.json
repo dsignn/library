@@ -1,5 +1,5 @@
 {
-  "name": "library",
+  "name": "dsign-library",
   "version": "1.0.0",
   "description": "Dsign library",
   "main": "index.js",
