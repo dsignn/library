@@ -9,6 +9,7 @@ app/config/monitor-config.json
 app/package-lock.json
 #app/plugin/*
 package-lock.json
+config.mk
 .nyc_output
 test/nyc
 bk.zip
