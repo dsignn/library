@@ -1,15 +1,12 @@
 /**
- * @type {
-        Archive: Archive,
-        EvtManager: EvtManager,
-        Application: Application
-    }
+ * @type {{Application: Application, Archive: Archive, core: {PaperToastNotification: PaperToastNotification}, EvtManager: EvtManager, hydrator: {HydratorPluginManager: HydratorPluginManager, AbstractHydrator: AbstractHydrator, AggregatePropertyHydrator: AggregatePropertyHydrator, HydratorAware: HydratorAware, PropertyHydrator: PropertyHydrator, strategy: {HydratorStrategy: HydratorStrategy, NumberStrategy: NumberStrategy}}, ModuleConfig: ModuleConfig, net: {P2p: P2p}, sport: {model: {Match: Match, Player: Player, Staff: Staff, Team: Team}}, serviceManager: {ServiceManager: ServiceManager, ServiceManagerAware: ServiceManagerAware}, storage: {StoragePluginManager: StoragePluginManager, Storage: Storage, adapter: {DexieCollection: DexieCollection, LocalStorage: LocalStorage, manager: {DexieManager: DexieManager}}, model: {Dates: Dates}}, Utils: Utils}}
  */
 module.exports = {
     Application : require('./lib/core/Application.js'),
     Archive : require('./lib/archive/Archive.js'),
     core : {
         PaperToastNotification : require('./lib/core/PaperToastNotification.js'),
+        ModuleConfig : require('./lib/core/ModuleConfig.js')
     },
     EvtManager : require('./lib/event/EvtManager.js'),
     hydrator : {
@@ -23,8 +20,13 @@ module.exports = {
             NumberStrategy : require('./lib/hydrator/strategy/NumberStrategy.js')
         }
     },
-    ModuleConfig : require('./lib/core/ModuleConfig.js'),
-    ServiceManager : require('./lib/service-manager/ServiceManager.js'),
+    net : {
+        P2p : require('./lib/net/p2p/P2p'),
+    },
+    parse : {
+        ObjectToString : require('./lib/parse/ObjectToString'),
+        BufferToObject : require('./lib/parse/BufferToObject'),
+    },
     sport : {
         model : {
             Match : require('./lib/sport/model/Match.js'),
@@ -33,13 +35,19 @@ module.exports = {
             Team : require('./lib/sport/model/Team.js')
         }
     },
+    serviceManager : {
+        ServiceManager : require('./lib/service-manager/ServiceManager'),
+        ServiceManagerAware : require('./lib/service-manager/ServiceManagerAware')
+    },
     storage : {
         StoragePluginManager : require('./lib/storage/StoragePluginManager.js'),
         Storage : require('./lib/storage/Storage.js'),
         adapter : {
             DexieCollection : require('./lib/storage/indexed-db/dexie/DexieCollection.js'),
-            DexieManager : require('./lib/storage/indexed-db/dexie/DexieManager.js'),
             LocalStorage : require('./lib/storage/local-storage/LocalStorage.js'),
+            manager : {
+                DexieManager : require('./lib/storage/indexed-db/dexie/DexieManager.js')
+            }
         },
         model : {
             Dates : require('./lib/storage/model/Dates'),
