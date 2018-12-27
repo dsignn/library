@@ -1,2 +1,2 @@
-DIR_FROM=/home/visa/Project/dsign/library/
-DIR_TO=/home/visa/Project/dsign/player/node_modules/dsign-library/
+DIR_FROM=TODO/dsign/library/
+DIR_TO=TODO/player/node_modules/dsign-library/
