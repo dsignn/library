@@ -23,6 +23,7 @@ module.exports = {
         strategy : {
             HydratorStrategy : require('./lib/hydrator/strategy/HydratorStrategy.js'),
             NumberStrategy : require('./lib/hydrator/strategy/NumberStrategy.js'),
+            NullStrategy : require('./lib/hydrator/strategy/NullStrategy.js'),
             HybridStrategy : require('./lib/hydrator/strategy/HybridStrategy.js'),
             BooleanStrategy :  require('./lib/hydrator/strategy/BooleanStrategy.js'),
         }
