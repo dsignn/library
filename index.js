@@ -1,7 +1,7 @@
 /**
- * @type {{Application: Application, Archive: Archive, core: {PaperToastNotification: PaperToastNotification}, EvtManager: EvtManager, hydrator: {HydratorPluginManager: HydratorPluginManager, AbstractHydrator: AbstractHydrator, AggregatePropertyHydrator: AggregatePropertyHydrator, HydratorAware: HydratorAware, PropertyHydrator: PropertyHydrator, strategy: {HydratorStrategy: HydratorStrategy, NumberStrategy: NumberStrategy}}, ModuleConfig: ModuleConfig, net: {P2p: P2p}, sport: {model: {Match: Match, Player: Player, Staff: Staff, Team: Team}}, serviceManager: {ServiceManager: ServiceManager, ServiceManagerAware: ServiceManagerAware}, storage: {StoragePluginManager: StoragePluginManager, Storage: Storage, adapter: {DexieCollection: DexieCollection, LocalStorage: LocalStorage, manager: {DexieManager: DexieManager}}, model: {Dates: Dates}}, Utils: Utils}}
+ *
+ * @type {{archive: {Archive: Archive}, core: {Application: Application, ModuleConfig: ModuleConfig, PaperToastNotification: PaperToastNotification}, event: {EvtManager: EvtManager}, hydrator: {AbstractHydrator: AbstractHydrator, AggregatePropertyHydrator: AggregatePropertyHydrator, HydratorAware: HydratorAware, HydratorPluginManager: HydratorPluginManager, PropertyHydrator: PropertyHydrator, strategy: {HydratorStrategy: HydratorStrategy, NumberStrategy: NumberStrategy, HybridStrategy: HybridStrategy, BooleanStrategy: BooleanStrategy}}, net: {P2p: P2p}, parse: {BufferToObject: BufferToObject, ObjectToString: ObjectToString}, sport: {model: {Match: Match, Player: Player, Staff: Staff, Team: Team}}, serviceManager: {ServiceManager: ServiceManager, ServiceManagerAware: ServiceManagerAware}, storage: {Storage: Storage, StoragePluginManager: StoragePluginManager, adapter: {DexieCollection: DexieCollection, LocalStorage: LocalStorage, manager: {DexieManager: DexieManager}}, model: {Dates: Dates}}, Utils: Utils}}
  */
-
 module.exports = {
     archive : {
         Archive : require('./lib/archive/Archive.js'),
@@ -23,7 +23,8 @@ module.exports = {
         strategy : {
             HydratorStrategy : require('./lib/hydrator/strategy/HydratorStrategy.js'),
             NumberStrategy : require('./lib/hydrator/strategy/NumberStrategy.js'),
-            HybridStrategy : require('./lib/hydrator/strategy/HybridStrategy.js')
+            HybridStrategy : require('./lib/hydrator/strategy/HybridStrategy.js'),
+            BooleanStrategy :  require('./lib/hydrator/strategy/BooleanStrategy.js'),
         }
     },
     net : {
