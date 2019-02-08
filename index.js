@@ -59,7 +59,7 @@ module.exports = {
             }
         },
         model : {
-            Dates : require('./lib/storage/model/Dates')
+            DateAware : require('./lib/storage/model/DateAware')
         }
     },
     Utils : require('./lib/Utils.js')
