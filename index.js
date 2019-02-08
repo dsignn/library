@@ -29,6 +29,7 @@ module.exports = {
         }
     },
     net : {
+        Http:  require('./lib/net/http/HttpClient'),
         P2p : require('./lib/net/p2p/P2p')
     },
     parse : {
