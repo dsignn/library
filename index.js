@@ -29,12 +29,12 @@ module.exports = {
         }
     },
     net : {
-        HttpClient:  require('./lib/net/http/HttpClient'),
-        P2p : require('./lib/net/p2p/P2p')
+        HttpClient:  require('./lib/net/http/HttpClient.js'),
+        P2p : require('./lib/net/p2p/P2p.js')
     },
     parse : {
         BufferToObject : require('./lib/parse/BufferToObject'),
-        ObjectToString : require('./lib/parse/ObjectToString')
+        ObjectToString : require('./lib/parse/ObjectToString.js')
     },
     sport : {
         model : {
@@ -59,7 +59,8 @@ module.exports = {
             }
         },
         model : {
-            DateAware : require('./lib/storage/model/DateAware')
+            DateAware : require('./lib/storage/model/DateAware.js'),
+            AbstractReference : require('./lib/storage/model/AbstractReference.js')
         }
     },
     Utils : require('./lib/Utils.js')
