@@ -1,19 +1,32 @@
-# Dsign Library
+# p3e-library
 
-## Requirements
+Contain the sequent module:
 
-* [Node](https://nodejs.org/en/download/)
+* Container
+* Core
+* Event
+* Hydrator
+* Localize
 
-## Setup
+## Build
 
-To develop with player set the directory path in config.mk from the template file config.mk.dist and create it:
+The modules are compile in commonjs and es6:
+
+**commonjs**
 
 ``` bash
-cp config.mk.dist config.mk
+npm run tsc-es6
 ```
 
-After create config file install project dependencies
+**es6**
 
 ``` bash
-npm install
+npm run tsc-commonjs
+```
+
+
+## Test
+
+``` bash
+npm run test
 ```

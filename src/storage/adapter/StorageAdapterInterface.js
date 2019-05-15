@@ -1,0 +1,1 @@
+//# sourceMappingURL=StorageAdapterInterface.js.map

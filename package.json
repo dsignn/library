@@ -1,28 +1,56 @@
 {
-  "name": "dsign-library",
+  "name": "@dsign/library",
   "version": "1.0.0",
   "description": "Dsign library",
   "main": "index.js",
-  "scripts": {
-    "test": "nyc mocha test/**/Test*.js"
-  },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*",
-    "nyc": "^11.7.1"
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "dexie": "^2.0.4",
+    "jest": "^24.5.0",
+    "mocha": "^6.0.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.4000"
+  },
+  "scripts": {
+    "tsc-commonjs": "tsc  -p commonjs",
+    "tsc-es6": "tsc  -p .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dsignn/library.git"
   },
-  "keywords": [
-    "node",
-    "javascript"
-  ],
-  "author": "antonino visalli",
+  "author": "antonino.visalli@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dsignn/library/issues"
+    "url": "https://github.com/dsignn/p3e-library/issues"
   },
-  "homepage": "https://github.com/dsignn/library#readme"
+  "homepage": "https://github.com/dsignn/library#readme",
+  "dependencies": {
+    "@types/node": "^11.12.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "/test/.*\\.(ts|tsx|js)$"
+  }
 }

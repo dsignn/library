@@ -1,68 +1,65 @@
-/**
- *
- * @type {{archive: {Archive: Archive}, core: {Application: Application, ModuleConfig: ModuleConfig, PaperToastNotification: PaperToastNotification}, event: {EvtManager: EvtManager}, hydrator: {AbstractHydrator: AbstractHydrator, AggregatePropertyHydrator: AggregatePropertyHydrator, HydratorAware: HydratorAware, HydratorPluginManager: HydratorPluginManager, PropertyHydrator: PropertyHydrator, strategy: {HydratorStrategy: HydratorStrategy, NumberStrategy: NumberStrategy, HybridStrategy: HybridStrategy, BooleanStrategy: BooleanStrategy}}, net: {P2p: P2p}, parse: {BufferToObject: BufferToObject, ObjectToString: ObjectToString}, sport: {model: {Match: Match, Player: Player, Staff: Staff, Team: Team}}, serviceManager: {ServiceManager: ServiceManager, ServiceManagerAware: ServiceManagerAware}, storage: {Storage: Storage, StoragePluginManager: StoragePluginManager, adapter: {DexieCollection: DexieCollection, LocalStorage: LocalStorage, manager: {DexieManager: DexieManager}}, model: {Dates: Dates}}, Utils: Utils}}
- */
 module.exports = {
-    archive : {
-        Archive : require('./lib/archive/Archive.js'),
+    container : {
+        Container: require('./commonjs/container/Container').Container,
+        ContainerAware: require('./commonjs/container/ContainerAware').ContainerAware
     },
     core : {
-        Application : require('./lib/core/Application.js'),
-        ModuleConfig : require('./lib/core/ModuleConfig.js'),
-        PaperToastNotification : require('./lib/core/PaperToastNotification.js')
+        Application: require('./commonjs/core/Application').Application,
+        module: {
+            Module: require('./commonjs/core/module/Module').Module
+        },
+
     },
     event : {
-        EvtManager : require('./lib/event/EvtManager.js'),
+        Event: require('./commonjs/event/Event').Event,
+        EventManagerAware: require('./commonjs/event/EventManagerAware').EventManagerAware,
+        EventManager: require('./commonjs/event/EventManager').EventManager,
+        Listener: require('./commonjs/event/Listener').Listener
     },
     hydrator : {
-        AbstractHydrator : require('./lib/hydrator/AbstractHydrator.js'),
-        AggregatePropertyHydrator : require('./lib/hydrator/AggregatePropertyHydrator.js'),
-        HydratorAware :  require('./lib/hydrator/HydratorAware.js'),
-        HydratorPluginManager : require('./lib/hydrator/HydratorPluginManager.js'),
-        PropertyHydrator : require('./lib/hydrator/PropertyHydrator.js'),
+        AbstractHydrator: require('./commonjs/hydrator/AbstractHydrator').AbstractHydrator,
+        PropertyHydrator: require('./commonjs/hydrator/PropertyHydrator').PropertyHydrator,
+        AggregatePropertyHydrator: require('./commonjs/hydrator/AggregatePropertyHydrator').AggregatePropertyHydrator,
         strategy : {
-            HydratorStrategy : require('./lib/hydrator/strategy/HydratorStrategy.js'),
-            NumberStrategy : require('./lib/hydrator/strategy/NumberStrategy.js'),
-            NullStrategy : require('./lib/hydrator/strategy/NullStrategy.js'),
-            HybridStrategy : require('./lib/hydrator/strategy/HybridStrategy.js'),
-            BooleanStrategy :  require('./lib/hydrator/strategy/BooleanStrategy.js'),
+            value : {
+                HydratorStrategy : require('./commonjs/hydrator/strategy/value/HydratorStrategy').HydratorStrategy,
+                HybridStrategy : require('./commonjs/hydrator/strategy/value/HybridStrategy').HybridStrategy,
+                NumberStrategy : require('./commonjs/hydrator/strategy/value/NumberStrategy').NumberStrategy,
+            }
         }
     },
-    net : {
-        HttpClient:  require('./lib/net/http/HttpClient.js'),
-        P2p : require('./lib/net/p2p/P2p.js')
+    fs : {
+        Fs: require('./commonjs/fs/Fs').Fs
     },
-    parse : {
-        BufferToObject : require('./lib/parse/BufferToObject'),
-        ObjectToString : require('./lib/parse/ObjectToString.js')
+    localize : {
+        Localize : require('./commonjs/localize/Localize').Localize
     },
-    sport : {
-        model : {
-            Match : require('./lib/sport/model/Match.js'),
-            Player : require('./lib/sport/model/Player.js'),
-            Staff : require('./lib/sport/model/Staff.js'),
-            Team : require('./lib/sport/model/Team.js')
-        }
+    path : {
+        Path : require('./commonjs/path/Path').Path,
     },
-    serviceManager : {
-        ServiceManager : require('./lib/service-manager/ServiceManager'),
-        ServiceManagerAware : require('./lib/service-manager/ServiceManagerAware')
+    sender : {
+        ProxyIpc : require('./commonjs/sender/ProxyIpc').ProxyIpc,
+        AbstractSender : require('./commonjs/sender/AbstractSender').AbstractSender
     },
     storage : {
-        Storage : require('./lib/storage/Storage.js'),
-        StoragePluginManager : require('./lib/storage/StoragePluginManager.js'),
+        Storage : require('./commonjs/storage/Storage').Storage,
         adapter : {
-            DexieCollection : require('./lib/storage/indexed-db/dexie/DexieCollection.js'),
-            LocalStorage : require('./lib/storage/local-storage/LocalStorage.js'),
-            manager : {
-                DexieManager : require('./lib/storage/indexed-db/dexie/DexieManager.js')
+            dexie : {
+                DexieManager : require('./commonjs/storage/adapter/dexie/DexieManager').DexieManager,
+                DexieAdapter : require('./commonjs/storage/adapter/dexie/DexieAdapter').DexieAdapter,
+                Store : require('./commonjs/storage/adapter/dexie/Store').Store
+            },
+            localStorage: {
+                LocalStorageAdapter : require('./commonjs/storage/adapter/local-storage/LocalStorageAdapter').LocalStorageAdapter
             }
         },
-        model : {
-            DateAware : require('./lib/storage/model/DateAware.js'),
-            AbstractReference : require('./lib/storage/model/AbstractReference.js')
+        entity : {
+            EntityIdentifier : require('./commonjs/storage/entity/EntityIdentifier').EntityIdentifier,
+            EntityNestedReference : require('./commonjs/storage/entity/EntityNestedReference').EntityNestedReference,
+            EntityReference : require('./commonjs/storage/entity/EntityReference').EntityReference
+        },
+        util : {
+            MongoIdGenerator : require('./commonjs/storage/util/MongoIdGenerator').MongoIdGenerator
         }
-    },
-    Utils : require('./lib/Utils.js')
+    }
 };
-

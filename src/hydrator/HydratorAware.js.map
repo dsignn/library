@@ -1,0 +1,1 @@
+{"version":3,"file":"HydratorAware.js","sourceRoot":"","sources":["HydratorAware.ts"],"names":[],"mappings":"AAEA;;GAEG;AACH,MAAM,OAAO,aAAa;IAOtB;;OAEG;IACH,WAAW;QACP,OAAO,IAAI,CAAC,QAAQ,CAAC;IACzB,CAAC;IAED;;;OAGG;IACH,WAAW,CAAC,QAA0B;QAClC,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;QACzB,OAAO,IAAI,CAAC;IAChB,CAAC;IAAA,CAAC;CACL"}
