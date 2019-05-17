@@ -143,13 +143,18 @@ class Application {
         return this;
     }
     /**
-     *
      * @param {Array<Widget>} widgets
      * @return {this}
      */
     setWidgets(widgets) {
         this.widgets = widgets;
         return this;
+    }
+    /**
+     * @return {Array<Widget>}
+     */
+    getWidgets() {
+        return this.widgets;
     }
     /**
      * @return {string}
