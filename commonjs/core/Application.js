@@ -19,6 +19,10 @@ class Application {
          */
         this.modules = [];
         /**
+         * @type {Array<Module>}
+         */
+        this.widget = [];
+        /**
          * @type {EventManager}
          */
         this.eventManager = new EventManager_1.EventManager();

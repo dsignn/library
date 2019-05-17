@@ -41,6 +41,11 @@ export class Application implements EventManagerAwareInterface {
     private modules: Array<Module> = [];
 
     /**
+     * @type {Array<Module>}
+     */
+    private widget: Array<Module> = [];
+
+    /**
      * @type {EventManager}
      */
     private eventManager:EventManagerInterface = new EventManager();

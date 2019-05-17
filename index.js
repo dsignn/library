@@ -8,7 +8,9 @@ module.exports = {
         module: {
             Module: require('./commonjs/core/module/Module').Module
         },
-
+        widget: {
+            Module: require('./commonjs/core/widget/Widget').Widget
+        }
     },
     event : {
         Event: require('./commonjs/event/Event').Event,
