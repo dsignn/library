@@ -189,6 +189,16 @@ export class Application implements EventManagerAwareInterface {
     }
 
     /**
+     *
+     * @param {Array<Widget>} widgets
+     * @return {this}
+     */
+    public setWidgets(widgets) {
+        this.widgets = widgets;
+        return this;
+    }
+
+    /**
      * @return {string}
      */
     public getResourcePath() {
