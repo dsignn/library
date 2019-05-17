@@ -21,7 +21,7 @@ class Application {
         /**
          * @type {Array<Module>}
          */
-        this.widget = [];
+        this.widgets = [];
         /**
          * @type {EventManager}
          */
@@ -122,6 +122,27 @@ class Application {
         return this;
     }
     /**
+     * @param {Widget} widget
+     * @return {Application}
+     */
+    addWidget(widget) {
+        this.widgets.push(widget);
+        return this;
+    }
+    /**
+     * @param {string} nameWs
+     * @return {Application}
+     */
+    removeWidget(nameWs) {
+        for (let cont = 0; this.widgets.length > cont; cont++) {
+            if (this.widgets[cont].getWc() === nameWs) {
+                this.widgets.splice(cont, 1);
+                break;
+            }
+        }
+        return this;
+    }
+    /**
      * @return {string}
      */
     getResourcePath() {
@@ -157,9 +178,11 @@ class Application {
     }
     /**
      * @param {Module} module
+     * @return {Application}
      */
     addModule(module) {
         this.modules.push(module);
+        return this;
     }
     /**
      * @return {Array<Module>}

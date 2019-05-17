@@ -2,7 +2,7 @@ import {ContainerInterface, ContainerAwareInterface} from "../container/index";
 import {Module} from "./module/index";
 import {EventManagerAwareInterface, EventManagerInterface} from "../event/index";
 import {EventManager} from "../event/EventManager";
-import * as pathd from "path";
+import {Widget} from "./widget";
 
 
 /**
@@ -43,7 +43,7 @@ export class Application implements EventManagerAwareInterface {
     /**
      * @type {Array<Module>}
      */
-    private widget: Array<Module> = [];
+    private widgets: Array<Widget> = [];
 
     /**
      * @type {EventManager}
@@ -165,6 +165,30 @@ export class Application implements EventManagerAwareInterface {
     }
 
     /**
+     * @param {Widget} widget
+     * @return {Application}
+     */
+    public addWidget(widget: Widget) {
+        this.widgets.push(widget);
+        return this;
+    }
+
+    /**
+     * @param {string} nameWs
+     * @return {Application}
+     */
+    public removeWidget(nameWs: string) {
+
+        for (let cont = 0; this.widgets.length > cont; cont++) {
+            if (this.widgets[cont].getWc() === nameWs) {
+                this.widgets.splice(cont, 1);
+                break;
+            }
+        }
+        return this;
+    }
+
+    /**
      * @return {string}
      */
     public getResourcePath() {
@@ -205,9 +229,11 @@ export class Application implements EventManagerAwareInterface {
 
     /**
      * @param {Module} module
+     * @return {Application}
      */
     public addModule(module:Module) {
         this.modules.push(module);
+        return this;
     }
 
     /**

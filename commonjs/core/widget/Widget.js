@@ -35,5 +35,11 @@ class Widget {
          */
         this.path = new Path_1.Path();
     }
+    /**
+     * @return {string}
+     */
+    getWc() {
+        return this.wc;
+    }
 }
 exports.Widget = Widget;

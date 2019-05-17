@@ -33,5 +33,11 @@ export class Widget {
          */
         this.path = new Path();
     }
+    /**
+     * @return {string}
+     */
+    getWc() {
+        return this.wc;
+    }
 }
 //# sourceMappingURL=Widget.js.map

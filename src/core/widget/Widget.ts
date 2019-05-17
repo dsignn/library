@@ -39,4 +39,11 @@ export class Widget {
      * @type {Path}
      */
     private path:Path = new Path();
+
+    /**
+     * @return {string}
+     */
+    public getWc() {
+        return this.wc;
+    }
 }
