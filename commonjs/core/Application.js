@@ -62,7 +62,7 @@ class Application {
             let autoloadRequire;
             let wcEntryPoint;
             let wcComponent;
-            console.group(`Load Module ${module.getName()}`);
+            console.groupCollapsed(`Load Module ${module.getName()}`);
             /**
              * Load entry point module
              */
