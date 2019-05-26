@@ -1,5 +1,3 @@
-import {ContainerAggregate} from "./src/container/ContainerAggregate";
-
 module.exports = {
     container : {
         Container: require('./commonjs/container/Container').Container,
