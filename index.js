@@ -1,7 +1,10 @@
+import {ContainerAggregate} from "./src/container/ContainerAggregate";
+
 module.exports = {
     container : {
         Container: require('./commonjs/container/Container').Container,
-        ContainerAware: require('./commonjs/container/ContainerAware').ContainerAware
+        ContainerAware: require('./commonjs/container/ContainerAware').ContainerAware,
+        ContainerAggregate: require('./commonjs/container/ContainerAggregate').ContainerAggregate
     },
     core : {
         Application: require('./commonjs/core/Application').Application,
