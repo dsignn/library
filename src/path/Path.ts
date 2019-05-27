@@ -45,4 +45,28 @@ export class Path {
         let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}`: '';
         return this._pathNode.isAbsolute(`${path}${this.nameFile}.${this.extension}`);
     }
+
+    /**
+     * @param {string} directory
+     */
+    public setDirectory(directory:string) {
+        if (directory.slice(-1) === this._pathNode.sep) {
+            directory = directory.substring(0, directory.length - 1);
+        }
+        this.directory = directory
+    }
+
+    /**
+     * @param {string} nameFile
+     */
+    public setNameFile(nameFile:string) {
+        this.nameFile = nameFile
+    }
+
+    /**
+     * @param {string} extension
+     */
+    public setExtension(extension:string) {
+        this.extension = extension
+    }
 }

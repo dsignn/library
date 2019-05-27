@@ -64,6 +64,12 @@ export class Application implements EventManagerAwareInterface {
         for (let cont = 0; modules.length > cont; cont++) {
            this.modules.push(await this._loadModule(modules[cont], container));
         }
+
+        for (let cont = 0; this.widgets.length > cont; cont++) {
+
+            await this.loadWidget(this.widgets[cont]);
+        }
+
         this.getEventManager().emit(Application.BOOTSTRAP_MODULE, this.modules);
         return this.modules;
     }
@@ -146,6 +152,39 @@ export class Application implements EventManagerAwareInterface {
 
         console.groupEnd();
         return module;
+    }
+
+    /**
+     *
+     * @param {Widget} widget
+     * @return {Promise<void>}
+     */
+    private async loadWidget(widget: Widget) {
+        console.groupCollapsed(`Load Widget ${widget.getName()}`);
+        let path;
+
+        if (widget.getWc()) {
+           path = `${this.basePath}module/${widget.getSrc().getPath()}`;
+           await import(path)
+               .then((moduleLoaded) => {
+                   console.log(`Load widget store in "${path}"`);
+               })
+               .catch((err) => {
+                   console.error(`Failed to load widget store in ${path}`);
+               });
+        }
+
+        if (widget.getWcData()) {
+            path = `${this.basePath}module/${widget.getSrcData().getPath()}`;
+            await import(path)
+                .then((moduleLoaded) => {
+                    console.log(`Load widget data store in "${path}"`);
+                })
+                .catch((err) => {
+                    console.error(`Failed to load widget dagta store in ${path}`);
+                });
+        }
+        console.groupEnd();
     }
 
     /**

@@ -28,6 +28,7 @@ module.exports = {
                 HydratorStrategy : require('./commonjs/hydrator/strategy/value/HydratorStrategy').HydratorStrategy,
                 HybridStrategy : require('./commonjs/hydrator/strategy/value/HybridStrategy').HybridStrategy,
                 NumberStrategy : require('./commonjs/hydrator/strategy/value/NumberStrategy').NumberStrategy,
+                PathStrategy : require('./commonjs/hydrator/strategy/value/PathStrategy').PathStrategy,
             }
         }
     },

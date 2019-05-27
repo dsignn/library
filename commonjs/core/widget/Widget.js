@@ -15,9 +15,17 @@ class Widget {
          */
         this.description = null;
         /**
+         * Name of the web component of the widget
+         *
          * @type {string}
          */
         this.wc = null;
+        /**
+         * Name of the web component of the data injector
+         *
+         * @type {string}
+         */
+        this.wcData = null;
         /**
          * @type {string}
          */
@@ -33,13 +41,41 @@ class Widget {
         /**
          * @type {Path}
          */
-        this.path = new Path_1.Path();
+        this.src = new Path_1.Path();
+        /**
+         * @type {Path}
+         */
+        this.srcData = new Path_1.Path();
+    }
+    /**
+     * @return {Path}
+     */
+    getSrcData() {
+        return this.srcData;
+    }
+    /**
+     * @return {Path}
+     */
+    getSrc() {
+        return this.src;
+    }
+    /**
+     * @return {string}
+     */
+    getName() {
+        return this.name;
     }
     /**
      * @return {string}
      */
     getWc() {
         return this.wc;
+    }
+    /**
+     * @return {string}
+     */
+    getWcData() {
+        return this.wcData;
     }
 }
 exports.Widget = Widget;

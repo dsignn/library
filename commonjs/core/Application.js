@@ -40,6 +40,9 @@ class Application {
             for (let cont = 0; modules.length > cont; cont++) {
                 this.modules.push(yield this._loadModule(modules[cont], container));
             }
+            for (let cont = 0; this.widgets.length > cont; cont++) {
+                yield this.loadWidget(this.widgets[cont]);
+            }
             this.getEventManager().emit(Application.BOOTSTRAP_MODULE, this.modules);
             return this.modules;
         });
@@ -105,6 +108,36 @@ class Application {
             }
             console.groupEnd();
             return module;
+        });
+    }
+    /**
+     *
+     * @param {Widget} widget
+     * @return {Promise<void>}
+     */
+    loadWidget(widget) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.groupCollapsed(`Load Widget ${widget.getName()}`);
+            let path;
+            if (widget.getWc()) {
+                path = `${this.basePath}module/${widget.getSrc().getPath()}`;
+                yield Promise.resolve().then(() => require(path)).then((moduleLoaded) => {
+                    console.log(`Load widget store in "${path}"`);
+                })
+                    .catch((err) => {
+                    console.error(`Failed to load widget store in ${path}`);
+                });
+            }
+            if (widget.getWcData()) {
+                path = `${this.basePath}module/${widget.getSrcData().getPath()}`;
+                yield Promise.resolve().then(() => require(path)).then((moduleLoaded) => {
+                    console.log(`Load widget data store in "${path}"`);
+                })
+                    .catch((err) => {
+                    console.error(`Failed to load widget dagta store in ${path}`);
+                });
+            }
+            console.groupEnd();
         });
     }
     /**

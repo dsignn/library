@@ -38,5 +38,26 @@ export class Path {
         let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}` : '';
         return this._pathNode.isAbsolute(`${path}${this.nameFile}.${this.extension}`);
     }
+    /**
+     * @param {string} directory
+     */
+    setDirectory(directory) {
+        if (directory.slice(-1) === this._pathNode.sep) {
+            directory = directory.substring(0, directory.length - 1);
+        }
+        this.directory = directory;
+    }
+    /**
+     * @param {string} nameFile
+     */
+    setNameFile(nameFile) {
+        this.nameFile = nameFile;
+    }
+    /**
+     * @param {string} extension
+     */
+    setExtension(extension) {
+        this.extension = extension;
+    }
 }
 //# sourceMappingURL=Path.js.map
