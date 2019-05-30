@@ -1,11 +1,11 @@
-import { EventManager } from "../event/EventManager";
+import { EventManager } from "../event/index";
 import { MongoIdGenerator } from "./util";
 /**
  *
  */
 export class Storage {
     /**
-     * @param {StorageAdapterInterfaceInterface} adapter
+     * @param {StorageAdapterInterface} adapter
      */
     constructor(adapter) {
         /**
@@ -17,7 +17,7 @@ export class Storage {
          */
         this.idGenerator = new MongoIdGenerator();
         /**
-         * @type {StorageAdapterInterfaceInterface}
+         * @type {StorageAdapterInterface}
          */
         this.adapter = adapter;
     }
@@ -47,6 +47,19 @@ export class Storage {
     setHydrator(hydrator) {
         this.hydrator = hydrator;
         return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    setAdapter(adapter) {
+        this.adapter = adapter;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getAdapter() {
+        return this.adapter;
     }
     /**
      * @inheritDoc

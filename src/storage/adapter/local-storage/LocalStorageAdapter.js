@@ -17,6 +17,12 @@ export class LocalStorageAdapter {
         this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : [];
     }
     /**
+     * @return {string}
+     */
+    getNameCollection() {
+        return this.nameCollection;
+    }
+    /**
      * Persist data
      */
     persist() {

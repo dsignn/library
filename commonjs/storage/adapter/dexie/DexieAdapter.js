@@ -17,31 +17,37 @@ class DexieAdapter {
         /**
          * @type {string}
          */
-        this.nameCollaction = nameCollection;
+        this.nameCollection = nameCollection;
+    }
+    /**
+     * @return {string}
+     */
+    getNameCollection() {
+        return this.nameCollection;
     }
     /**
      * @inheritDoc
      */
     get(id) {
-        return this.manager.table(this.nameCollaction).get(id);
+        return this.manager.table(this.nameCollection).get(id);
     }
     /**
      * @inheritDoc
      */
     remove(data) {
-        return this.manager.table(this.nameCollaction).delete(data.id);
+        return this.manager.table(this.nameCollection).delete(data.id);
     }
     /**
      * @inheritDoc
      */
     save(data) {
-        return this.manager.table(this.nameCollaction).add(data);
+        return this.manager.table(this.nameCollection).add(data);
     }
     /**
      * @inheritDoc
      */
     update(data) {
-        return this.manager.table(this.nameCollaction).put(data);
+        return this.manager.table(this.nameCollection).put(data);
     }
     /**
      * @inheritDoc
@@ -75,7 +81,7 @@ class DexieAdapter {
      * @return {Dexie.Collection<any, any>}
      */
     filter(filter) {
-        return this.manager.table(this.nameCollaction).toCollection();
+        return this.manager.table(this.nameCollection).toCollection();
     }
 }
 exports.DexieAdapter = DexieAdapter;

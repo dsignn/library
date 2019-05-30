@@ -13,7 +13,7 @@ export class Container implements ContainerInterface {
     /**
      * @inheritDoc
      */
-    get(id: string) {
+    public get(id: string) {
 
         if (typeof this.services[id] === 'function') {
             this.services[id] = this.services[id](this);
@@ -26,7 +26,7 @@ export class Container implements ContainerInterface {
      *
      * @inheritDoc
      */
-    getAsync(id: string): Promise<any> {
+    public getAsync(id: string): Promise<any> {
         return new Promise(function (resolve, reject) {
                 /**
                  * Inject container if the service is a callback
@@ -43,14 +43,14 @@ export class Container implements ContainerInterface {
     /**
      * @inheritDoc
      */
-    has(id: string) {
+    public has(id: string) {
         return !!this.services[id];
     };
 
     /**
      * @inheritDoc
      */
-    set(id: string, service: any) {
+    public set(id: string, service: any) {
         this.services[id] = service;
 
         return this;

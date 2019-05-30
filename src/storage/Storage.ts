@@ -1,15 +1,13 @@
 import {EntityIdentifierInterface} from "./entity";
-import {StorageAdapterInterfaceInterface} from "./adapter";
-import {EventManagerAwareInterface} from "../event/EventManagerAwareInterface";
-import {EventManager} from "../event/EventManager";
-import {EventManagerInterface} from "../event/EventManagerInterface";
+import {StorageAdapterInterface, StorageAdapterAwareInterface} from "./adapter/index";
+import {EventManagerInterface, EventManager, EventManagerAwareInterface} from "../event/index";
 import {HydratorAwareInterface, HydratorInteface} from "../hydrator";
 import {StorageInterface} from "./StorageInterface";
 import {IdGeneratorInterface, MongoIdGenerator} from "./util";
 /**
  *
  */
-export class Storage implements HydratorAwareInterface, EventManagerAwareInterface, StorageInterface {
+export class Storage implements HydratorAwareInterface, EventManagerAwareInterface, StorageInterface, StorageAdapterAwareInterface {
 
     /**
      * Constants
@@ -31,9 +29,9 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     public static POST_GET = "post-get";
 
     /**
-     * @type StorageAdapterInterfaceInterface
+     * @type StorageAdapterInterface
      */
-    private adapter: StorageAdapterInterfaceInterface;
+    private adapter: StorageAdapterInterface;
 
     /**
      * @type {EventManagerInterface}
@@ -51,11 +49,11 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     protected idGenerator: IdGeneratorInterface = new MongoIdGenerator();
 
     /**
-     * @param {StorageAdapterInterfaceInterface} adapter
+     * @param {StorageAdapterInterface} adapter
      */
-    constructor(adapter: StorageAdapterInterfaceInterface) {
+    constructor(adapter: StorageAdapterInterface) {
         /**
-         * @type {StorageAdapterInterfaceInterface}
+         * @type {StorageAdapterInterface}
          */
         this.adapter = adapter;
     }
@@ -94,6 +92,21 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     /**
      * @inheritDoc
      */
+    public setAdapter(adapter: StorageAdapterInterface) {
+        this.adapter = adapter;
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public getAdapter() {
+        return this.adapter;
+    }
+
+    /**
+     * @inheritDoc
+     */
     get(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this.adapter.get(id)
@@ -107,7 +120,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         });
     }
 
-    getAll(filter: object): Promise<any> {
+    getAll(filter?: object): Promise<any> {
         return new Promise((resolve, reject) => {
             this.adapter.getAll(filter)
                 .then((result) => {
@@ -126,7 +139,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         });
     }
 
-    getPaged(page: number, itemCount: number, filter: object): Promise<any> {
+    getPaged(page: number, itemCount: number, filter?: object): Promise<any> {
         return new Promise((resolve, reject) => {
             this.adapter.getPaged(page, itemCount, filter)
                 .then((result) => {

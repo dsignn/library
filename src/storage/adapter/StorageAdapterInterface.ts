@@ -1,7 +1,12 @@
 /**
  *
  */
-export interface StorageAdapterInterfaceInterface {
+export interface StorageAdapterInterface {
+
+    /**
+     * @return {string}
+     */
+    getNameCollection() : string;
 
     /**
      * @param {string} id

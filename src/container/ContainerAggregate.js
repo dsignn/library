@@ -64,6 +64,16 @@ export class ContainerAggregate {
     }
     ;
     /**
+     * @inheritDoc
+     */
+    getAll() {
+        let services = [];
+        for (let property in this.services) {
+            services.push(this.services[property]);
+        }
+        return services;
+    }
+    /**
      * @param service
      */
     isValid(service) {

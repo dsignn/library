@@ -1,4 +1,7 @@
 module.exports = {
+    archive: {
+        Archive: require('./commonjs/archive/Archive').Archive,
+    },
     container : {
         Container: require('./commonjs/container/Container').Container,
         ContainerAware: require('./commonjs/container/ContainerAware').ContainerAware,

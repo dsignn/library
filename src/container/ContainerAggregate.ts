@@ -84,6 +84,17 @@ export class ContainerAggregate implements ContainerInterface, ContainerAwareInt
     };
 
     /**
+     * @inheritDoc
+     */
+    public getAll() {
+        let services = [];
+        for (let property in this.services) {
+            services.push(this.services[property]);
+        }
+        return services;
+    }
+
+    /**
      * @param service
      */
     protected isValid(service) {

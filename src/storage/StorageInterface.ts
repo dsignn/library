@@ -32,7 +32,7 @@ export interface StorageInterface {
      * @param {object} filter
      * @return {Promise<any>}
      */
-    getAll(filter: object) : Promise<any>;
+    getAll(filter?: object) : Promise<any>;
 
     /**
      * @param {number} page
@@ -40,5 +40,5 @@ export interface StorageInterface {
      * @param {object} filter
      * @return {Promise<any>}
      */
-    getPaged(page: number, itemCount: number, filter: object) : Promise<any>;
+    getPaged(page: number, itemCount: number, filter?: object) : Promise<any>;
 }

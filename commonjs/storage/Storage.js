@@ -1,25 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const EventManager_1 = require("../event/EventManager");
+const index_1 = require("../event/index");
 const util_1 = require("./util");
 /**
  *
  */
 class Storage {
     /**
-     * @param {StorageAdapterInterfaceInterface} adapter
+     * @param {StorageAdapterInterface} adapter
      */
     constructor(adapter) {
         /**
          * @type {EventManagerInterface}
          */
-        this.eventManager = new EventManager_1.EventManager();
+        this.eventManager = new index_1.EventManager();
         /**
          * @type {IdGeneratorInterface}
          */
         this.idGenerator = new util_1.MongoIdGenerator();
         /**
-         * @type {StorageAdapterInterfaceInterface}
+         * @type {StorageAdapterInterface}
          */
         this.adapter = adapter;
     }
@@ -49,6 +49,19 @@ class Storage {
     setHydrator(hydrator) {
         this.hydrator = hydrator;
         return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    setAdapter(adapter) {
+        this.adapter = adapter;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getAdapter() {
+        return this.adapter;
     }
     /**
      * @inheritDoc

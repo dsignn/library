@@ -6,7 +6,7 @@ export interface ContainerInterface {
 
     /**
      * @param {string} id
-     * @return Promise
+     * @return any
      */
     get(id: string): any;
 

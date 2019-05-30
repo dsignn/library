@@ -1,10 +1,10 @@
-import {StorageAdapterInterfaceInterface} from "../StorageAdapterInterface";
+import {StorageAdapterInterface} from "../StorageAdapterInterface";
 import {Pagination} from "../../../pagination/Pagination";
 
 /**
  *
  */
-export class LocalStorageAdapter implements StorageAdapterInterfaceInterface {
+export class LocalStorageAdapter implements StorageAdapterInterface {
 
     /**
      * @type string
@@ -29,6 +29,13 @@ export class LocalStorageAdapter implements StorageAdapterInterfaceInterface {
         this.name = name;
         this.nameCollection = nameCollection;
         this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : []
+    }
+
+    /**
+     * @return {string}
+     */
+    getNameCollection() {
+        return this.nameCollection;
     }
 
     /**

@@ -1,10 +1,10 @@
 import Dexie from "dexie";
-import {StorageAdapterInterfaceInterface} from "../StorageAdapterInterface";
+import {StorageAdapterInterface} from "../StorageAdapterInterface";
 import {Pagination} from "../../../pagination/Pagination";
 /**
  *
  */
-export class DexieAdapter implements StorageAdapterInterfaceInterface {
+export class DexieAdapter implements StorageAdapterInterface {
 
     /**
      * @type Dexie
@@ -14,7 +14,7 @@ export class DexieAdapter implements StorageAdapterInterfaceInterface {
     /**
      * @type string
      */
-    private nameCollaction:string;
+    private nameCollection:string;
 
     /**
      * @param {Dexie} manager
@@ -30,35 +30,42 @@ export class DexieAdapter implements StorageAdapterInterfaceInterface {
         /**
          * @type {string}
          */
-        this.nameCollaction = nameCollection;
+        this.nameCollection = nameCollection;
+    }
+
+    /**
+     * @return {string}
+     */
+    getNameCollection() {
+        return this.nameCollection;
     }
 
     /**
      * @inheritDoc
      */
     get(id: string): Promise<any> {
-        return this.manager.table(this.nameCollaction).get(id);
+        return this.manager.table(this.nameCollection).get(id);
     }
 
     /**
      * @inheritDoc
      */
     remove(data: any): Promise<any> {
-        return this.manager.table(this.nameCollaction).delete(data.id);
+        return this.manager.table(this.nameCollection).delete(data.id);
     }
 
     /**
      * @inheritDoc
      */
     save(data: any): Promise<any> {
-        return this.manager.table(this.nameCollaction).add(data);
+        return this.manager.table(this.nameCollection).add(data);
     }
 
     /**
      * @inheritDoc
      */
     update(data: any): Promise<any> {
-        return this.manager.table(this.nameCollaction).put(data);
+        return this.manager.table(this.nameCollection).put(data);
     }
 
     /**
@@ -101,6 +108,6 @@ export class DexieAdapter implements StorageAdapterInterfaceInterface {
      * @return {Dexie.Collection<any, any>}
      */
     protected filter(filter) {
-        return this.manager.table(this.nameCollaction).toCollection();
+        return this.manager.table(this.nameCollection).toCollection();
     }
 }
