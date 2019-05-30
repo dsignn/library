@@ -23,6 +23,10 @@ export class Archive {
         /**
          * @type {string}
          */
+        this.tmpDir = '';
+        /**
+         * @type {string}
+         */
         this.nameFile = 'dsign';
         /**
          * @type {object}
@@ -147,6 +151,11 @@ export class Archive {
         });
         this._archiver.finalize();
     }
+    async restore() {
+        let fsExtra = require('fs-extra');
+        fsExtra.emptyDirSync(this.tmpDir);
+        console.log('restore', this.tmpDir);
+    }
     /**
      * @param event
      * @param callback
@@ -236,6 +245,21 @@ export class Archive {
      */
     getDestinationDir() {
         return this.destinationDir;
+    }
+    /**
+     *
+     * @param {string} tmpDir
+     * @return {this}
+     */
+    setTmpDir(tmpDir) {
+        this.tmpDir = tmpDir;
+        return this;
+    }
+    /**
+     * @return {string}
+     */
+    getTmpDir() {
+        return this.tmpDir;
     }
     /**
      * @param {ContainerAggregateInterface} container

@@ -33,6 +33,10 @@ class Archive {
         /**
          * @type {string}
          */
+        this.tmpDir = '';
+        /**
+         * @type {string}
+         */
         this.nameFile = 'dsign';
         /**
          * @type {object}
@@ -159,6 +163,13 @@ class Archive {
             this._archiver.finalize();
         });
     }
+    restore() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let fsExtra = require('fs-extra');
+            fsExtra.emptyDirSync(this.tmpDir);
+            console.log('restore', this.tmpDir);
+        });
+    }
     /**
      * @param event
      * @param callback
@@ -248,6 +259,21 @@ class Archive {
      */
     getDestinationDir() {
         return this.destinationDir;
+    }
+    /**
+     *
+     * @param {string} tmpDir
+     * @return {this}
+     */
+    setTmpDir(tmpDir) {
+        this.tmpDir = tmpDir;
+        return this;
+    }
+    /**
+     * @return {string}
+     */
+    getTmpDir() {
+        return this.tmpDir;
     }
     /**
      * @param {ContainerAggregateInterface} container

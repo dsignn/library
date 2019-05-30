@@ -34,6 +34,11 @@ export class Archive {
     /**
      * @type {string}
      */
+    private tmpDir: string = '';
+
+    /**
+     * @type {string}
+     */
     private nameFile: string = 'dsign';
 
     /**
@@ -99,7 +104,7 @@ export class Archive {
     /**
      *
      */
-    async archive() {
+    public async archive() {
         this._prepareArchive();
         for (let property in this.directories)  {
             console.log(property, this.directories[property]);
@@ -179,6 +184,13 @@ export class Archive {
         });
 
         this._archiver.finalize();
+    }
+
+    public async restore() {
+
+        let fsExtra = require('fs-extra');
+        fsExtra.emptyDirSync(this.tmpDir);
+        console.log('restore', this.tmpDir);
     }
 
     /**
@@ -282,6 +294,23 @@ export class Archive {
      */
     public getDestinationDir() {
         return this.destinationDir;
+    }
+
+    /**
+     *
+     * @param {string} tmpDir
+     * @return {this}
+     */
+    public setTmpDir(tmpDir:string) {
+        this.tmpDir = tmpDir;
+        return this;
+    }
+
+    /**
+     * @return {string}
+     */
+    public getTmpDir() {
+        return this.tmpDir;
     }
 
     /**
