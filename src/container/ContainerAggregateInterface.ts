@@ -3,7 +3,7 @@
  */
 import {ContainerInterface} from "./ContainerInterface";
 
-export interface ContainerAggregateInterface extends ContainerInterface{
+export interface ContainerAggregateInterface extends ContainerInterface {
 
     /**
      * @return Array<any>

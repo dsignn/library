@@ -1,6 +1,7 @@
 import {ContainerInterface} from "../container";
 import {ContainerAggregateInterface} from "../container/index";
 import {Storage} from "../storage/index";
+import {EventManager} from "../event/index";
 
 export class Archive {
 
@@ -39,12 +40,22 @@ export class Archive {
     /**
      * @type {string}
      */
+    private resourceDir: string = '';
+
+    /**
+     * @type {string}
+     */
     private nameFile: string = 'dsign';
 
     /**
      * @type {object}
      */
     private directories: object = {};
+
+    /**
+     * @type {EventManager}
+     */
+    private eventManager: EventManager = new EventManager();
 
     /**
      * @type {object}
@@ -64,9 +75,11 @@ export class Archive {
 
     /**
      * @param {string} destinationDir
+     * @param {string} resourceDir
      */
-    constructor(destinationDir: string) {
+    constructor(destinationDir: string, resourceDir: string) {
         this.destinationDir = destinationDir;
+        this.resourceDir = resourceDir
     }
 
     /**
@@ -186,11 +199,80 @@ export class Archive {
         this._archiver.finalize();
     }
 
-    public async restore() {
+    /**
+     * @param {string} path
+     * @return {Promise<void>}
+     */
+    public async restore(path) {
 
+        let fs = require('fs');
         let fsExtra = require('fs-extra');
+        let decompress = require('decompress');
+        let evtData = {path: path};
+
+        this.eventManager.emit('star-progress-extract', evtData);
         fsExtra.emptyDirSync(this.tmpDir);
-        console.log('restore', this.tmpDir);
+
+        try {
+            let done = await decompress(path, this.tmpDir);
+        } catch (e) {
+            this.eventManager.emit('error-extract', {path: e});
+        }
+
+        /**
+         * async
+         */
+        fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, {overwrite:true}, (err) => {
+            if (err) {
+                this.eventManager.emit('error-extract', err);
+                return;
+            }
+        });
+
+        fs.readdir(this.tmpDir, (err, items) => {
+
+
+            for (let cont=0; cont < items.length; cont++) {
+
+
+                if (items[cont].indexOf(".json") > 0) {
+
+                    let collection = items[cont].split('.')[0];
+                    let storage = this.storageContainer.getAll().find((element) => {
+                        return element.getAdapter().getNameCollection() === collection;
+                    });
+
+                    if (!storage) {
+                        console.warn(`Storage ${collection} not found`);
+                        return
+                    }
+
+                    fs.readFile(`${this.tmpDir}${items[cont]}`, function(err, data) {
+                        if (err) {
+                            throw err;
+                        }
+
+                        let jsonData = JSON.parse(data.toString());
+
+                        if (jsonData.length > 0) {
+
+                            let promises = [];
+                            for (let contI = 0; jsonData.length > contI; contI++) {
+                                promises.push(storage.update(this.getHydrator().hydrate(jsonData[contI])));
+                            }
+
+                            Promise.all(promises).then((data) => {
+                                console.log(`Update ${this.getAdapter().getNameCollection()}`, data);
+                            });
+                        }
+
+                    }.bind(storage));
+                }
+            }
+        });
+
+
+        this.eventManager.emit('close-extract', evtData);
     }
 
     /**
@@ -206,6 +288,11 @@ export class Archive {
             case 'close' :
                 this.listener[event].push(callback);
                 break;
+            case 'error-extract':
+            case 'close-extract':
+            case 'star-progress-extract':
+                this.eventManager.on(event, callback);
+                break
         }
     }
 
@@ -311,6 +398,23 @@ export class Archive {
      */
     public getTmpDir() {
         return this.tmpDir;
+    }
+
+    /**
+     *
+     * @param {string} resourceDir
+     * @return {this}
+     */
+    public setResourceDir(resourceDir:string) {
+        this.resourceDir = resourceDir;
+        return this;
+    }
+
+    /**
+     * @return {string}
+     */
+    public getResourceDir() {
+        return this.resourceDir;
     }
 
     /**

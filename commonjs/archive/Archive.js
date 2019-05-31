@@ -8,11 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("../event/index");
 class Archive {
     /**
      * @param {string} destinationDir
+     * @param {string} resourceDir
      */
-    constructor(destinationDir) {
+    constructor(destinationDir, resourceDir) {
         /**
          * @type {module:archiver}
          * @private
@@ -37,11 +39,19 @@ class Archive {
         /**
          * @type {string}
          */
+        this.resourceDir = '';
+        /**
+         * @type {string}
+         */
         this.nameFile = 'dsign';
         /**
          * @type {object}
          */
         this.directories = {};
+        /**
+         * @type {EventManager}
+         */
+        this.eventManager = new index_1.EventManager();
         /**
          * @type {object}
          */
@@ -57,6 +67,7 @@ class Archive {
          */
         this.storageContainer = null;
         this.destinationDir = destinationDir;
+        this.resourceDir = resourceDir;
     }
     /**
      * @private
@@ -163,11 +174,66 @@ class Archive {
             this._archiver.finalize();
         });
     }
-    restore() {
+    /**
+     * @param {string} path
+     * @return {Promise<void>}
+     */
+    restore(path) {
         return __awaiter(this, void 0, void 0, function* () {
+            let fs = require('fs');
             let fsExtra = require('fs-extra');
+            let decompress = require('decompress');
+            let evtData = { path: path };
+            this.eventManager.emit('star-progress-extract', evtData);
             fsExtra.emptyDirSync(this.tmpDir);
-            console.log('restore', this.tmpDir);
+            try {
+                let done = yield decompress(path, this.tmpDir);
+                console.log('restore', done);
+            }
+            catch (e) {
+                this.eventManager.emit('error-extract', { path: e });
+            }
+            /**
+             * async
+             */
+            fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, { overwrite: true }, (err) => {
+                if (err) {
+                    this.eventManager.emit('error-extract', err);
+                    return;
+                }
+            });
+            fs.readdir(this.tmpDir, (err, items) => {
+                for (let cont = 0; cont < items.length; cont++) {
+                    if (items[cont].indexOf(".json") > 0) {
+                        let collection = items[cont].split('.')[0];
+                        let storage = this.storageContainer.getAll().find((element) => {
+                            return element.getAdapter().getNameCollection() === collection;
+                        });
+                        if (!storage) {
+                            console.warn(`Storage ${collection} not found`);
+                            return;
+                        }
+                        console.log(storage);
+                        fs.readFile(`${this.tmpDir}${items[cont]}`, function (err, data) {
+                            if (err) {
+                                throw err;
+                            }
+                            let jsonData = JSON.parse(data.toString());
+                            console.log('JSON', jsonData);
+                            if (jsonData.length > 0) {
+                                let promises = [];
+                                for (let contI = 0; jsonData.length > contI; contI++) {
+                                    promises.push(storage.update(this.getHydrator().hydrate(jsonData[contI])));
+                                }
+                                Promise.all(promises).then((data) => {
+                                    console.log(`Update ${this.getAdapter().getNameCollection()}`, data);
+                                });
+                            }
+                        }.bind(storage));
+                    }
+                }
+            });
+            this.eventManager.emit('close-extract', evtData);
         });
     }
     /**
@@ -182,6 +248,11 @@ class Archive {
             case 'warning':
             case 'close':
                 this.listener[event].push(callback);
+                break;
+            case 'error-extract':
+            case 'close-extract':
+            case 'star-progress-extract':
+                this.eventManager.on(event, callback);
                 break;
         }
     }
@@ -274,6 +345,21 @@ class Archive {
      */
     getTmpDir() {
         return this.tmpDir;
+    }
+    /**
+     *
+     * @param {string} resourceDir
+     * @return {this}
+     */
+    setResourceDir(resourceDir) {
+        this.resourceDir = resourceDir;
+        return this;
+    }
+    /**
+     * @return {string}
+     */
+    getResourceDir() {
+        return this.resourceDir;
     }
     /**
      * @param {ContainerAggregateInterface} container
