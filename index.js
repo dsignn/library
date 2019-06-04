@@ -41,8 +41,15 @@ module.exports = {
     localize : {
         Localize : require('./commonjs/localize/Localize').Localize
     },
+    net : {
+      P2p: require('./commonjs/net/P2p').P2p
+    },
     path : {
         Path : require('./commonjs/path/Path').Path,
+    },
+    parse : {
+        ObjectParse : require('./commonjs/parse/ObjectParse').ObjectParse,
+        BufferParse : require('./commonjs/parse/BufferParse').BufferParse
     },
     sender : {
         ProxyIpc : require('./commonjs/sender/ProxyIpc').ProxyIpc,

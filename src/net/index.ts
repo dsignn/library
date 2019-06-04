@@ -1,2 +1,1 @@
-export * from './Pagination';
-export * from './PaginationInterface';
+export * from './P2p';

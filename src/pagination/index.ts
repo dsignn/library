@@ -1,1 +1,2 @@
-export * from './Localize';
+export * from './Pagination';
+export * from './PaginationInterface';

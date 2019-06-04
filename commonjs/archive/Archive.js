@@ -188,7 +188,6 @@ class Archive {
             fsExtra.emptyDirSync(this.tmpDir);
             try {
                 let done = yield decompress(path, this.tmpDir);
-                console.log('restore', done);
             }
             catch (e) {
                 this.eventManager.emit('error-extract', { path: e });
@@ -213,13 +212,11 @@ class Archive {
                             console.warn(`Storage ${collection} not found`);
                             return;
                         }
-                        console.log(storage);
                         fs.readFile(`${this.tmpDir}${items[cont]}`, function (err, data) {
                             if (err) {
                                 throw err;
                             }
                             let jsonData = JSON.parse(data.toString());
-                            console.log('JSON', jsonData);
                             if (jsonData.length > 0) {
                                 let promises = [];
                                 for (let contI = 0; jsonData.length > contI; contI++) {
