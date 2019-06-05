@@ -31,7 +31,7 @@ export class P2p extends EventManagerAware {
     /**
      *
      */
-    private updOptions: any;
+    private udpOptions: any = {};
 
     /**
      * @type {dgram.Socket}
@@ -46,7 +46,7 @@ export class P2p extends EventManagerAware {
     /**
      *
      */
-    private clientOption: any;
+    private clientOption: any = {};
 
     /**
      * @type {Array}
@@ -64,11 +64,11 @@ export class P2p extends EventManagerAware {
     private receiverParser: ParseInterface = new BufferParse();
 
     /**
-     * @param updOptions
+     * @param udpOptions
      * @param clientOption
      * @param identifier
      */
-    constructor(updOptions: any, clientOption: any, identifier: string) {
+    constructor(udpOptions: any, clientOption: any, identifier: string) {
         super();
         /**
          * @type {string}
@@ -78,7 +78,7 @@ export class P2p extends EventManagerAware {
         /**
          * @type {Object}
          */
-        this.updOptions = updOptions;
+        this.udpOptions = udpOptions;
 
         this.udpClient = this._createUdpClientBroadcaster();
 
@@ -102,7 +102,7 @@ export class P2p extends EventManagerAware {
 
         updClient.on('error', this._onBroadcasterError.bind(this));
 
-        updClient.bind(this.updOptions.portListening);
+        updClient.bind(this.udpOptions.portListening);
 
         return updClient;
     }
@@ -123,7 +123,7 @@ export class P2p extends EventManagerAware {
      */
     private _onBroadcasterMessage(message, info) {
         let jsonMessage = JSON.parse(message.toString());
-
+        console.log(jsonMessage, this.clientServer);
         /**
          * me
          */
@@ -260,10 +260,10 @@ export class P2p extends EventManagerAware {
             () =>  {
                 let stringMessage = JSON.stringify(this.generateMessage());
                 // console.log("SEND MESSAGE", stringMessage);
-                this.udpClient.send(stringMessage, 0, stringMessage.length, this.updOptions.portSender, P2p.BROADCASTER_IP);
+                this.udpClient.send(stringMessage, 0, stringMessage.length, this.udpOptions.portSender, P2p.BROADCASTER_IP);
                 this._loopAlive();
             },
-            this.clientOption.transmissionTimeout
+            this.udpOptions.transmissionTimeout
         );
     }
 

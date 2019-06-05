@@ -7,12 +7,20 @@ const parse_1 = require("../parse");
  */
 class P2p extends index_1.EventManagerAware {
     /**
-     * @param updOptions
+     * @param udpOptions
      * @param clientOption
      * @param identifier
      */
-    constructor(updOptions, clientOption, identifier) {
+    constructor(udpOptions, clientOption, identifier) {
         super();
+        /**
+         *
+         */
+        this.udpOptions = {};
+        /**
+         *
+         */
+        this.clientOption = {};
         /**
          * @type {Array}
          */
@@ -32,7 +40,7 @@ class P2p extends index_1.EventManagerAware {
         /**
          * @type {Object}
          */
-        this.updOptions = updOptions;
+        this.udpOptions = udpOptions;
         this.udpClient = this._createUdpClientBroadcaster();
         /**
          * @type {Object}
@@ -48,7 +56,7 @@ class P2p extends index_1.EventManagerAware {
         updClient.on('listening', this._onBroadcasterListening.bind(this));
         updClient.on('message', this._onBroadcasterMessage.bind(this));
         updClient.on('error', this._onBroadcasterError.bind(this));
-        updClient.bind(this.updOptions.portListening);
+        updClient.bind(this.udpOptions.portListening);
         return updClient;
     }
     /**
@@ -65,6 +73,7 @@ class P2p extends index_1.EventManagerAware {
      */
     _onBroadcasterMessage(message, info) {
         let jsonMessage = JSON.parse(message.toString());
+        console.log(jsonMessage, this.clientServer);
         /**
          * me
          */
@@ -182,9 +191,9 @@ class P2p extends index_1.EventManagerAware {
         setTimeout(() => {
             let stringMessage = JSON.stringify(this.generateMessage());
             // console.log("SEND MESSAGE", stringMessage);
-            this.udpClient.send(stringMessage, 0, stringMessage.length, this.updOptions.portSender, P2p.BROADCASTER_IP);
+            this.udpClient.send(stringMessage, 0, stringMessage.length, this.udpOptions.portSender, P2p.BROADCASTER_IP);
             this._loopAlive();
-        }, this.clientOption.transmissionTimeout);
+        }, this.udpOptions.transmissionTimeout);
     }
     /**
      * @param {string} ip
