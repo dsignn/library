@@ -24,7 +24,7 @@ class P2p extends index_1.EventManagerAware {
         /**
          * @type {Array}
          */
-        this.clients = [];
+        this.clients = {};
         /**
          * @type {null}
          */
@@ -73,7 +73,7 @@ class P2p extends index_1.EventManagerAware {
      */
     _onBroadcasterMessage(message, info) {
         let jsonMessage = JSON.parse(message.toString());
-        console.log(jsonMessage, this.clientServer);
+        console.log(info.address, jsonMessage);
         /**
          * me
          */
@@ -84,7 +84,8 @@ class P2p extends index_1.EventManagerAware {
             return;
         }
         if (!this.hasIpClient(info.address) && this.clientServer) {
-            this.appendClient(info.address, jsonMessage.port);
+            this.clients[info.address] = {};
+            this.addClient(info.address, jsonMessage.port);
         }
     }
     /**
@@ -122,7 +123,7 @@ class P2p extends index_1.EventManagerAware {
      * @param ip
      * @param port
      */
-    appendClient(ip, port) {
+    addClient(ip, port) {
         switch (this.clientOption.type) {
             case P2p.ADAPTER_TCP:
                 console.log('CLIENT CREAZIONE', ip);
@@ -131,13 +132,21 @@ class P2p extends index_1.EventManagerAware {
                     let client = new net.Socket();
                     client.connect(port, ip, () => {
                         console.log('CLIENT CONNESSO');
-                        this.clients.push(client);
+                        this.clients[ip] = client;
                     });
                     client.on('data', this._onClientMessage.bind(this));
-                    client.on('close', function () {
-                        console.log('CLIENT CHIUSO');
-                        this.p2p._clearEndConnection();
-                    }.bind({ client: client, p2p: this }));
+                    client.on('close', () => {
+                        console.warn('CLOSE CLIENT');
+                        this._clearEndConnection();
+                    });
+                    client.on('error', (err) => {
+                        console.warn('ERROR CLIENT', err);
+                        this._clearEndConnection();
+                    });
+                    client.on('end', (err) => {
+                        console.warn('END CLIENT', err);
+                        this._clearEndConnection();
+                    });
                 }
                 catch (e) {
                     console.error(e);
@@ -168,10 +177,10 @@ class P2p extends index_1.EventManagerAware {
      * @private
      */
     _clearEndConnection() {
-        for (let cont = 0; this.clients.length > cont; cont++) {
-            if (this.clients[cont] && !this.clients[cont].connecting) {
-                this.clients[cont].destroy();
-                this.clients.splice(cont, 1);
+        for (let property in this.clients) {
+            if (this.clients[property] && !this.clients[property].connecting) {
+                this.clients[property].destroy();
+                delete this.clients[property];
             }
         }
     }
@@ -200,17 +209,15 @@ class P2p extends index_1.EventManagerAware {
      * @return {boolean}
      */
     hasIpClient(ip) {
-        return this.clients.findIndex((element) => {
-            return element.remoteAddress === ip;
-        }) >= 0;
+        return !!this.clients[ip];
     }
     /**
      * @param {object} message
      */
     send(message) {
         let parsedMessage = this.senderParser.parse(message);
-        for (let cont = 0; this.clients.length > cont; cont++) {
-            this.clients[cont].write(parsedMessage);
+        for (let property in this.clients) {
+            this.clients[property].write(parsedMessage);
         }
     }
     /**
