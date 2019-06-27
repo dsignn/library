@@ -101,9 +101,8 @@ export class Application implements EventManagerAwareInterface {
         if (module.getWebComponentEntryPointName() && customElements && customElements.get(module.getWebComponentEntryPointName()) === undefined) {
 
             wcEntryPoint = `${modulePath}${module.getName()}${this.getSlash()}${module.getWebComponentEntryPointNameFile()}`;
-
             try {
-                let module = await import(wcEntryPoint);
+                await import(wcEntryPoint);
                 console.log(`Load entry point module "${module.getWebComponentEntryPointName()}" store in ${wcEntryPoint}`, module);
             } catch (err) {
                 console.error(`Failed to load entry point module store in ${wcEntryPoint}`, err);
@@ -123,12 +122,14 @@ export class Application implements EventManagerAwareInterface {
 
             for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
 
-                wcComponentPath = `${modulePath}${module.getName()}${this.getSlash()}${this.path.normalize(module.getAutoloadsWs()[cont])}`;
-                try {
-                    let wcComponent = await import(wcComponentPath);
-                    console.log(`Load web component store in  "${module.getWebComponentEntryPointName()}" store in ${wcEntryPoint}`, wcComponent);
-                } catch (err) {
-                    console.error(`Failed to load autoloads store in ${wcEntryPoint}`, err);
+                if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
+                    wcComponentPath = `${modulePath}${module.getName()}${this.getSlash()}${this.path.normalize(module.getAutoloadsWs()[cont].getPath().getPath())}`;
+                    try {
+                        let wcComponent = await import(wcComponentPath);
+                        console.log(`Load web component store in  "${module.getAutoloadsWs()[cont].getPath().getPath()}" store in ${module.getAutoloadsWs()[cont].getName()}`, wcComponent);
+                    } catch (err) {
+                        console.error(`Failed to load autoloads store in ${module.getAutoloadsWs()[cont].getPath().getPath()}`, err);
+                    }
                 }
             }
         }
@@ -160,26 +161,24 @@ export class Application implements EventManagerAwareInterface {
         console.groupCollapsed(`Load Widget ${widget.getName()}`);
         let path;
 
-        if (widget.getWc()) {
-           path = `${this.basePath}module/${widget.getSrc().getPath()}`;
-           await import(path)
-               .then((moduleLoaded) => {
-                   console.log(`Load widget store in "${path}"`);
-               })
-               .catch((err) => {
-                   console.error(`Failed to load widget store in ${path}`);
-               });
+        if (widget.getWc() && customElements.get(widget.getWc()) === undefined) {
+            path = `${this.basePath}module/${widget.getSrc().getPath()}`;
+            try {
+                await import(path);
+                console.log(`Load entry point module "${widget.getWc()}" store in ${path}`, widget);
+            } catch (err) {
+                console.error(`Failed to load entry point module store in ${path}`, err);
+            }
         }
 
-        if (widget.getWcData()) {
+        if (widget.getWcData() && customElements.get(widget.getWcData()) === undefined) {
             path = `${this.basePath}module/${widget.getSrcData().getPath()}`;
-            await import(path)
-                .then((moduleLoaded) => {
-                    console.log(`Load widget data store in "${path}"`);
-                })
-                .catch((err) => {
-                    console.error(`Failed to load widget dagta store in ${path}`);
-                });
+            try {
+                await import(path);
+                console.log(`Load entry point module "${widget.getWcData()}" store in ${path}`, widget);
+            } catch (err) {
+                console.error(`Failed to load entry point module store in ${path}`, err);
+            }
         }
         console.groupEnd();
     }

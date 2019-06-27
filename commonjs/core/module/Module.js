@@ -1,8 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- *  Module
- */
 class Module {
     constructor() {
         /**
@@ -138,13 +135,13 @@ class Module {
         this.autoloads = autoloads;
     }
     /**
-     * @return {Array<string>}
+     * @return {Array<WebComponent>}
      */
     getAutoloadsWs() {
         return this.autoloadsWs;
     }
     /**
-     * @param {Array<string>} autoloadsWs
+     * @param {Array<WebComponent>} autoloadsWs
      */
     setAutoloadsWs(autoloadsWs) {
         this.autoloadsWs = autoloadsWs;

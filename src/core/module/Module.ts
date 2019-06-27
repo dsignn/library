@@ -1,6 +1,8 @@
 /**
  *  Module
  */
+import {WebComponent} from "../webcomponent";
+
 export class Module {
 
     /**
@@ -46,7 +48,7 @@ export class Module {
     /**
      * @type Array<string>
      */
-    private autoloadsWs: Array<string> = [];
+    private autoloadsWs: Array<WebComponent> = [];
 
     /**
      * @return {string}
@@ -158,16 +160,16 @@ export class Module {
     }
 
     /**
-     * @return {Array<string>}
+     * @return {Array<WebComponent>}
      */
     public getAutoloadsWs() {
         return this.autoloadsWs;
     }
 
     /**
-     * @param {Array<string>} autoloadsWs
+     * @param {Array<WebComponent>} autoloadsWs
      */
-    public setAutoloadsWs(autoloadsWs: Array<string>) {
+    public setAutoloadsWs(autoloadsWs: Array<WebComponent>) {
         this.autoloadsWs = autoloadsWs;
     }
 }

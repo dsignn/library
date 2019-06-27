@@ -1,6 +1,3 @@
-/**
- *  Module
- */
 export class Module {
     constructor() {
         /**
@@ -136,13 +133,13 @@ export class Module {
         this.autoloads = autoloads;
     }
     /**
-     * @return {Array<string>}
+     * @return {Array<WebComponent>}
      */
     getAutoloadsWs() {
         return this.autoloadsWs;
     }
     /**
-     * @param {Array<string>} autoloadsWs
+     * @param {Array<WebComponent>} autoloadsWs
      */
     setAutoloadsWs(autoloadsWs) {
         this.autoloadsWs = autoloadsWs;
