@@ -27,7 +27,11 @@ module.exports = {
         PropertyHydrator: require('./commonjs/hydrator/PropertyHydrator').PropertyHydrator,
         AggregatePropertyHydrator: require('./commonjs/hydrator/AggregatePropertyHydrator').AggregatePropertyHydrator,
         strategy : {
+            property : {
+                MapHydratorStrategy : require('./commonjs/hydrator/strategy/proprerty/MapHydratorStrategy').MapHydratorStrategy,
+            },
             value : {
+                FixValueStrategy : require('./commonjs/hydrator/strategy/value/FixValueStrategy').FixValueStrategy,
                 HydratorStrategy : require('./commonjs/hydrator/strategy/value/HydratorStrategy').HydratorStrategy,
                 HybridStrategy : require('./commonjs/hydrator/strategy/value/HybridStrategy').HybridStrategy,
                 NumberStrategy : require('./commonjs/hydrator/strategy/value/NumberStrategy').NumberStrategy,

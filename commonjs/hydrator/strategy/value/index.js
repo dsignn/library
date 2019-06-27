@@ -8,3 +8,4 @@ __export(require("./HydratorStrategy"));
 __export(require("./HybridStrategy"));
 __export(require("./NumberStrategy"));
 __export(require("./PathStrategy"));
+__export(require("./FixValueStrategy"));
