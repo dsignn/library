@@ -56,11 +56,11 @@ export class Application {
         /**
          * Load entry point module
          */
-        if (module.getWebComponentEntryPointName() && customElements && customElements.get(module.getWebComponentEntryPointName()) === undefined) {
-            wcEntryPoint = `${modulePath}${module.getName()}${this.getSlash()}${module.getWebComponentEntryPointNameFile()}`;
+        if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
+            wcEntryPoint = `${modulePath}${module.getName()}${this.getSlash()}${module.getEntryPoint().getPath().getPath()}`;
             try {
                 await import(wcEntryPoint);
-                console.log(`Load entry point module "${module.getWebComponentEntryPointName()}" store in ${wcEntryPoint}`, module);
+                console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
             }
             catch (err) {
                 console.error(`Failed to load entry point module store in ${wcEntryPoint}`, err);

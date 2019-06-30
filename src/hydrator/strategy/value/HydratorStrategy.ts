@@ -1,11 +1,21 @@
 import {ValueStrategyInteface} from "./ValueStrategyInteface";
 import {HydratorAwareInterface} from "../../HydratorAwareInterface";
 import {HydratorAware} from "../../HydratorAware";
+import {HydratorInteface} from "../../HydratorInteface";
 
 /**
  *
  */
 export class HydratorStrategy extends HydratorAware implements ValueStrategyInteface, HydratorAwareInterface {
+
+    /**
+     * @param {HydratorInteface} hydrator
+     */
+    constructor(hydrator? : HydratorInteface) {
+        super();
+
+        this.hydrator = hydrator;
+    }
 
     /**
      * @inheritDoc

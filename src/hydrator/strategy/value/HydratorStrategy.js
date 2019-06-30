@@ -4,6 +4,13 @@ import { HydratorAware } from "../../HydratorAware";
  */
 export class HydratorStrategy extends HydratorAware {
     /**
+     * @param {HydratorInteface} hydrator
+     */
+    constructor(hydrator) {
+        super();
+        this.hydrator = hydrator;
+    }
+    /**
      * @inheritDoc
      */
     extractValue(data) {

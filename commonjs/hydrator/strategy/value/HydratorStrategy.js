@@ -6,6 +6,13 @@ const HydratorAware_1 = require("../../HydratorAware");
  */
 class HydratorStrategy extends HydratorAware_1.HydratorAware {
     /**
+     * @param {HydratorInteface} hydrator
+     */
+    constructor(hydrator) {
+        super();
+        this.hydrator = hydrator;
+    }
+    /**
      * @inheritDoc
      */
     extractValue(data) {
