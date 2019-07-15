@@ -39,7 +39,6 @@ class DexieAdapter {
             this.manager.table(this.nameCollection)
                 .delete(data.id)
                 .then((id) => {
-                console.log('Dexie delete', id);
                 resolve(data);
             })
                 .catch((error) => {
@@ -55,7 +54,6 @@ class DexieAdapter {
             this.manager.table(this.nameCollection)
                 .add(data)
                 .then((id) => {
-                console.log('Dexie save', id);
                 resolve(data);
             })
                 .catch((error) => {
@@ -71,7 +69,6 @@ class DexieAdapter {
             this.manager.table(this.nameCollection)
                 .put(data)
                 .then((id) => {
-                console.log('Dexie update', id);
                 resolve(data);
             })
                 .catch((error) => {

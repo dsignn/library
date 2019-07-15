@@ -119,7 +119,6 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         return new Promise((resolve, reject) => {
             this.adapter.getAll(filter)
                 .then((result) => {
-                    // TODO add this logic in the pagination class
                     if (this.getHydrator()) {
                         for (let cont = 0; result.length > cont; cont++) {
                             result[cont] = this.hydrator ? this.hydrator.hydrate(result[cont]) : result[cont];
@@ -138,7 +137,6 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         return new Promise((resolve, reject) => {
             this.adapter.getPaged(page, itemCount, filter)
                 .then((result) => {
-                    // TODO add this logic in the pagination class
                     if (this.getHydrator()) {
                         for (let cont = 0; result.length > cont; cont++) {
                             result[cont] = this.hydrator ? this.hydrator.hydrate(result[cont]) : result[cont];

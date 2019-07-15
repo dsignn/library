@@ -56,7 +56,6 @@ export class DexieAdapter implements StorageAdapterInterface {
                 .delete(data.id)
                 .then(
                     (id) => {
-                        console.log('Dexie delete', id);
                         resolve(data);
                     })
                 .catch((error) => {
@@ -74,7 +73,6 @@ export class DexieAdapter implements StorageAdapterInterface {
                 .add(data)
                 .then(
                 (id) => {
-                    console.log('Dexie save', id);
                     resolve(data);
                 })
                 .catch((error) => {
@@ -92,7 +90,6 @@ export class DexieAdapter implements StorageAdapterInterface {
                 .put(data)
                 .then(
                     (id) => {
-                        console.log('Dexie update', id);
                         resolve(data);
                     })
                 .catch((error) => {

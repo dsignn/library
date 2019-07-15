@@ -67,7 +67,6 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
      */
     public save(data: any): Promise<any> {
         return new Promise((resolve, reject) => {
-
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
                 .insertOne(data, ((error, result) => {
@@ -87,7 +86,6 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
      */
     public update(data: any): Promise<any> {
         return new Promise((resolve, reject) => {
-
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
                 .updateOne(
@@ -206,6 +204,6 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
      * @return {any}
      */
     protected filter(filter) {
-        return filter;
+        return { name: {$regex: "te", $options: "$i"}};
     }
 }

@@ -147,7 +147,7 @@ class MongoCollectionAdapter {
      * @return {any}
      */
     filter(filter) {
-        return filter;
+        return { name: { $regex: "te", $options: "$i" } };
     }
 }
 exports.MongoCollectionAdapter = MongoCollectionAdapter;
