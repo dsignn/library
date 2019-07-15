@@ -1,5 +1,4 @@
 import { EventManager } from "../event/index";
-import { MongoIdGenerator } from "./util";
 /**
  *
  */
@@ -12,10 +11,6 @@ export class Storage {
          * @type {EventManagerInterface}
          */
         this.eventManager = new EventManager();
-        /**
-         * @type {IdGeneratorInterface}
-         */
-        this.idGenerator = new MongoIdGenerator();
         /**
          * @type {StorageAdapterInterface}
          */
@@ -130,12 +125,12 @@ export class Storage {
      * @inheritDoc
      */
     save(entity) {
-        entity.setId(this.idGenerator.generateId());
         return new Promise((resolve, reject) => {
             this.getEventManager().emit(Storage.BEFORE_SAVE, entity);
             let data = this.hydrator ? this.hydrator.extract(entity) : entity;
             this.adapter.save(data)
                 .then((data) => {
+                entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                 this.getEventManager().emit(Storage.POST_SAVE, entity);
                 resolve(entity);
             }).catch((err) => {
@@ -158,13 +153,6 @@ export class Storage {
                 reject(err);
             });
         });
-    }
-    /**
-     * @param {IdGeneratorInterface} idGenerator
-     */
-    setIdGenerator(idGenerator) {
-        this.idGenerator = idGenerator;
-        return this;
     }
 }
 /**

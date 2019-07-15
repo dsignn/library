@@ -15,6 +15,16 @@ export class MapProprertyStrategy implements PropertyStrategyInterface {
     private changeHydrateProperty: string = null;
 
     /**
+     * @param {string} hydrate
+     * @param {string} extract
+     */
+    constructor(hydrate: string, extract: string) {
+
+        this.changeHydrateProperty = hydrate;
+        this.changeExtractProperty = extract;
+    }
+
+    /**
      * @inheritDoc
      */
     extractProperty(property: string) {

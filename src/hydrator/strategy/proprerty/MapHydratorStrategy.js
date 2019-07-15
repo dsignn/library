@@ -2,7 +2,11 @@
  *
  */
 export class MapProprertyStrategy {
-    constructor() {
+    /**
+     * @param {string} hydrate
+     * @param {string} extract
+     */
+    constructor(hydrate, extract) {
         /**
          * @type {object}
          */
@@ -11,6 +15,8 @@ export class MapProprertyStrategy {
          * @type {null}
          */
         this.changeHydrateProperty = null;
+        this.changeHydrateProperty = hydrate;
+        this.changeExtractProperty = extract;
     }
     /**
      * @inheritDoc

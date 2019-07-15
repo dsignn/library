@@ -9,3 +9,4 @@ __export(require("./HybridStrategy"));
 __export(require("./NumberStrategy"));
 __export(require("./PathStrategy"));
 __export(require("./FixValueStrategy"));
+__export(require("./MongoIdStrategy"));

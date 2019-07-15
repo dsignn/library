@@ -3,7 +3,7 @@ import {StorageAdapterInterface, StorageAdapterAwareInterface} from "./adapter/i
 import {EventManagerInterface, EventManager, EventManagerAwareInterface} from "../event/index";
 import {HydratorAwareInterface, HydratorInteface} from "../hydrator";
 import {StorageInterface} from "./StorageInterface";
-import {IdGeneratorInterface, MongoIdGenerator} from "./util";
+
 /**
  *
  */
@@ -42,11 +42,6 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
      * @type {HydratorAwareInterface}
      */
     protected hydrator:HydratorInteface;
-
-    /**
-     * @type {IdGeneratorInterface}
-     */
-    protected idGenerator: IdGeneratorInterface = new MongoIdGenerator();
 
     /**
      * @param {StorageAdapterInterface} adapter
@@ -120,7 +115,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         });
     }
 
-    getAll(filter?: object): Promise<any> {
+    public getAll(filter?: object): Promise<any> {
         return new Promise((resolve, reject) => {
             this.adapter.getAll(filter)
                 .then((result) => {
@@ -139,7 +134,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
         });
     }
 
-    getPaged(page: number, itemCount: number, filter?: object): Promise<any> {
+    public getPaged(page: number, itemCount: number, filter?: object): Promise<any> {
         return new Promise((resolve, reject) => {
             this.adapter.getPaged(page, itemCount, filter)
                 .then((result) => {
@@ -161,7 +156,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     /**
      * @inheritDoc
      */
-    delete(entity: EntityIdentifierInterface): Promise<any> {
+    public delete(entity: EntityIdentifierInterface): Promise<any> {
         return new Promise((resolve, reject) => {
             this.getEventManager().emit(Storage.BEFORE_REMOVE, entity);
             this.adapter.remove(entity)
@@ -178,9 +173,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     /**
      * @inheritDoc
      */
-    save(entity: EntityIdentifierInterface): Promise<any> {
-        entity.setId(this.idGenerator.generateId());
-
+    public save(entity: EntityIdentifierInterface): Promise<any> {
         return new Promise((resolve, reject) => {
 
             this.getEventManager().emit(Storage.BEFORE_SAVE, entity);
@@ -188,6 +181,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
             this.adapter.save(data)
                 .then(
                     (data) => {
+                        entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                         this.getEventManager().emit(Storage.POST_SAVE, entity);
                         resolve(entity);
                     }
@@ -201,7 +195,7 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
     /**
      * @inheritDoc
      */
-    update(entity: EntityIdentifierInterface): Promise<any> {
+    public update(entity: EntityIdentifierInterface): Promise<any> {
         return new Promise((resolve, reject) => {
 
             this.getEventManager().emit(Storage.BEFORE_UPDATE, entity);
@@ -217,13 +211,5 @@ export class Storage implements HydratorAwareInterface, EventManagerAwareInterfa
                     reject(err);
                 })
         });
-    }
-
-    /**
-     * @param {IdGeneratorInterface} idGenerator
-     */
-    setIdGenerator(idGenerator: IdGeneratorInterface) {
-        this.idGenerator = idGenerator;
-        return this;
     }
 }

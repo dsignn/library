@@ -4,3 +4,4 @@ export * from './HybridStrategy';
 export * from './NumberStrategy';
 export * from './PathStrategy';
 export * from './FixValueStrategy';
+export * from './MongoIdStrategy';

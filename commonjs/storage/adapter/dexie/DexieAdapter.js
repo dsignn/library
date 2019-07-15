@@ -35,19 +35,49 @@ class DexieAdapter {
      * @inheritDoc
      */
     remove(data) {
-        return this.manager.table(this.nameCollection).delete(data.id);
+        return new Promise((resolve, reject) => {
+            this.manager.table(this.nameCollection)
+                .delete(data.id)
+                .then((id) => {
+                console.log('Dexie delete', id);
+                resolve(data);
+            })
+                .catch((error) => {
+                reject(error);
+            });
+        });
     }
     /**
      * @inheritDoc
      */
     save(data) {
-        return this.manager.table(this.nameCollection).add(data);
+        return new Promise((resolve, reject) => {
+            this.manager.table(this.nameCollection)
+                .add(data)
+                .then((id) => {
+                console.log('Dexie save', id);
+                resolve(data);
+            })
+                .catch((error) => {
+                reject(error);
+            });
+        });
     }
     /**
      * @inheritDoc
      */
     update(data) {
-        return this.manager.table(this.nameCollection).put(data);
+        return new Promise((resolve, reject) => {
+            this.manager.table(this.nameCollection)
+                .put(data)
+                .then((id) => {
+                console.log('Dexie update', id);
+                resolve(data);
+            })
+                .catch((error) => {
+                reject(error);
+            });
+        });
     }
     /**
      * @inheritDoc

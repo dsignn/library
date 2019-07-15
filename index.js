@@ -28,13 +28,14 @@ module.exports = {
         AggregatePropertyHydrator: require('./commonjs/hydrator/AggregatePropertyHydrator').AggregatePropertyHydrator,
         strategy : {
             property : {
-                MapHydratorStrategy : require('./commonjs/hydrator/strategy/proprerty/MapHydratorStrategy').MapHydratorStrategy,
+                MapHydratorStrategy : require('./commonjs/hydrator/strategy/proprerty/MapHydratorStrategy').MapProprertyStrategy,
             },
             value : {
                 FixValueStrategy : require('./commonjs/hydrator/strategy/value/FixValueStrategy').FixValueStrategy,
                 HydratorStrategy : require('./commonjs/hydrator/strategy/value/HydratorStrategy').HydratorStrategy,
                 HybridStrategy : require('./commonjs/hydrator/strategy/value/HybridStrategy').HybridStrategy,
                 NumberStrategy : require('./commonjs/hydrator/strategy/value/NumberStrategy').NumberStrategy,
+                MongoIdStrategy : require('./commonjs/hydrator/strategy/value/MongoIdStrategy').MongoIdStrategy,
                 PathStrategy : require('./commonjs/hydrator/strategy/value/PathStrategy').PathStrategy,
             }
         }
@@ -69,6 +70,10 @@ module.exports = {
             },
             localStorage: {
                 LocalStorageAdapter : require('./commonjs/storage/adapter/local-storage/LocalStorageAdapter').LocalStorageAdapter
+            },
+            mongo : {
+                MongoDb : require('./commonjs/storage/adapter/mongo/MongoDb').MongoDb,
+                MongoCollectionAdapter : require('./commonjs/storage/adapter/mongo/MongoCollectionAdapter').MongoCollectionAdapter
             }
         },
         entity : {

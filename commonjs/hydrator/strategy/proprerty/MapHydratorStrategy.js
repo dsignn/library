@@ -4,7 +4,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *
  */
 class MapProprertyStrategy {
-    constructor() {
+    /**
+     * @param {string} hydrate
+     * @param {string} extract
+     */
+    constructor(hydrate, extract) {
         /**
          * @type {object}
          */
@@ -13,6 +17,8 @@ class MapProprertyStrategy {
          * @type {null}
          */
         this.changeHydrateProperty = null;
+        this.changeHydrateProperty = hydrate;
+        this.changeExtractProperty = extract;
     }
     /**
      * @inheritDoc

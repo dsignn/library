@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../event/index");
-const util_1 = require("./util");
 /**
  *
  */
@@ -14,10 +13,6 @@ class Storage {
          * @type {EventManagerInterface}
          */
         this.eventManager = new index_1.EventManager();
-        /**
-         * @type {IdGeneratorInterface}
-         */
-        this.idGenerator = new util_1.MongoIdGenerator();
         /**
          * @type {StorageAdapterInterface}
          */
@@ -132,12 +127,12 @@ class Storage {
      * @inheritDoc
      */
     save(entity) {
-        entity.setId(this.idGenerator.generateId());
         return new Promise((resolve, reject) => {
             this.getEventManager().emit(Storage.BEFORE_SAVE, entity);
             let data = this.hydrator ? this.hydrator.extract(entity) : entity;
             this.adapter.save(data)
                 .then((data) => {
+                entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                 this.getEventManager().emit(Storage.POST_SAVE, entity);
                 resolve(entity);
             }).catch((err) => {
@@ -160,13 +155,6 @@ class Storage {
                 reject(err);
             });
         });
-    }
-    /**
-     * @param {IdGeneratorInterface} idGenerator
-     */
-    setIdGenerator(idGenerator) {
-        this.idGenerator = idGenerator;
-        return this;
     }
 }
 /**
