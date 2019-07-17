@@ -56,6 +56,14 @@ module.exports = {
         ObjectParse : require('./commonjs/parse/ObjectParse').ObjectParse,
         BufferParse : require('./commonjs/parse/BufferParse').BufferParse
     },
+    permission : {
+        acl: {
+            Acl: require('./commonjs/permission/acl/Acl').Acl,
+            adapter: {
+                OptimalbitsAdapter: require('./commonjs/permission/acl/adapter/OptimalbitsAdapter').OptimalbitsAdapter,
+            }
+        }
+    },
     sender : {
         ProxyIpc : require('./commonjs/sender/ProxyIpc').ProxyIpc,
         AbstractSender : require('./commonjs/sender/AbstractSender').AbstractSender
