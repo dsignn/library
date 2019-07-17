@@ -39,7 +39,7 @@ export class Acl implements AclInterface {
      * @inheritDoc
      */
     isAllowed(role: any, resource: any, privilege: string): boolean {
-        return null;
+        return this.adapter.isAllowed(role, resource, privilege);
     }
 
     /**

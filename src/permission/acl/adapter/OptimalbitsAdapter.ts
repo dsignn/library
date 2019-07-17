@@ -8,13 +8,15 @@ export class OptimalbitsAdapter implements AclAdapterInterface {
     /**
      * @type {any}
      */
-    protected acl: any = require('acl');
+    protected acl: any;
 
     /**
      * @param {Array<any>} rules
      */
     constructor(rules : Array<any>) {
 
+        const acl = require('acl');
+        this.acl = new acl(new acl.memoryBackend());
         this.acl.allow(rules);
     }
 
@@ -22,6 +24,6 @@ export class OptimalbitsAdapter implements AclAdapterInterface {
      * @inheritDoc
      */
     isAllowed(role: any, resource: any, privilege: string): boolean {
-        return this.acl(role, resource, privilege);
+        return this.acl.isAllowed(role, resource, privilege);
     }
 }

@@ -16,7 +16,7 @@ class Acl {
      * @inheritDoc
      */
     isAllowed(role, resource, privilege) {
-        return null;
+        return this.adapter.isAllowed(role, resource, privilege);
     }
     /**
      * @inheritDoc

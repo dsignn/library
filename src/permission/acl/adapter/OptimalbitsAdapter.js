@@ -7,17 +7,15 @@ export class OptimalbitsAdapter {
      * @param {Array<any>} rules
      */
     constructor(rules) {
-        /**
-         * @type {any}
-         */
-        this.acl = require('acl');
+        const acl = require('acl');
+        this.acl = new acl(new acl.memoryBackend());
         this.acl.allow(rules);
     }
     /**
      * @inheritDoc
      */
     isAllowed(role, resource, privilege) {
-        return this.acl(role, resource, privilege);
+        return this.acl.isAllowed(role, resource, privilege);
     }
 }
 //# sourceMappingURL=OptimalbitsAdapter.js.map
