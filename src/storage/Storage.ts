@@ -7,7 +7,7 @@ import {StorageInterface} from "./StorageInterface";
 /**
  *
  */
-export class Storage implements HydratorAwareInterface, EventManagerAwareInterface, StorageInterface, StorageAdapterAwareInterface {
+export class Storage implements StorageInterface, StorageAdapterAwareInterface {
 
     /**
      * Constants

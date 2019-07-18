@@ -60,7 +60,7 @@ module.exports = {
         acl: {
             Acl: require('./commonjs/permission/acl/Acl').Acl,
             adapter: {
-                OptimalbitsAdapter: require('./commonjs/permission/acl/adapter/OptimalbitsAdapter').OptimalbitsAdapter,
+                JsAclAdapter: require('./commonjs/permission/acl/adapter/JsAclAdapter').JsAclAdapter,
             }
         }
     },

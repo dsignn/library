@@ -1,2 +1,2 @@
-export * from './OptimalbitsAdapter';
+export * from './JsAclAdapter';
 //# sourceMappingURL=index.js.map

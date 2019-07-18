@@ -28,10 +28,10 @@ class Acl {
      * @inheritDoc
      */
     setRole(role) {
-        if (role !== role) {
+        if (this.role !== role) {
+            this.role = role;
             this.getEventManager().emit(Acl.CHANGE_ROLE, role);
         }
-        this.role = role;
         return this;
     }
     /**

@@ -53,11 +53,10 @@ export class Acl implements AclInterface {
      * @inheritDoc
      */
     setRole(role : any): Acl {
-        if (role !== role) {
+        if (this.role !== role) {
+            this.role = role;
             this.getEventManager().emit(Acl.CHANGE_ROLE, role)
         }
-
-        this.role = role;
         return this;
     }
 

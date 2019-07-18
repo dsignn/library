@@ -3,7 +3,7 @@ import {AclAdapterInterface} from "./AclAdapterInterface";
  * @class
  * @link https://github.com/optimalbits/node_acl
  */
-export class OptimalbitsAdapter implements AclAdapterInterface {
+export class JsAclAdapter implements AclAdapterInterface {
 
     /**
      * @type {any}
@@ -11,19 +11,23 @@ export class OptimalbitsAdapter implements AclAdapterInterface {
     protected acl: any;
 
     /**
-     * @param {Array<any>} rules
+     * @param acl
      */
-    constructor(rules : Array<any>) {
+    constructor(acl) {
 
-        const acl = require('acl');
-        this.acl = new acl(new acl.memoryBackend());
-        this.acl.allow(rules);
+        this.acl = acl;
     }
 
     /**
      * @inheritDoc
      */
     isAllowed(role: any, resource: any, privilege: string): boolean {
-        return this.acl.isAllowed(role, resource, privilege);
+
+        try {
+            return this.acl.isAllowed(role, resource, privilege);
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
     }
 }

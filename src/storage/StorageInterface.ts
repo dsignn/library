@@ -1,8 +1,10 @@
 import {EntityIdentifierInterface} from "./entity";
+import {HydratorAwareInterface} from "../hydrator/HydratorAwareInterface";
+import {EventManagerAwareInterface} from "../event/EventManagerAwareInterface";
 /**
  *
  */
-export interface StorageInterface {
+export interface StorageInterface extends HydratorAwareInterface, EventManagerAwareInterface {
 
     /**
      * @param {string} id
