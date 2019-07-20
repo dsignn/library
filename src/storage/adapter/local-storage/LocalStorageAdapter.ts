@@ -28,7 +28,8 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
     constructor(name: string, nameCollection: string) {
         this.name = name;
         this.nameCollection = nameCollection;
-        this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : []
+        this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : [];
+        this.data = Array.isArray(this.data) ? this.data : [];
     }
 
     /**
