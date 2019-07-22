@@ -1,3 +1,4 @@
+import { Pagination } from "../../../pagination";
 /**
  *
  */
@@ -112,14 +113,23 @@ export class MongoCollectionAdapter {
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
                 .find(this.filter(filter))
-                .skip((page - 1) * itemCount)
-                .limit(itemCount)
-                .toArray((error, result) => {
+                .count((error, totalItems) => {
                 if (error) {
                     reject(error);
                     return;
                 }
-                resolve(result.length > 0 ? result : []);
+                this.mongoDb.getDb()
+                    .collection(this.nameCollection)
+                    .find(this.filter(filter))
+                    .skip((page - 1) * itemCount)
+                    .limit(itemCount)
+                    .toArray((error, items) => {
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
+                    resolve(new Pagination(items, page, itemCount, totalItems));
+                });
             });
         });
     }

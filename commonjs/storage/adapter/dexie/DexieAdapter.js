@@ -86,7 +86,7 @@ class DexieAdapter {
      * @param {number} page
      * @param {number} itemCount
      * @param {object} filter
-     * @return {Promise<any>}
+     * @return {Promise<Pagination>}
      */
     getPaged(page, itemCount, filter) {
         return new Promise((resolve, reject) => {

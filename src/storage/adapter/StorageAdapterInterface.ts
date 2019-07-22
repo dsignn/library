@@ -42,7 +42,7 @@ export interface StorageAdapterInterface {
      * @param {number} page
      * @param {number} itemCount
      * @param {object} filter
-     * @return {Promise<any>}
+     * @return {Promise<Pagination>}
      */
     getPaged(page: number, itemCount: number, filter: object) : Promise<any>;
 }
