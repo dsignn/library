@@ -152,10 +152,10 @@ export class MongoCollectionAdapter {
     }
     /**
      * @param filter
-     * @return {any}
+     * @return {object}
      */
     filter(filter) {
-        return { name: { $regex: "te", $options: "$i" } };
+        return {};
     }
 }
 //# sourceMappingURL=MongoCollectionAdapter.js.map

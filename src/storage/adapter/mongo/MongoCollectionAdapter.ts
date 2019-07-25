@@ -214,9 +214,9 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
 
     /**
      * @param filter
-     * @return {any}
+     * @return {object}
      */
     protected filter(filter) {
-        return { name: {$regex: "te", $options: "$i"}};
+        return {};
     }
 }
