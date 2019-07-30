@@ -16,7 +16,8 @@
     ],
     "types": [
       "node"
-    ]
+    ],
+    "declaration": true
   },
   "exclude": [
     "node_modules"

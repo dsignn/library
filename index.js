@@ -92,5 +92,10 @@ module.exports = {
         util : {
             MongoIdGenerator : require('./commonjs/storage/util/MongoIdGenerator').MongoIdGenerator
         }
+    },
+    validation : {
+        RegExValidation : require('./commonjs/validation/RegExValidation').RegExValidation,
+        DirectoryExistValidator : require('./commonjs/validation/DirectoryExistValidator').DirectoryExistValidator,
+        DirectoryExistInPathValidator : require('./commonjs/validation/DirectoryExistInPathValidator').DirectoryExistInPathValidator
     }
 };
