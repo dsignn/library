@@ -270,6 +270,59 @@ class Application {
     getEventManager() {
         return this.eventManager;
     }
+    /**
+     *
+     * @param env
+     */
+    static getHomeApplicationDataDir(env) {
+        if (!env.HOME) {
+            throw 'Dont set home directory in environment object';
+        }
+        if (!env.npm_package_name) {
+            throw 'Dont set the name in the package json';
+        }
+        let directory;
+        const os = require('os');
+        const path = require('path');
+        switch (os.type()) {
+            case 'Linux':
+                directory = `${env.HOME}${path.sep}.config${path.sep}${env.npm_package_name}`;
+                break;
+            case 'Darwin':
+                directory = `${env.HOME}${path.sep}Library${path.sep}Application Support${path.sep}${env.npm_package_name}`;
+                break;
+            case 'Window_NT':
+                directory = `${env.HOME}${path.sep}AppData${path.sep}Local${path.sep}${env.npm_package_name}`;
+                break;
+        }
+        return directory;
+    }
+    /**
+     * @param {string} dataPath
+     */
+    static createDirectories(dataPath) {
+        const fs = require('fs');
+        const path = require('path');
+        if (fs.existsSync(dataPath)) {
+            try {
+                if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
+                    fs.mkdirSync(`${dataPath}${path.sep}storage`);
+                }
+                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
+                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}resource`);
+                }
+                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
+                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}archive`);
+                }
+                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
+                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
+        }
+    }
 }
 /**
  * @type {string}

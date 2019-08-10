@@ -133,4 +133,13 @@ export declare class Application implements EventManagerAwareInterface {
      * @return {EventManagerInterface}
      */
     getEventManager(): EventManagerInterface;
+    /**
+     *
+     * @param env
+     */
+    static getHomeApplicationDataDir(env: any): any;
+    /**
+     * @param {string} dataPath
+     */
+    static createDirectories(dataPath: string): void;
 }
