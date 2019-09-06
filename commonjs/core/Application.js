@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -302,28 +303,28 @@ class Application {
      */
     static createDirectories(dataPath) {
         const fs = require('fs');
+        const fse = require('fs-extra');
         const path = require('path');
-        if (fs.existsSync(dataPath)) {
-            try {
-                if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}resource`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}archive`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
-                }
+        try {
+            if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage`);
             }
-            catch (err) {
-                console.error(err);
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}resource`);
             }
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}archive`);
+            }
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
+            }
+        }
+        catch (err) {
+            console.error(err);
         }
     }
 }
+exports.Application = Application;
 /**
  * @type {string}
  */
@@ -332,4 +333,3 @@ Application.BOOTSTRAP_MODULE = 'bootstrap-module';
  * @type {string}
  */
 Application.LOAD_MODULE = 'laod-module';
-exports.Application = Application;

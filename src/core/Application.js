@@ -286,25 +286,24 @@ export class Application {
      */
     static createDirectories(dataPath) {
         const fs = require('fs');
+        const fse = require('fs-extra');
         const path = require('path');
-        if (fs.existsSync(dataPath)) {
-            try {
-                if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}resource`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}archive`);
-                }
-                if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
-                    fs.mkdirSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
-                }
+        try {
+            if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage`);
             }
-            catch (err) {
-                console.error(err);
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}resource`);
             }
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}archive`);
+            }
+            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
+                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
+            }
+        }
+        catch (err) {
+            console.error(err);
         }
     }
 }

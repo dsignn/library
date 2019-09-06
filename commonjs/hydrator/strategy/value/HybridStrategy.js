@@ -70,6 +70,7 @@ class HybridStrategy {
         return dataConvert;
     }
 }
+exports.HybridStrategy = HybridStrategy;
 /**
  * @return {string}
  */
@@ -94,4 +95,3 @@ HybridStrategy.OBJECT_TYPE = "object";
  * @return {string}
  */
 HybridStrategy.FUNCTION_TYPE = "function";
-exports.HybridStrategy = HybridStrategy;

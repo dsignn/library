@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Dsign library",
   "main": "index.js",
+  "dependencies": {
+    "fs-extra": "^8.1.0"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
@@ -31,7 +34,6 @@
     "url": "https://github.com/dsignn/p3e-library/issues"
   },
   "homepage": "https://github.com/dsignn/library#readme",
-  "dependencies": {},
   "jest": {
     "collectCoverage": true,
     "coverageReporters": [

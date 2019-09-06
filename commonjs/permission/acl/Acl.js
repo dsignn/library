@@ -49,5 +49,5 @@ class Acl {
         return this.eventManager;
     }
 }
-Acl.CHANGE_ROLE = 'change-role';
 exports.Acl = Acl;
+Acl.CHANGE_ROLE = 'change-role';
