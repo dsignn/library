@@ -1,4 +1,5 @@
 /**
+ * @class
  * Event
  */
 export class Event {

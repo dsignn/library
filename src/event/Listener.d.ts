@@ -1,7 +1,8 @@
 import { ListenerInterface } from "./ListenerInterface";
 import { Event } from "./Event";
 /**
- *
+ * @class
+ * Listener
  */
 export declare class Listener implements ListenerInterface {
     /**

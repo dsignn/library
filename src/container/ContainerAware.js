@@ -1,6 +1,7 @@
 import { Container } from "./Container";
 /**
- * ContainerAwareInterface
+ * @class
+ * ContainerAware
  */
 export class ContainerAware {
     constructor() {

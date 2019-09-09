@@ -1,8 +1,10 @@
 import {ContainerAwareInterface} from "./ContainerAwareInterface";
 import {ContainerInterface} from "./ContainerInterface";
 import {Container} from "./Container";
+
 /**
- * ContainerAwareInterface
+ * @class
+ * ContainerAware
  */
 export class ContainerAware implements ContainerAwareInterface {
 

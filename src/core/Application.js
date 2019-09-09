@@ -1,6 +1,7 @@
 import { EventManager } from "../event/EventManager";
 /**
- *  Application
+ * @class
+ * Application
  */
 export class Application {
     constructor() {

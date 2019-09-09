@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Event_1 = require("./Event");
 const Listener_1 = require("./Listener");
 /**
+ * @class
  * EventManagerInterface
  */
 class EventManager {

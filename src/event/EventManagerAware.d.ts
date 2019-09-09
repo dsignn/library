@@ -1,6 +1,7 @@
 import { EventManagerInterface } from "./EventManagerInterface";
 import { EventManagerAwareInterface } from "./EventManagerAwareInterface";
 /**
+ * @class
  * EventManagerAware
  */
 export declare class EventManagerAware implements EventManagerAwareInterface {

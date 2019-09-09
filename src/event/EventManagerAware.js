@@ -1,5 +1,6 @@
 import { EventManager } from "./EventManager";
 /**
+ * @class
  * EventManagerAware
  */
 export class EventManagerAware {

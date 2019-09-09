@@ -6,7 +6,8 @@ import {Widget} from "./widget";
 
 
 /**
- *  Application
+ * @class
+ * Application
  */
 export class Application implements EventManagerAwareInterface {
 

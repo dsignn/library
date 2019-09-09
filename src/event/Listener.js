@@ -1,5 +1,6 @@
 /**
- *
+ * @class
+ * Listener
  */
 export class Listener {
     /**

@@ -3,7 +3,8 @@ import { Module } from "./module/index";
 import { EventManagerAwareInterface, EventManagerInterface } from "../event/index";
 import { Widget } from "./widget";
 /**
- *  Application
+ * @class
+ * Application
  */
 export declare class Application implements EventManagerAwareInterface {
     /**

@@ -1,4 +1,5 @@
 /**
+ * @class
  * Container
  */
 export class Container {

@@ -10,6 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../event/index");
+/**
+ * @class
+ * Archive
+ */
 class Archive {
     /**
      * @param {string} destinationDir

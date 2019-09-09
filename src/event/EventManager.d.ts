@@ -1,6 +1,7 @@
 import { EventManagerInterface } from "./EventManagerInterface";
 import { ListenerInterface } from "./ListenerInterface";
 /**
+ * @class
  * EventManagerInterface
  */
 export declare class EventManager implements EventManagerInterface {

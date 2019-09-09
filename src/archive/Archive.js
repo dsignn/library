@@ -1,4 +1,8 @@
 import { EventManager } from "../event/index";
+/**
+ * @class
+ * Archive
+ */
 export class Archive {
     /**
      * @param {string} destinationDir

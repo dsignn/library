@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Path_1 = require("../../path/Path");
 /**
- *
+ * @class
+ * WebComponent
  */
 class WebComponent {
     constructor() {

@@ -3,6 +3,10 @@ import {ContainerAggregateInterface} from "../container/index";
 import {Storage} from "../storage/index";
 import {EventManager} from "../event/index";
 
+/**
+ * @class
+ * Archive
+ */
 export class Archive {
 
     /**

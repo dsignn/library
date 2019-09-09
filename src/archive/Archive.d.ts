@@ -1,5 +1,9 @@
 import { ContainerAggregateInterface } from "../container/index";
 import { Storage } from "../storage/index";
+/**
+ * @class
+ * Archive
+ */
 export declare class Archive {
     /**
      * @type {module:fs}

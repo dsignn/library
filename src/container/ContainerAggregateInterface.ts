@@ -1,8 +1,9 @@
-/**
- * ContainerInterface
- */
 import {ContainerInterface} from "./ContainerInterface";
 
+/**
+ * @interface
+ * ContainerAggregateInterface
+ */
 export interface ContainerAggregateInterface extends ContainerInterface {
 
     /**

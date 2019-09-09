@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *  Module
  */
 const webcomponent_1 = require("../webcomponent");
+/**
+ * @class
+ * Module
+ */
 class Module {
     constructor() {
         /**

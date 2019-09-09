@@ -1,5 +1,6 @@
 /**
- * Container
+ * @class
+ * ContainerAggregate
  */
 export class ContainerAggregate {
     constructor() {

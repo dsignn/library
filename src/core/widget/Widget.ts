@@ -1,7 +1,8 @@
 import {Path} from "../../path/Path";
 
 /**
- *  Widget
+ * @class
+ * Widget
  */
 export class Widget {
 

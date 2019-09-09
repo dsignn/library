@@ -1,4 +1,5 @@
 /**
+ * @interface
  * ContainerInterface
  */
 export interface ContainerInterface {

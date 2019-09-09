@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Container_1 = require("./Container");
 /**
- * ContainerAwareInterface
+ * @class
+ * ContainerAware
  */
 class ContainerAware {
     constructor() {

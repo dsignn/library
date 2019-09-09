@@ -3,6 +3,10 @@
  */
 import {WebComponent} from "../webcomponent";
 
+/**
+ * @class
+ * Module
+ */
 export class Module {
 
     /**

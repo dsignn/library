@@ -4,6 +4,7 @@ import {ListenerInterface} from "./ListenerInterface";
 import {Listener} from "./Listener";
 
 /**
+ * @class
  * EventManagerInterface
  */
 export class EventManager implements EventManagerInterface {

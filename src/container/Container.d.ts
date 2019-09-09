@@ -1,5 +1,6 @@
 import { ContainerInterface } from './ContainerInterface';
 /**
+ * @class
  * Container
  */
 export declare class Container implements ContainerInterface {

@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * Container
+ * @class
+ * ContainerAggregate
  */
 class ContainerAggregate {
     constructor() {

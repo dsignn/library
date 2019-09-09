@@ -2,6 +2,10 @@
  *  Module
  */
 import { WebComponent } from "../webcomponent";
+/**
+ * @class
+ * Module
+ */
 export declare class Module {
     /**
      * @type string

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const EventManager_1 = require("./EventManager");
 /**
+ * @class
  * EventManagerAware
  */
 class EventManagerAware {

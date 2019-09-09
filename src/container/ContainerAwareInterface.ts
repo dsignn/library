@@ -1,5 +1,7 @@
 import {ContainerInterface} from "./ContainerInterface";
+
 /**
+ * @interface
  * ContainerAwareInterface
  */
 export interface ContainerAwareInterface {

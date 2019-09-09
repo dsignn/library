@@ -1,7 +1,8 @@
 import { ContainerInterface } from './ContainerInterface';
 import { ContainerAwareInterface } from "./ContainerAwareInterface";
 /**
- * Container
+ * @class
+ * ContainerAggregate
  */
 export declare class ContainerAggregate implements ContainerInterface, ContainerAwareInterface {
     /**

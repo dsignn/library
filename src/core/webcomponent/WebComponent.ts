@@ -1,7 +1,8 @@
 import {Path} from "../../path/Path";
 
 /**
- *
+ * @class
+ * WebComponent
  */
 export class WebComponent {
 

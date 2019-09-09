@@ -1,4 +1,5 @@
 /**
+ * @interface
  * EventManagerInterface
  */
 export interface EventManagerInterface {

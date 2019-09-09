@@ -1,6 +1,7 @@
 import {EventManagerInterface} from "./EventManagerInterface";
 
 /**
+ * @interface
  * EventManagerAwareInterface
  */
 export interface EventManagerAwareInterface {
