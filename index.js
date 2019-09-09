@@ -16,6 +16,9 @@ module.exports = {
             Module: require('./commonjs/core/widget/Widget').Widget
         }
     },
+    date: {
+        Time: require('./commonjs/date/Time').Time,
+    },
     event : {
         Event: require('./commonjs/event/Event').Event,
         EventManagerAware: require('./commonjs/event/EventManagerAware').EventManagerAware,
@@ -39,9 +42,6 @@ module.exports = {
                 PathStrategy : require('./commonjs/hydrator/strategy/value/PathStrategy').PathStrategy,
             }
         }
-    },
-    fs : {
-        Fs: require('./commonjs/fs/Fs').Fs
     },
     localize : {
         Localize : require('./commonjs/localize/Localize').Localize
