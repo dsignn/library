@@ -31,6 +31,11 @@ export class MongoDb {
     protected db: any;
 
     /**
+     * type
+     */
+    protected options: any;
+
+    /**
      * @type {EventManagerInterface}
      */
     protected eventManager:EventManagerInterface = new EventManager();
@@ -59,16 +64,25 @@ export class MongoDb {
          */
         this.port = port ? port : this.port;
 
-        options = options ? options : {};
-        options = Object.assign(options,  { useNewUrlParser: true });
+        /**
+         * Options connection
+         */
+        this.options = options ? options : {};
+        this.options = Object.assign(options,  { useNewUrlParser: true });
+    }
 
+    /**
+     * Connect to db
+     */
+    connect() {
         const mongoClient = require('mongodb');
-        mongoClient.connect(`mongodb://${this.uri}:${this.port}/${this.name}`, options).then((client) => {
+        mongoClient.connect(`mongodb://${this.uri}:${this.port}/${this.name}`, this.options).then((client) => {
             this.db = client.db();
 
             this.eventManager.emit(MongoDb.READY_CONNECTION, this);
         });
     }
+
 
     /**
      * @return {any}

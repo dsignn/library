@@ -24,6 +24,10 @@ export declare class MongoDb {
      */
     protected db: any;
     /**
+     * type
+     */
+    protected options: any;
+    /**
      * @type {EventManagerInterface}
      */
     protected eventManager: EventManagerInterface;
@@ -35,6 +39,10 @@ export declare class MongoDb {
      * @param {Object} options
      */
     constructor(name: string, uri: string, port?: number, options?: object);
+    /**
+     * Connect to db
+     */
+    connect(): void;
     /**
      * @return {any}
      */

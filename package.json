@@ -20,6 +20,7 @@
     "typescript": "^3.3.4000"
   },
   "scripts": {
+    "tsc": "tsc -p commonjs && tsc -p .",
     "tsc-commonjs": "tsc -p commonjs",
     "tsc-es6": "tsc -p .",
     "test": "jest"
