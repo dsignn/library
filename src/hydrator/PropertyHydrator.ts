@@ -1,10 +1,10 @@
 import {AbstractHydrator} from "./AbstractHydrator";
-import {HydratorInteface} from "./HydratorInteface";
+import {HydratorInterface} from "./HydratorInterface";
 
 /**
  *
  */
-export class PropertyHydrator extends AbstractHydrator implements HydratorInteface {
+export class PropertyHydrator extends AbstractHydrator implements HydratorInterface {
 
     /**
      * @param {object} templateObjectHydration

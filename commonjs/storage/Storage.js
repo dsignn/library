@@ -33,13 +33,13 @@ class Storage {
         return this.eventManager;
     }
     /**
-     * @return {HydratorInteface}
+     * @return {HydratorInterface}
      */
     getHydrator() {
         return this.hydrator;
     }
     /**
-     * @param {HydratorInteface} hydrator
+     * @param {HydratorInterface} hydrator
      */
     setHydrator(hydrator) {
         this.hydrator = hydrator;

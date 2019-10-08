@@ -4,7 +4,7 @@ import { HydratorAware } from "../../HydratorAware";
  */
 export class HydratorStrategy extends HydratorAware {
     /**
-     * @param {HydratorInteface} hydrator
+     * @param {HydratorInterface} hydrator
      */
     constructor(hydrator) {
         super();

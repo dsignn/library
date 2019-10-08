@@ -1,10 +1,10 @@
 import {AbstractHydrator} from "./AbstractHydrator";
-import {HydratorInteface} from "./HydratorInteface";
+import {HydratorInterface} from "./HydratorInterface";
 
 /**
  *
  */
-export class AggregatePropertyHydrator extends AbstractHydrator implements HydratorInteface {
+export class AggregatePropertyHydrator extends AbstractHydrator implements HydratorInterface {
 
     /**
      * @type string
@@ -105,7 +105,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
 
     /**
      * @param {object} object
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     protected getHydratorFromObject(object: object) {
         let hydrator = null;
@@ -121,7 +121,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
 
     /**
      * @param {string} type
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     protected getHydratorFromType(type: string) {
         let hydrator = null;

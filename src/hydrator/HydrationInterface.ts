@@ -1,7 +1,7 @@
 /**
  *
  */
-export interface HydrationInteface {
+export interface HydrationInterface {
 
     /**
      * @param data

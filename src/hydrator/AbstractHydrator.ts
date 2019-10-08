@@ -1,11 +1,11 @@
 /**
  *
  */
-import {HydratorInteface} from "./HydratorInteface";
+import {HydratorInterface} from "./HydratorInterface";
 import {PropertyStrategyInterface} from "./strategy/proprerty/PropertyStrategyInterface";
 import {ValueStrategyInteface} from "./strategy/value/ValueStrategyInteface";
 
-export abstract class AbstractHydrator implements HydratorInteface {
+export abstract class AbstractHydrator implements HydratorInterface {
 
     /**
      * @type {null}

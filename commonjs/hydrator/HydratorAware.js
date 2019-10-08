@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 class HydratorAware {
     /**
-     * @return {HydratorInteface}
+     * @return {HydratorInterface}
      */
     getHydrator() {
         return this.hydrator;
     }
     /**
-     * @param {HydratorInteface} hydrator
+     * @param {HydratorInterface} hydrator
      * @return {this}
      */
     setHydrator(hydrator) {

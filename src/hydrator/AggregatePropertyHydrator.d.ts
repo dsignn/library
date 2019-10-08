@@ -1,9 +1,9 @@
 import { AbstractHydrator } from "./AbstractHydrator";
-import { HydratorInteface } from "./HydratorInteface";
+import { HydratorInterface } from "./HydratorInterface";
 /**
  *
  */
-export declare class AggregatePropertyHydrator extends AbstractHydrator implements HydratorInteface {
+export declare class AggregatePropertyHydrator extends AbstractHydrator implements HydratorInterface {
     /**
      * @type string
      */
@@ -32,12 +32,12 @@ export declare class AggregatePropertyHydrator extends AbstractHydrator implemen
     removeHydratorMap(hydrator: AbstractHydrator, type?: string): this;
     /**
      * @param {object} object
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     protected getHydratorFromObject(object: object): any;
     /**
      * @param {string} type
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     protected getHydratorFromType(type: string): any;
     /**

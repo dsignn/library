@@ -82,7 +82,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator {
     }
     /**
      * @param {object} object
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     getHydratorFromObject(object) {
         let hydrator = null;
@@ -96,7 +96,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator {
     }
     /**
      * @param {string} type
-     * @return {HydratorInteface|null}
+     * @return {HydratorInterface|null}
      */
     getHydratorFromType(type) {
         let hydrator = null;

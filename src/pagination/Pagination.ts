@@ -1,5 +1,5 @@
 import {PaginationInterface} from "./PaginationInterface";
-import {HydratorInteface} from "../hydrator";
+import {HydratorInterface} from "../hydrator";
 /**
  *
  */

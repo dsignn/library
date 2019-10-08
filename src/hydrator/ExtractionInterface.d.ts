@@ -1,7 +1,7 @@
 /**
  *
  */
-export interface ExtractionInteface {
+export interface ExtractionInterface {
     /**
      * @param data
      */
