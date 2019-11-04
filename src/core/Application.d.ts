@@ -22,6 +22,12 @@ export declare class Application implements EventManagerAwareInterface {
     /**
      * @type {string}
      */
+    private storagePath;
+    /**
+     * @type {string}
+     * @deprecated
+     * TODO remove and use only storage path to compute path
+     */
     private resourcePath;
     /**
      * @type {string}
@@ -110,7 +116,12 @@ export declare class Application implements EventManagerAwareInterface {
     /**
      * @return {string}
      */
-    getSlash(): any;
+    getStoragePath(): string;
+    /**
+     * @param {string} storagePath
+     * @return {Application}
+     */
+    setStoragePath(storagePath: string): this;
     /**
      * @param {Module} module
      * @return {Application}

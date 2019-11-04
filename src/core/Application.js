@@ -58,7 +58,7 @@ export class Application {
          * Load entry point module
          */
         if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
-            wcEntryPoint = `${modulePath}${module.getName()}${this.getSlash()}${module.getEntryPoint().getPath().getPath()}`;
+            wcEntryPoint = `${modulePath}${module.getName()}${this.path.sep}${module.getEntryPoint().getPath().getPath()}`;
             try {
                 await import(wcEntryPoint);
                 console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
@@ -69,14 +69,14 @@ export class Application {
         }
         if (module.getAutoloads().length > 0) {
             for (let cont = 0; module.getAutoloads().length > cont; cont++) {
-                autoloadRequire = require(`${this.getModulePath()}${module.getName()}${this.getSlash()}${this.path.normalize(module.getAutoloads()[cont])}`);
+                autoloadRequire = require(`${this.getModulePath()}${module.getName()}${this.path.sep}${this.path.normalize(module.getAutoloads()[cont])}`);
                 window[autoloadRequire.name] = autoloadRequire;
             }
         }
         if (module.getAutoloadsWs().length > 0) {
             for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
                 if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
-                    wcComponentPath = `${modulePath}${module.getName()}${this.getSlash()}${this.path.normalize(module.getAutoloadsWs()[cont].getPath().getPath())}`;
+                    wcComponentPath = `${modulePath}${module.getName()}${this.path.sep}${this.path.normalize(module.getAutoloadsWs()[cont].getPath().getPath())}`;
                     try {
                         let wcComponent = await import(wcComponentPath);
                         console.log(`Load web component store in  "${module.getAutoloadsWs()[cont].getPath().getPath()}" store in ${module.getAutoloadsWs()[cont].getName()}`, wcComponent);
@@ -88,7 +88,7 @@ export class Application {
             }
         }
         if (module.getConfigEntryPoint()) {
-            let configModulePath = `${this.getModulePath()}${module.getName()}${this.getSlash()}${this.path.normalize(module.getConfigEntryPoint())}`;
+            let configModulePath = `${this.getModulePath()}${module.getName()}${this.path.sep}${this.path.normalize(module.getConfigEntryPoint())}`;
             configModule = require(configModulePath);
             configModuleClass = new configModule();
             window[configModuleClass.constructor.name] = configModule;
@@ -211,8 +211,16 @@ export class Application {
     /**
      * @return {string}
      */
-    getSlash() {
-        return this.path.sep;
+    getStoragePath() {
+        return this.storagePath;
+    }
+    /**
+     * @param {string} storagePath
+     * @return {Application}
+     */
+    setStoragePath(storagePath) {
+        this.storagePath = storagePath;
+        return this;
     }
     /**
      * @param {Module} module
