@@ -79,4 +79,9 @@ export declare class Time {
      * @return {string}
      */
     getStringSeconds(): string | number;
+    /**
+     * Get duration by second
+     * return {number}
+     */
+    getDuration(): number;
 }

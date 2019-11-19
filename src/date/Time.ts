@@ -213,4 +213,12 @@ export class Time {
     public getStringSeconds() {
         return this.getSeconds() < 10 ? `0${this.getSeconds()}` : this.getSeconds();
     }
+
+    /**
+     * Get duration by second
+     * return {number}
+     */
+    public getDuration() {
+        return (this.getHours() * 60 * 60) + (this.getMinutes() * 60) + this.getSeconds() ;
+    }
 }

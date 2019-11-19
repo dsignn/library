@@ -182,5 +182,12 @@ export class Time {
     getStringSeconds() {
         return this.getSeconds() < 10 ? `0${this.getSeconds()}` : this.getSeconds();
     }
+    /**
+     * Get duration by second
+     * return {number}
+     */
+    getDuration() {
+        return (this.getHours() * 60 * 60) + (this.getMinutes() * 60) + this.getSeconds();
+    }
 }
 //# sourceMappingURL=Time.js.map
