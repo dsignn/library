@@ -3,7 +3,13 @@ import { DefaultBuilder } from "./url/DefaultBuilder";
  * @class XmlhAdapter
  */
 export class XmlhAdapter {
-    constructor() {
+    /**
+     * @param rootPath
+     * @param nameResource
+     * @param dataEncode
+     * @param dataDecode
+     */
+    constructor(rootPath, nameResource, dataEncode, dataDecode, urlBuilder) {
         /**
          * @type Object
          */
@@ -12,6 +18,11 @@ export class XmlhAdapter {
          * @type UrlBuilderInterface
          */
         this.urlBuilder = new DefaultBuilder();
+        this.rootPath = rootPath;
+        this.nameResource = nameResource;
+        this.dataEncode = dataEncode;
+        this.dataDecode = dataDecode;
+        this.urlBuilder = urlBuilder;
     }
     /**
      * @param {object} search

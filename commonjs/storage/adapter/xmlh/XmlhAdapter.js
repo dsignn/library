@@ -5,7 +5,13 @@ const DefaultBuilder_1 = require("./url/DefaultBuilder");
  * @class XmlhAdapter
  */
 class XmlhAdapter {
-    constructor() {
+    /**
+     * @param rootPath
+     * @param nameResource
+     * @param dataEncode
+     * @param dataDecode
+     */
+    constructor(rootPath, nameResource, dataEncode, dataDecode, urlBuilder) {
         /**
          * @type Object
          */
@@ -14,6 +20,11 @@ class XmlhAdapter {
          * @type UrlBuilderInterface
          */
         this.urlBuilder = new DefaultBuilder_1.DefaultBuilder();
+        this.rootPath = rootPath;
+        this.nameResource = nameResource;
+        this.dataEncode = dataEncode;
+        this.dataDecode = dataDecode;
+        this.urlBuilder = urlBuilder;
     }
     /**
      * @param {object} search

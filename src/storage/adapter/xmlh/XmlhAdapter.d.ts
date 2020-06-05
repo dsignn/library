@@ -31,6 +31,13 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
      */
     protected urlBuilder: UrlBuilderInterface;
     /**
+     * @param rootPath
+     * @param nameResource
+     * @param dataEncode
+     * @param dataDecode
+     */
+    constructor(rootPath: string, nameResource: string, dataEncode: DataEncodeInterface, dataDecode: DataDecodeInterface, urlBuilder: UrlBuilderInterface);
+    /**
      * @param {object} search
      * @returns {string}
      */
