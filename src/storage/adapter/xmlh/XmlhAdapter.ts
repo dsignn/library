@@ -40,6 +40,25 @@ export class XmlhAdapter implements StorageAdapterInterface {
     protected urlBuilder: UrlBuilderInterface = new DefaultBuilder();
 
     /**
+     * @param rootPath
+     * @param nameResource
+     * @param dataEncode
+     * @param dataDecode
+     */
+    constructor(rootPath: string,
+        nameResource: string,
+        dataEncode: DataEncodeInterface,
+        dataDecode: DataDecodeInterface,
+        urlBuilder: UrlBuilderInterface) {
+
+        this.rootPath = rootPath;
+        this.nameResource = nameResource;
+        this.dataEncode = dataEncode;
+        this.dataDecode = dataDecode;
+        this.urlBuilder = urlBuilder;
+    }
+
+    /**
      * @param {object} search
      * @returns {string}
      */
