@@ -17,4 +17,14 @@ export interface AclInterface {
      * @return {AclInterface}
      */
     setRole(role: any): AclInterface;
+    /**
+     * @param role
+     * @return {AclInterface}
+     */
+    addRole(role: any): AclInterface;
+    /**
+     * @param role
+     * @return {AclInterface}
+     */
+    addResource(resource: any): AclInterface;
 }

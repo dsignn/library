@@ -1,2 +1,2 @@
-export * from './JsAclAdapter';
+export * from './js-acl/JsAclAdapter';
 //# sourceMappingURL=index.js.map

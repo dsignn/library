@@ -1,14 +1,14 @@
-import { EventManager } from "../../event/index";
+import { EventManagerAware } from "../../event/index";
 /**
  * @class
  */
-export class Acl {
+export class Acl extends EventManagerAware {
     /**
      * @param adapter
      */
     constructor(adapter) {
+        super();
         this.adapter = adapter;
-        this.setEventManager(new EventManager());
     }
     /**
      * @inheritDoc
@@ -33,18 +33,18 @@ export class Acl {
         return this;
     }
     /**
-     * @param {EventManagerInterface} eventManager
-     * @return {this}
+     * @inheritDoc
      */
-    setEventManager(eventManager) {
-        this.eventManager = eventManager;
+    addRole(resource) {
+        this.adapter.addRole(resource);
         return this;
     }
     /**
-     * @return {EventManagerInterface}
+     * @inheritDoc
      */
-    getEventManager() {
-        return this.eventManager;
+    addResource(resource) {
+        this.adapter.addResource(resource);
+        return this;
     }
 }
 Acl.CHANGE_ROLE = 'change-role';

@@ -60,7 +60,7 @@ module.exports = {
         acl: {
             Acl: require('./commonjs/permission/acl/Acl').Acl,
             adapter: {
-                JsAclAdapter: require('./commonjs/permission/acl/adapter/JsAclAdapter').JsAclAdapter,
+                JsAclAdapter: require('./commonjs/permission/acl/adapter/js-acl/JsAclAdapter').JsAclAdapter,
             }
         }
     },
@@ -82,6 +82,9 @@ module.exports = {
             mongo : {
                 MongoDb : require('./commonjs/storage/adapter/mongo/MongoDb').MongoDb,
                 MongoCollectionAdapter : require('./commonjs/storage/adapter/mongo/MongoCollectionAdapter').MongoCollectionAdapter
+            },
+            xmlh: {
+                XmlhAdapter:  require('./commonjs/storage/adapter//MongoDb').MongoDb,
             }
         },
         entity : {

@@ -1,19 +1,15 @@
 import { AclInterface } from "./AclInterface";
 import { AclAdapterInterface } from "./adapter/index";
-import { EventManagerInterface } from "../../event/index";
+import { EventManagerAware } from "../../event/index";
 /**
  * @class
  */
-export declare class Acl implements AclInterface {
+export declare class Acl extends EventManagerAware implements AclInterface {
     static CHANGE_ROLE: string;
     /**
      * @type AclAdapterInterface
      */
     protected adapter: AclAdapterInterface;
-    /**
-     * @type EventManagerInterface
-     */
-    protected eventManager: EventManagerInterface;
     /**
      * @type any
      */
@@ -35,12 +31,11 @@ export declare class Acl implements AclInterface {
      */
     setRole(role: any): Acl;
     /**
-     * @param {EventManagerInterface} eventManager
-     * @return {this}
+     * @inheritDoc
      */
-    setEventManager(eventManager: EventManagerInterface): this;
+    addRole(resource: any): AclInterface;
     /**
-     * @return {EventManagerInterface}
+     * @inheritDoc
      */
-    getEventManager(): EventManagerInterface;
+    addResource(resource: any): AclInterface;
 }

@@ -1,11 +1,11 @@
 import {AclInterface} from "./AclInterface";
 import {AclAdapterInterface} from "./adapter/index";
-import {EventManager, EventManagerInterface} from "../../event/index";
+import {EventManager, EventManagerInterface, EventManagerAware} from "../../event/index";
 
 /**
  * @class
  */
-export class Acl implements AclInterface {
+export class Acl extends EventManagerAware implements AclInterface {
 
     public static CHANGE_ROLE = 'change-role';
 
@@ -13,11 +13,6 @@ export class Acl implements AclInterface {
      * @type AclAdapterInterface
      */
     protected adapter: AclAdapterInterface;
-
-    /**
-     * @type EventManagerInterface
-     */
-    protected eventManager : EventManagerInterface;
 
 
     /**
@@ -30,9 +25,8 @@ export class Acl implements AclInterface {
      */
 
     constructor(adapter) {
+        super();
         this.adapter = adapter;
-
-        this.setEventManager(new EventManager());
     }
 
     /**
@@ -61,18 +55,18 @@ export class Acl implements AclInterface {
     }
 
     /**
-     * @param {EventManagerInterface} eventManager
-     * @return {this}
+     * @inheritDoc
      */
-    public setEventManager(eventManager:EventManagerInterface) {
-        this.eventManager = eventManager;
+    addRole(resource: any): AclInterface {
+        this.adapter.addRole(resource);
         return this;
     }
 
     /**
-     * @return {EventManagerInterface}
+     * @inheritDoc
      */
-    public getEventManager() {
-        return this.eventManager;
+    addResource(resource: any): AclInterface {
+        this.adapter.addResource(resource);
+        return this;
     }
 }

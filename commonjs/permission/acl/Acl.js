@@ -4,13 +4,13 @@ const index_1 = require("../../event/index");
 /**
  * @class
  */
-class Acl {
+class Acl extends index_1.EventManagerAware {
     /**
      * @param adapter
      */
     constructor(adapter) {
+        super();
         this.adapter = adapter;
-        this.setEventManager(new index_1.EventManager());
     }
     /**
      * @inheritDoc
@@ -35,18 +35,18 @@ class Acl {
         return this;
     }
     /**
-     * @param {EventManagerInterface} eventManager
-     * @return {this}
+     * @inheritDoc
      */
-    setEventManager(eventManager) {
-        this.eventManager = eventManager;
+    addRole(resource) {
+        this.adapter.addRole(resource);
         return this;
     }
     /**
-     * @return {EventManagerInterface}
+     * @inheritDoc
      */
-    getEventManager() {
-        return this.eventManager;
+    addResource(resource) {
+        this.adapter.addResource(resource);
+        return this;
     }
 }
 exports.Acl = Acl;
