@@ -22,4 +22,12 @@ export interface AclAdapterInterface {
      * @return AclAdapterInterface
      */
     addResource(resource : any): AclAdapterInterface;
+
+    /**
+     *
+     * @param role
+     * @param resource
+     * @param privilege
+     */
+    allow(role: any, resource: any, privilege: any): void;
 }

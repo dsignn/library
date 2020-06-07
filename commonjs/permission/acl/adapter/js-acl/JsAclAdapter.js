@@ -37,5 +37,11 @@ class JsAclAdapter {
         this.jsAcl.addRole(role);
         return this;
     }
+    /**
+     * @inheritDoc
+     */
+    allow(role, resource, privilege) {
+        this.jsAcl.allow(role, resource, privilege);
+    }
 }
 exports.JsAclAdapter = JsAclAdapter;

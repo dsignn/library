@@ -46,6 +46,14 @@ export class Acl extends EventManagerAware {
         this.adapter.addResource(resource);
         return this;
     }
+    /**
+     * @param role
+     * @param resource
+     * @param privilege
+     */
+    allow(role, resource, privilege) {
+        this.adapter.allow(role, resource, privilege);
+    }
 }
 Acl.CHANGE_ROLE = 'change-role';
 //# sourceMappingURL=Acl.js.map

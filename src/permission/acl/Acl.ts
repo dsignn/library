@@ -69,4 +69,13 @@ export class Acl extends EventManagerAware implements AclInterface {
         this.adapter.addResource(resource);
         return this;
     }
+
+    /**
+     * @param role
+     * @param resource
+     * @param privilege
+     */
+    allow(role: any, resource: any, privilege: any): void {
+        this.adapter.allow(role, resource, privilege);
+    }
 }

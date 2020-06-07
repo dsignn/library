@@ -47,5 +47,10 @@ export class JsAclAdapter implements AclAdapterInterface {
         return this;
     }
 
-
+    /**
+     * @inheritDoc
+     */
+    allow(role: any, resource: any, privilege: any): void {
+        this.jsAcl.allow(role, resource, privilege)
+    }
 }

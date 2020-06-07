@@ -38,4 +38,10 @@ export declare class Acl extends EventManagerAware implements AclInterface {
      * @inheritDoc
      */
     addResource(resource: any): AclInterface;
+    /**
+     * @param role
+     * @param resource
+     * @param privilege
+     */
+    allow(role: any, resource: any, privilege: any): void;
 }

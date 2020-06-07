@@ -18,6 +18,13 @@ export interface AclInterface {
      */
     setRole(role: any): AclInterface;
     /**
+     *
+     * @param role
+     * @param resource
+     * @param privilege
+     */
+    allow(role: any, resource: any, privilege: any): void;
+    /**
      * @param role
      * @return {AclInterface}
      */

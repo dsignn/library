@@ -24,4 +24,8 @@ export declare class JsAclAdapter implements AclAdapterInterface {
      * @inheritDoc
      */
     addRole(role: any): AclAdapterInterface;
+    /**
+     * @inheritDoc
+     */
+    allow(role: any, resource: any, privilege: any): void;
 }
