@@ -135,6 +135,14 @@ export class XmlhAdapter implements StorageAdapterInterface {
     /**
      * @inheritDoc
      */
+    getNameCollection(): string {
+        return this.nameResource;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
     get(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
@@ -143,7 +151,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                this.urlBuilder.buildUrl(this.rootPath,  this.nameResource, method, id),
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method, id),
                 true
             );
             // Append headers
@@ -182,7 +190,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                `${this.urlBuilder.buildUrl(this.rootPath,  this.nameResource, method)}${this._buildQueryString(filter)}`,
+                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method)}${this._buildQueryString(filter)}`,
                 true
             );
             // Append headers
@@ -212,15 +220,42 @@ export class XmlhAdapter implements StorageAdapterInterface {
     /**
      * @inheritDoc
      */
-    getNameCollection(): string {
-        return "";
-    }
-
-    /**
-     * @inheritDoc
-     */
     getPaged(page: number, itemCount: number, filter: object): Promise<any> {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+
+            let method = 'GET';
+
+            filter['page'] = page;
+            filter['item-per-page'] = itemCount;
+
+            request.open(
+                method,
+                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method)}${this._buildQueryString(filter)}`,
+                true
+            );
+            // Append headers
+            this._appendHeaders(request, method);
+
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response))
+                }
+                console.log('request ok', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+
+            });
+
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+
+            });
+
+            request.send();
+        });
     }
 
     /**
@@ -241,7 +276,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                this.urlBuilder.buildUrl(this.rootPath,  this.nameResource, method),
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method),
                 true
             );
 
