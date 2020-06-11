@@ -65,15 +65,15 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
     /**
      * @inheritDoc
      */
+    getNameCollection(): string;
+    /**
+     * @inheritDoc
+     */
     get(id: string): Promise<any>;
     /**
      * @inheritDoc
      */
     getAll(filter: object): Promise<any>;
-    /**
-     * @inheritDoc
-     */
-    getNameCollection(): string;
     /**
      * @inheritDoc
      */

@@ -91,11 +91,17 @@ export class XmlhAdapter {
     /**
      * @inheritDoc
      */
+    getNameCollection() {
+        return this.nameResource;
+    }
+    /**
+     * @inheritDoc
+     */
     get(id) {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'GET';
-            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.nameResource, method, id), true);
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method, id), true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler
@@ -121,7 +127,7 @@ export class XmlhAdapter {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'GET';
-            request.open(method, `${this.urlBuilder.buildUrl(this.rootPath, this.nameResource, method)}${this._buildQueryString(filter)}`, true);
+            request.open(method, `${this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method)}${this._buildQueryString(filter)}`, true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler
@@ -143,14 +149,30 @@ export class XmlhAdapter {
     /**
      * @inheritDoc
      */
-    getNameCollection() {
-        return "";
-    }
-    /**
-     * @inheritDoc
-     */
     getPaged(page, itemCount, filter) {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            let method = 'GET';
+            filter['page'] = page;
+            filter['item-per-page'] = itemCount;
+            request.open(method, `${this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method)}${this._buildQueryString(filter)}`, true);
+            // Append headers
+            this._appendHeaders(request, method);
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response));
+                }
+                console.log('request ok', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+            });
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+            });
+            request.send();
+        });
     }
     /**
      * @inheritDoc
@@ -165,7 +187,7 @@ export class XmlhAdapter {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'POST';
-            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.nameResource, method), true);
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method), true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler
