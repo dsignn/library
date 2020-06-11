@@ -163,7 +163,7 @@ export class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('request ok', request.status);
+                console.log('APGINATe ok', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
