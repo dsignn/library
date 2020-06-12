@@ -3,6 +3,7 @@ import {DataDecodeInterface} from "../../../data-transform/DataDecodeInterface";
 import {DataEncodeInterface} from "../../../data-transform/DataEncodeInterface";
 import {UrlBuilderInterface} from "./url/UrlBuilderInterface";
 import {DefaultBuilder} from "./url/DefaultBuilder";
+import {Pagination} from "../../../pagination";
 
 /**
  * @class XmlhAdapter
@@ -242,8 +243,16 @@ export class XmlhAdapter implements StorageAdapterInterface {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response))
                 }
-                console.log('APGINATe ok', request.status);
-                resolve(this.dataDecode.dataDecode(request.response));
+
+                let decodeResponse = this.dataDecode.dataDecode(request.response);
+                console.log('APGINATe ok', decodeResponse);
+
+                // TODO add adapter for pagination
+                resolve(new Pagination(decodeResponse['data'],
+                    decodeResponse['meta']['page'],
+                    decodeResponse['meta']['item-per-page'],
+                    decodeResponse['meta']['total-count'], )
+                );
 
             });
 

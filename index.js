@@ -84,7 +84,11 @@ module.exports = {
                 MongoCollectionAdapter : require('./commonjs/storage/adapter/mongo/MongoCollectionAdapter').MongoCollectionAdapter
             },
             xmlh: {
-                XmlhAdapter:  require('./commonjs/storage/adapter//MongoDb').MongoDb,
+                url:  {
+                    DefaultBuilder: require('./commonjs/storage/adapter/xmlh/url/DefaultBuilder').DefaultBuilder,
+                    CallbackBuilder: require('./commonjs/storage/adapter/xmlh/url/CallbackBuilder').CallbackBuilder
+                },
+                XmlhAdapter:  require('./commonjs/storage/adapter/xmlh/XmlhAdapter').XmlhAdapter
             }
         },
         entity : {

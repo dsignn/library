@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const DefaultBuilder_1 = require("./url/DefaultBuilder");
+const pagination_1 = require("../../../pagination");
 /**
  * @class XmlhAdapter
  */
@@ -165,8 +166,10 @@ class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('APGINATe ok', request.status);
-                resolve(this.dataDecode.dataDecode(request.response));
+                let decodeResponse = this.dataDecode.dataDecode(request.response);
+                console.log('APGINATe ok', decodeResponse);
+                // TODO add adapter for pagination
+                resolve(new pagination_1.Pagination(decodeResponse['data'], decodeResponse['meta']['page'], decodeResponse['meta']['item-per-page'], decodeResponse['meta']['total-count']));
             });
             // Error handler
             request.addEventListener('error', () => {
