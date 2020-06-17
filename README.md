@@ -1,12 +1,8 @@
-# p3e-library
+# Dsign library
 
-Contain the sequent module:
+Contains many module that implement the common pattern:
 
-* Container
-* Core
-* Event
-* Hydrator
-* Localize
+* TODO
 
 ## Build
 
