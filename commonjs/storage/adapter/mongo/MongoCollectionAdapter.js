@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MongoCollectionAdapter = void 0;
 const pagination_1 = require("../../../pagination");
 /**
  *

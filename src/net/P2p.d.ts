@@ -102,8 +102,8 @@ export declare class P2p extends EventManagerAware {
      * @return {{debugString: *, ip: String}}
      */
     generateMessage(): {
-        'id': string;
-        'port': any;
+        id: string;
+        port: any;
     };
     /**
      * @private

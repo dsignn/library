@@ -1,4 +1,4 @@
-import { Path } from "../../path/Path";
+import { PathInterface } from "../../path";
 /**
  * @class
  * WebComponent
@@ -9,7 +9,7 @@ export declare class WebComponent {
      */
     private name;
     /**
-     * @type {Path}
+     * @type {PathInterface}
      */
     private path;
     /**
@@ -22,12 +22,12 @@ export declare class WebComponent {
      */
     setName(name: string): this;
     /**
-     * @return {Path}
+     * @return {PathInterface}
      */
-    getPath(): Path;
+    getPath(): PathInterface;
     /**
      * @param {Path} path
      * @return {this}
      */
-    setPath(path: Path): this;
+    setPath(path: PathInterface): this;
 }

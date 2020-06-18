@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Path = void 0;
 /**
- *
+ * @class Path
  */
 class Path {
     constructor() {
@@ -48,18 +49,21 @@ class Path {
             directory = directory.substring(0, directory.length - 1);
         }
         this.directory = directory;
+        return this;
     }
     /**
      * @param {string} nameFile
      */
     setNameFile(nameFile) {
         this.nameFile = nameFile;
+        return this;
     }
     /**
      * @param {string} extension
      */
     setExtension(extension) {
         this.extension = extension;
+        return this;
     }
 }
 exports.Path = Path;

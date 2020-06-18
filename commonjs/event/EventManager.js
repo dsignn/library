@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventManager = void 0;
 const Event_1 = require("./Event");
 const Listener_1 = require("./Listener");
 /**

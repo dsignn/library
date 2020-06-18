@@ -1,4 +1,3 @@
-import { Path } from "../../path/Path";
 /**
  * @class
  * WebComponent
@@ -9,10 +8,6 @@ export class WebComponent {
          * @type {string}
          */
         this.name = null;
-        /**
-         * @type {Path}
-         */
-        this.path = new Path();
     }
     /**
      * @return {string}
@@ -29,7 +24,7 @@ export class WebComponent {
         return this;
     }
     /**
-     * @return {Path}
+     * @return {PathInterface}
      */
     getPath() {
         return this.path;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Path_1 = require("../../path/Path");
+exports.WebComponent = void 0;
 /**
  * @class
  * WebComponent
@@ -11,10 +11,6 @@ class WebComponent {
          * @type {string}
          */
         this.name = null;
-        /**
-         * @type {Path}
-         */
-        this.path = new Path_1.Path();
     }
     /**
      * @return {string}
@@ -31,7 +27,7 @@ class WebComponent {
         return this;
     }
     /**
-     * @return {Path}
+     * @return {PathInterface}
      */
     getPath() {
         return this.path;

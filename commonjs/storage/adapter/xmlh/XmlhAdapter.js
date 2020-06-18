@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.XmlhAdapter = void 0;
 const DefaultBuilder_1 = require("./url/DefaultBuilder");
 const pagination_1 = require("../../../pagination");
 /**

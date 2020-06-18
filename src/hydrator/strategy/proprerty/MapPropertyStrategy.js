@@ -1,5 +1,5 @@
 /**
- *
+ * @class MapPropertyStrategy
  */
 export class MapPropertyStrategy {
     /**

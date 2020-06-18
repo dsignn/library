@@ -1,4 +1,3 @@
-import { Path } from "../../path/Path";
 /**
  * @class
  * Widget
@@ -37,14 +36,6 @@ export class Widget {
          * @type {string}
          */
         this.dataRequired = false;
-        /**
-         * @type {Path}
-         */
-        this.src = new Path();
-        /**
-         * @type {Path}
-         */
-        this.srcData = new Path();
     }
     /**
      * @return {Path}

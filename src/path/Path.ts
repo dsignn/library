@@ -1,7 +1,12 @@
 /**
  *
  */
-export class Path {
+import {PathInterface} from "./PathInterface";
+
+/**
+ * @class Path
+ */
+export class Path implements PathInterface {
 
     /**
      * @type {string}
@@ -49,24 +54,27 @@ export class Path {
     /**
      * @param {string} directory
      */
-    public setDirectory(directory:string) {
+    public setDirectory(directory:string): PathInterface {
         if (directory.slice(-1) === this._pathNode.sep) {
             directory = directory.substring(0, directory.length - 1);
         }
-        this.directory = directory
+        this.directory = directory;
+        return this;
     }
 
     /**
      * @param {string} nameFile
      */
-    public setNameFile(nameFile:string) {
-        this.nameFile = nameFile
+    public setNameFile(nameFile:string): PathInterface {
+        this.nameFile = nameFile;
+        return this;
     }
 
     /**
      * @param {string} extension
      */
-    public setExtension(extension:string) {
-        this.extension = extension
+    public setExtension(extension:string): PathInterface {
+        this.extension = extension;
+        return this;
     }
 }

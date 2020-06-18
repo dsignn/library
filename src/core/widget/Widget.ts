@@ -1,4 +1,4 @@
-import {Path} from "../../path/Path";
+import {Path, PathInterface} from "../../path/index";
 
 /**
  * @class
@@ -46,14 +46,15 @@ export class Widget {
     private dataRequired:boolean = false;
 
     /**
-     * @type {Path}
+     * @type {PathInterface
+     * }
      */
-    private src:Path = new Path();
+    private src:PathInterface;
 
     /**
      * @type {Path}
      */
-    private srcData:Path = new Path();
+    private srcData:PathInterface;
 
     /**
      * @return {Path}

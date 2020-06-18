@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContainerAware = void 0;
 const Container_1 = require("./Container");
 /**
  * @class

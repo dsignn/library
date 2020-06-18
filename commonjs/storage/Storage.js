@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Storage = void 0;
 const index_1 = require("../event/index");
 /**
  *

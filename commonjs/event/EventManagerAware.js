@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.EventManagerAware = void 0;
 const EventManager_1 = require("./EventManager");
 /**
  * @class

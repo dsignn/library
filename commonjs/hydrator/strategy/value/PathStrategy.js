@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PathStrategy = void 0;
 const PropertyHydrator_1 = require("../../PropertyHydrator");
 const Path_1 = require("../../../path/Path");
 /**

@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MapPropertyStrategy = void 0;
 /**
- *
+ * @class MapPropertyStrategy
  */
 class MapPropertyStrategy {
     /**

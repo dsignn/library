@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PropertyHydrator = void 0;
 const AbstractHydrator_1 = require("./AbstractHydrator");
 /**
  *

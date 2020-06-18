@@ -1,7 +1,11 @@
 /**
  *
  */
-export declare class Path {
+import { PathInterface } from "./PathInterface";
+/**
+ * @class Path
+ */
+export declare class Path implements PathInterface {
     /**
      * @type {string}
      */
@@ -29,13 +33,13 @@ export declare class Path {
     /**
      * @param {string} directory
      */
-    setDirectory(directory: string): void;
+    setDirectory(directory: string): PathInterface;
     /**
      * @param {string} nameFile
      */
-    setNameFile(nameFile: string): void;
+    setNameFile(nameFile: string): PathInterface;
     /**
      * @param {string} extension
      */
-    setExtension(extension: string): void;
+    setExtension(extension: string): PathInterface;
 }

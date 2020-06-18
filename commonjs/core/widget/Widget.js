@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Path_1 = require("../../path/Path");
+exports.Widget = void 0;
 /**
  * @class
  * Widget
@@ -39,14 +39,6 @@ class Widget {
          * @type {string}
          */
         this.dataRequired = false;
-        /**
-         * @type {Path}
-         */
-        this.src = new Path_1.Path();
-        /**
-         * @type {Path}
-         */
-        this.srcData = new Path_1.Path();
     }
     /**
      * @return {Path}

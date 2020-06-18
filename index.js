@@ -51,6 +51,8 @@ module.exports = {
     },
     path : {
         Path : require('./commonjs/path/Path').Path,
+        PathGeneric : require('./commonjs/path/PathGeneric').PathGeneric,
+        PathNode : require('./commonjs/path/PathNode').PathNode,
     },
     parse : {
         ObjectParse : require('./commonjs/parse/ObjectParse').ObjectParse,

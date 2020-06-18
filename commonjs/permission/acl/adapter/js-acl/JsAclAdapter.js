@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.JsAclAdapter = void 0;
 /**
  * @class
  * @link https://github.com/optimalbits/node_acl

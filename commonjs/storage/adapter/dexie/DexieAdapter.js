@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DexieAdapter = void 0;
 const Pagination_1 = require("../../../pagination/Pagination");
 /**
  *
