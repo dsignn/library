@@ -1,10 +1,6 @@
+import { ComponentInterface } from "../ComponentInterface";
 /**
- *  Module
- */
-import { WebComponent } from "../webcomponent";
-/**
- * @class
- * Module
+ * @class Module
  */
 export declare class Module {
     /**
@@ -77,27 +73,28 @@ export declare class Module {
      */
     setConfigEntryPoint(configEntryPoint: string): this;
     /**
-     * @return {Array<string>}
+     * @return {Array<ComponentInterface>}
      */
-    getAutoloads(): string[];
+    getAutoloads(): ComponentInterface[];
     /**
+     * @param {Array<ComponentInterface>} autoloads
      */
-    setAutoloads(autoloads: Array<string>): void;
+    setAutoloads(autoloads: Array<ComponentInterface>): void;
     /**
      * @return {Array<WebComponent>}
      */
-    getAutoloadsWs(): WebComponent[];
+    getAutoloadsWs(): ComponentInterface[];
     /**
      * @param {Array<WebComponent>} autoloadsWs
      */
-    setAutoloadsWs(autoloadsWs: Array<WebComponent>): void;
+    setAutoloadsWs(autoloadsWs: Array<ComponentInterface>): void;
     /**
      * @return {WebComponent}
      */
-    getEntryPoint(): WebComponent;
+    getEntryPoint(): ComponentInterface;
     /**
      * @param {WebComponent} entryPoint
      * @return {this}
      */
-    setEntryPoint(entryPoint: WebComponent): this;
+    setEntryPoint(entryPoint: ComponentInterface): this;
 }

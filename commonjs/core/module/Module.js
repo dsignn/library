@@ -1,13 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Module = void 0;
-/**
- *  Module
- */
 const webcomponent_1 = require("../webcomponent");
 /**
- * @class
- * Module
+ * @class Module
  */
 class Module {
     constructor() {
@@ -102,12 +98,13 @@ class Module {
         return this;
     }
     /**
-     * @return {Array<string>}
+     * @return {Array<ComponentInterface>}
      */
     getAutoloads() {
         return this.autoloads;
     }
     /**
+     * @param {Array<ComponentInterface>} autoloads
      */
     setAutoloads(autoloads) {
         this.autoloads = autoloads;

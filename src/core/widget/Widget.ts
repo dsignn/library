@@ -1,8 +1,8 @@
 import {Path, PathInterface} from "../../path/index";
 
 /**
- * @class
- * Widget
+ * @class Widget
+ * @deprecated
  */
 export class Widget {
 

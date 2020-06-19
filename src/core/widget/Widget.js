@@ -1,6 +1,6 @@
 /**
- * @class
- * Widget
+ * @class Widget
+ * @deprecated
  */
 export class Widget {
     constructor() {

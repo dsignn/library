@@ -143,7 +143,7 @@ export class Application2 extends EventManagerAware implements EventManagerAware
             let autoLoadImport;
             for (let cont = 0; module.getAutoloads().length > cont; cont++) {
 
-                autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].path}`;
+                autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath()}`;
                 try {
 
                     autoLoadImport = await import(autoLoadPath);

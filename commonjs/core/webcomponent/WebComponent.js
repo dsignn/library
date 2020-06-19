@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebComponent = void 0;
+const PathAware_1 = require("../../path/PathAware");
 /**
  * @class
  * WebComponent
  */
-class WebComponent {
+class WebComponent extends PathAware_1.PathAware {
     constructor() {
+        super(...arguments);
         /**
          * @type {string}
          */
@@ -24,20 +26,6 @@ class WebComponent {
      */
     setName(name) {
         this.name = name;
-        return this;
-    }
-    /**
-     * @return {PathInterface}
-     */
-    getPath() {
-        return this.path;
-    }
-    /**
-     * @param {Path} path
-     * @return {this}
-     */
-    setPath(path) {
-        this.path = path;
         return this;
     }
 }

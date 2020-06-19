@@ -20,7 +20,7 @@ export declare class AutoLoadClass {
      * @param {string} name
      * @return {this}
      */
-    setName(name: string): this;
+    setName(name: string): AutoLoadClass;
     /**
      * @return {PathInterface}
      */
@@ -29,5 +29,5 @@ export declare class AutoLoadClass {
      * @param {Path} path
      * @return {this}
      */
-    setPath(path: PathInterface): this;
+    setPath(path: PathInterface): AutoLoadClass;
 }

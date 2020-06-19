@@ -1,10 +1,6 @@
-/**
- *  Module
- */
 import { WebComponent } from "../webcomponent";
 /**
- * @class
- * Module
+ * @class Module
  */
 export class Module {
     constructor() {
@@ -99,12 +95,13 @@ export class Module {
         return this;
     }
     /**
-     * @return {Array<string>}
+     * @return {Array<ComponentInterface>}
      */
     getAutoloads() {
         return this.autoloads;
     }
     /**
+     * @param {Array<ComponentInterface>} autoloads
      */
     setAutoloads(autoloads) {
         this.autoloads = autoloads;

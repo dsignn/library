@@ -1,17 +1,14 @@
-import { PathInterface } from "../../path";
+import { PathAware } from "../../path/PathAware";
+import { ComponentInterface } from "../ComponentInterface";
 /**
  * @class
  * WebComponent
  */
-export declare class WebComponent {
+export declare class WebComponent extends PathAware implements ComponentInterface {
     /**
      * @type {string}
      */
     private name;
-    /**
-     * @type {PathInterface}
-     */
-    private path;
     /**
      * @return {string}
      */
@@ -21,13 +18,4 @@ export declare class WebComponent {
      * @return {this}
      */
     setName(name: string): this;
-    /**
-     * @return {PathInterface}
-     */
-    getPath(): PathInterface;
-    /**
-     * @param {Path} path
-     * @return {this}
-     */
-    setPath(path: PathInterface): this;
 }

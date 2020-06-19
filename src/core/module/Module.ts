@@ -1,11 +1,8 @@
-/**
- *  Module
- */
 import {WebComponent} from "../webcomponent";
+import {ComponentInterface} from "../ComponentInterface";
 
 /**
- * @class
- * Module
+ * @class Module
  */
 export class Module {
 
@@ -28,7 +25,7 @@ export class Module {
      *
      * @type {WebComponent}
      */
-    private entryPoint: WebComponent = new WebComponent();
+    private entryPoint: ComponentInterface = new WebComponent();
 
     /**
      * @type {string}
@@ -43,12 +40,12 @@ export class Module {
     /**
      * @type Array<string>
      */
-    private autoloads: Array<string> = [];
+    private autoloads: Array<ComponentInterface> = [];
 
     /**
      * @type Array<string>
      */
-    private autoloadsWs: Array<WebComponent> = [];
+    private autoloadsWs: Array<ComponentInterface> = [];
 
     /**
      * @return {string}
@@ -115,15 +112,16 @@ export class Module {
     }
 
     /**
-     * @return {Array<string>}
+     * @return {Array<ComponentInterface>}
      */
     public getAutoloads() {
         return this.autoloads;
     }
 
     /**
+     * @param {Array<ComponentInterface>} autoloads
      */
-    public setAutoloads(autoloads: Array<string>) {
+    public setAutoloads(autoloads: Array<ComponentInterface>) {
         this.autoloads = autoloads;
     }
 
@@ -137,7 +135,7 @@ export class Module {
     /**
      * @param {Array<WebComponent>} autoloadsWs
      */
-    public setAutoloadsWs(autoloadsWs: Array<WebComponent>) {
+    public setAutoloadsWs(autoloadsWs: Array<ComponentInterface>) {
         this.autoloadsWs = autoloadsWs;
     }
 
@@ -152,7 +150,7 @@ export class Module {
      * @param {WebComponent} entryPoint
      * @return {this}
      */
-    public setEntryPoint(entryPoint : WebComponent) {
+    public setEntryPoint(entryPoint: ComponentInterface) {
         this.entryPoint = entryPoint;
         return this;
     }

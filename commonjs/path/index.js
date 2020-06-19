@@ -13,3 +13,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./Path"), exports);
 __exportStar(require("./PathNode"), exports);
 __exportStar(require("./PathInterface"), exports);
+__exportStar(require("./PathAware"), exports);
+__exportStar(require("./PathAwareInterface"), exports);

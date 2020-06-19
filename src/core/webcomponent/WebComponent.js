@@ -1,9 +1,11 @@
+import { PathAware } from "../../path/PathAware";
 /**
  * @class
  * WebComponent
  */
-export class WebComponent {
+export class WebComponent extends PathAware {
     constructor() {
+        super(...arguments);
         /**
          * @type {string}
          */
@@ -21,20 +23,6 @@ export class WebComponent {
      */
     setName(name) {
         this.name = name;
-        return this;
-    }
-    /**
-     * @return {PathInterface}
-     */
-    getPath() {
-        return this.path;
-    }
-    /**
-     * @param {Path} path
-     * @return {this}
-     */
-    setPath(path) {
-        this.path = path;
         return this;
     }
 }

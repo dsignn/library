@@ -20,7 +20,7 @@ export class AutoLoadClass {
     /**
      * @return {string}
      */
-    public getName() {
+    public getName(): string {
         return this.name;
     }
 
@@ -28,7 +28,7 @@ export class AutoLoadClass {
      * @param {string} name
      * @return {this}
      */
-    public setName(name : string) {
+    public setName(name : string): AutoLoadClass {
         this.name = name;
         return this;
     }
@@ -36,7 +36,7 @@ export class AutoLoadClass {
     /**
      * @return {PathInterface}
      */
-    public getPath() {
+    public getPath(): PathInterface {
         return this.path;
     }
 
@@ -44,7 +44,7 @@ export class AutoLoadClass {
      * @param {Path} path
      * @return {this}
      */
-    public setPath(path : PathInterface) {
+    public setPath(path : PathInterface): AutoLoadClass {
         this.path = path;
         return this;
     }

@@ -110,7 +110,7 @@ class Application2 extends index_1.EventManagerAware {
                 let autoLoadPath;
                 let autoLoadImport;
                 for (let cont = 0; module.getAutoloads().length > cont; cont++) {
-                    autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].path}`;
+                    autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath()}`;
                     try {
                         autoLoadImport = yield Promise.resolve().then(() => require(autoLoadPath));
                         window[module.getAutoloads()[cont].name] = autoLoadImport[module.getAutoloads()[cont].name];
