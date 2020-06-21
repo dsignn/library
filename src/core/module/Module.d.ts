@@ -17,7 +17,7 @@ export declare class Module {
     private name;
     /**
      *
-     * @type {WebComponent}
+     * @type {ComponentInterface}
      */
     private entryPoint;
     /**
@@ -29,11 +29,11 @@ export declare class Module {
      */
     private label;
     /**
-     * @type Array<string>
+     * @type Array<ComponentInterface>
      */
     private autoloads;
     /**
-     * @type Array<string>
+     * @type Array<ComponentInterface>
      */
     private autoloadsWs;
     /**

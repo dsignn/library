@@ -1,7 +1,7 @@
 import { ContainerInterface } from "../container/index";
 import { Module } from "./module/index";
 import { EventManagerAware, EventManagerAwareInterface } from "../event/index";
-import { Widget } from "./widget";
+import { Widget2 as Widget } from "./widget/Widget2";
 /**
  * @class
  * Application

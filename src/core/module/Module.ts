@@ -23,7 +23,7 @@ export class Module {
 
     /**
      *
-     * @type {WebComponent}
+     * @type {ComponentInterface}
      */
     private entryPoint: ComponentInterface = new WebComponent();
 
@@ -38,12 +38,12 @@ export class Module {
     private label: string = '';
 
     /**
-     * @type Array<string>
+     * @type Array<ComponentInterface>
      */
     private autoloads: Array<ComponentInterface> = [];
 
     /**
-     * @type Array<string>
+     * @type Array<ComponentInterface>
      */
     private autoloadsWs: Array<ComponentInterface> = [];
 

@@ -18,7 +18,7 @@ export class Module {
         this.name = '';
         /**
          *
-         * @type {WebComponent}
+         * @type {ComponentInterface}
          */
         this.entryPoint = new WebComponent();
         /**
@@ -30,11 +30,11 @@ export class Module {
          */
         this.label = '';
         /**
-         * @type Array<string>
+         * @type Array<ComponentInterface>
          */
         this.autoloads = [];
         /**
-         * @type Array<string>
+         * @type Array<ComponentInterface>
          */
         this.autoloadsWs = [];
     }

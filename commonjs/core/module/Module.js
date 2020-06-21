@@ -21,7 +21,7 @@ class Module {
         this.name = '';
         /**
          *
-         * @type {WebComponent}
+         * @type {ComponentInterface}
          */
         this.entryPoint = new webcomponent_1.WebComponent();
         /**
@@ -33,11 +33,11 @@ class Module {
          */
         this.label = '';
         /**
-         * @type Array<string>
+         * @type Array<ComponentInterface>
          */
         this.autoloads = [];
         /**
-         * @type Array<string>
+         * @type Array<ComponentInterface>
          */
         this.autoloadsWs = [];
     }

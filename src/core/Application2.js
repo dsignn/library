@@ -72,7 +72,7 @@ export class Application2 extends EventManagerAware {
          * Load entry point module
          */
         if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
-            wcEntryPoint = `${this.getModulePath()}/${module.getName()}/${module.getEntryPoint().getPath()}`;
+            wcEntryPoint = `${this.getModulePath()}/${module.getName()}/${module.getEntryPoint().getPath().getPath()}`;
             try {
                 await import(wcEntryPoint);
                 console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
@@ -91,7 +91,7 @@ export class Application2 extends EventManagerAware {
             let autoLoadPath;
             let autoLoadImport;
             for (let cont = 0; module.getAutoloads().length > cont; cont++) {
-                autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath()}`;
+                autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                 try {
                     autoLoadImport = await import(autoLoadPath);
                     window[module.getAutoloads()[cont].name] = autoLoadImport[module.getAutoloads()[cont].name];
@@ -112,7 +112,7 @@ export class Application2 extends EventManagerAware {
             let wcComponentPath;
             for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
                 if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
-                    wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWs()[cont].getPath()}`;
+                    wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWs()[cont].getPath().getPath()}`;
                     try {
                         let wcComponent = await import(wcComponentPath);
                         console.log(`Load web component "${module.getAutoloadsWs()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
@@ -149,21 +149,21 @@ export class Application2 extends EventManagerAware {
     async loadWidget(widget) {
         console.groupCollapsed(`Load Widget ${widget.getName()}`);
         let path;
-        if (widget.getWc() && customElements.get(widget.getWc()) === undefined) {
-            path = `${this.basePath}module/${widget.getSrc().getPath()}`;
+        if (widget.getWebComponent() && customElements.get(widget.getWebComponent().getName()) === undefined) {
+            path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
             try {
                 await import(path);
-                console.log(`Load entry point module "${widget.getWc()}" store in ${path}`, widget);
+                console.log(`Load entry point module "${widget.getWebComponent().getName()}" store in ${path}`, widget);
             }
             catch (err) {
                 console.error(`Failed to load entry point module store in ${path}`, err);
             }
         }
-        if (widget.getWcData() && customElements.get(widget.getWcData()) === undefined) {
-            path = `${this.basePath}module/${widget.getSrcData().getPath()}`;
+        if (widget.getWebComponentData() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
+            path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
             try {
                 await import(path);
-                console.log(`Load entry point module "${widget.getWcData()}" store in ${path}`, widget);
+                console.log(`Load entry point module "${widget.getWebComponentData().getName()}" store in ${path}`, widget);
             }
             catch (err) {
                 console.error(`Failed to load entry point module store in ${path}`, err);
@@ -199,7 +199,7 @@ export class Application2 extends EventManagerAware {
      */
     removeWidget(nameWs) {
         for (let cont = 0; this.widgets.length > cont; cont++) {
-            if (this.widgets[cont].getWc() === nameWs) {
+            if (this.widgets[cont].getWebComponent().getName() === nameWs) {
                 this.widgets.splice(cont, 1);
                 break;
             }
