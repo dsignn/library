@@ -16,10 +16,6 @@ export class PathGeneric {
          * @type {string}
          */
         this.extension = '';
-        /**
-         * @type {path}
-         */
-        this._pathNode = require('path');
     }
     /**
      * @return {string}

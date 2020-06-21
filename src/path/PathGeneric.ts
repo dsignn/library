@@ -26,11 +26,6 @@ export class PathGeneric implements PathInterface {
     protected extension:string = '';
 
     /**
-     * @type {path}
-     */
-    private _pathNode:any = require('path');
-
-    /**
      * @return {string}
      */
     public getPath(): string {
