@@ -315,7 +315,7 @@ export class Application2 extends EventManagerAware implements EventManagerAware
      * @return string
      */
     public getResourcePath() {
-        return `${this.basePath}${this.resourcePath}`
+        return this.resourcePath;
     }
 
     /**
@@ -331,24 +331,23 @@ export class Application2 extends EventManagerAware implements EventManagerAware
      * @return string
      */
     public getModulePath() {
-        return `${this.basePath}${this.modulePath}`
+        return this.modulePath;
     }
 
     /**
      * @param {string} storagePath
      * @return {Application}
      */
-    public setStorageRelativePath(storagePath: string) {
+    public setStoragePath(storagePath: string) {
         this.storagePath = storagePath;
         return this;
     }
-
 
     /**
      * @return string
      */
     public getStoragePath() {
-        return `${this.basePath}${this.storagePath}`
+        return this.storagePath;
     }
 
     /**

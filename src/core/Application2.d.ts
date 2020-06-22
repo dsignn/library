@@ -133,7 +133,7 @@ export declare class Application2 extends EventManagerAware implements EventMana
      * @param {string} storagePath
      * @return {Application}
      */
-    setStorageRelativePath(storagePath: string): this;
+    setStoragePath(storagePath: string): this;
     /**
      * @return string
      */

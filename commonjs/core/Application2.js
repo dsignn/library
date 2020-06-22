@@ -271,7 +271,7 @@ class Application2 extends index_1.EventManagerAware {
      * @return string
      */
     getResourcePath() {
-        return `${this.basePath}${this.resourcePath}`;
+        return this.resourcePath;
     }
     /**
      * @param {string} modulePath
@@ -285,13 +285,13 @@ class Application2 extends index_1.EventManagerAware {
      * @return string
      */
     getModulePath() {
-        return `${this.basePath}${this.modulePath}`;
+        return this.modulePath;
     }
     /**
      * @param {string} storagePath
      * @return {Application}
      */
-    setStorageRelativePath(storagePath) {
+    setStoragePath(storagePath) {
         this.storagePath = storagePath;
         return this;
     }
@@ -299,7 +299,7 @@ class Application2 extends index_1.EventManagerAware {
      * @return string
      */
     getStoragePath() {
-        return `${this.basePath}${this.storagePath}`;
+        return this.storagePath;
     }
     /**
      * @return {string}

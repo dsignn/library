@@ -245,7 +245,7 @@ export class Application2 extends EventManagerAware {
      * @return string
      */
     getResourcePath() {
-        return `${this.basePath}${this.resourcePath}`;
+        return this.resourcePath;
     }
     /**
      * @param {string} modulePath
@@ -259,13 +259,13 @@ export class Application2 extends EventManagerAware {
      * @return string
      */
     getModulePath() {
-        return `${this.basePath}${this.modulePath}`;
+        return this.modulePath;
     }
     /**
      * @param {string} storagePath
      * @return {Application}
      */
-    setStorageRelativePath(storagePath) {
+    setStoragePath(storagePath) {
         this.storagePath = storagePath;
         return this;
     }
@@ -273,7 +273,7 @@ export class Application2 extends EventManagerAware {
      * @return string
      */
     getStoragePath() {
-        return `${this.basePath}${this.storagePath}`;
+        return this.storagePath;
     }
     /**
      * @return {string}
