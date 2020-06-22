@@ -198,17 +198,30 @@ class Application2 extends index_1.EventManagerAware {
         });
     }
     /**
-     * @return {string}
-     */
-    getBasePath() {
-        return this.basePath;
-    }
-    /**
-     * @param {string} basePath
+     * @param {Module} module
      * @return {Application}
      */
-    setBasePath(basePath) {
-        this.basePath = basePath;
+    addModule(module) {
+        this.modules.push(module);
+        return this;
+    }
+    /**
+     * @return {Array<Module>}
+     */
+    getModules() {
+        return this.modules;
+    }
+    /**
+     * @param {string} id
+     * @return Application
+     */
+    removeModule(id) {
+        for (let cont = 0; this.modules.length > cont; cont) {
+            if (this.modules[cont].getId() === id) {
+                this.modules.splice(cont, 1);
+                break;
+            }
+        }
         return this;
     }
     /**
@@ -247,90 +260,59 @@ class Application2 extends index_1.EventManagerAware {
         return this.widgets;
     }
     /**
-     * @return {string}
-     */
-    getResourceRelativePath() {
-        return this.resourceRelativePath;
-    }
-    /**
-     * @param {string} resourceRelativePath
+     * @param {string} resourcePath
      * @return {Application}
      */
-    setResourceRelativePath(resourceRelativePath) {
-        this.resourceRelativePath = resourceRelativePath;
+    setResourcePath(resourcePath) {
+        this.resourcePath = resourcePath;
         return this;
     }
     /**
      * @return string
      */
     getResourcePath() {
-        return `${this.basePath}${this.resourceRelativePath}`;
+        return `${this.basePath}${this.resourcePath}`;
     }
     /**
-     * @return {string}
-     */
-    getModuleRelativePath() {
-        return this.moduleRelativePath;
-    }
-    /**
-     * @param {string} moduleRelativePath
+     * @param {string} modulePath
      * @return {Application}
      */
-    setModuleRelativePath(moduleRelativePath) {
-        this.moduleRelativePath = moduleRelativePath;
+    setModulePath(modulePath) {
+        this.modulePath = modulePath;
         return this;
     }
     /**
      * @return string
      */
     getModulePath() {
-        return `${this.basePath}${this.moduleRelativePath}`;
+        return `${this.basePath}${this.modulePath}`;
     }
     /**
-     * @return {string}
-     */
-    getStorageRelativePath() {
-        return this.storageRelativePath;
-    }
-    /**
-     * @param {string} storageRelativePath
+     * @param {string} storagePath
      * @return {Application}
      */
-    setStorageRelativePath(storageRelativePath) {
-        this.storageRelativePath = storageRelativePath;
+    setStorageRelativePath(storagePath) {
+        this.storagePath = storagePath;
         return this;
     }
     /**
      * @return string
      */
     getStoragePath() {
-        return `${this.basePath}${this.storageRelativePath}`;
+        return `${this.basePath}${this.storagePath}`;
     }
     /**
-     * @param {Module} module
+     * @return {string}
+     */
+    getBasePath() {
+        return this.basePath;
+    }
+    /**
+     * @param {string} basePath
      * @return {Application}
      */
-    addModule(module) {
-        this.modules.push(module);
-        return this;
-    }
-    /**
-     * @return {Array<Module>}
-     */
-    getModules() {
-        return this.modules;
-    }
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    removeModule(id) {
-        for (let cont = 0; this.modules.length > cont; cont) {
-            if (this.modules[cont].getId() === id) {
-                this.modules.splice(cont, 1);
-                break;
-            }
-        }
+    setBasePath(basePath) {
+        this.basePath = basePath;
         return this;
     }
 }

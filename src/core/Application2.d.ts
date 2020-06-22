@@ -22,15 +22,15 @@ export declare class Application2 extends EventManagerAware implements EventMana
     /**
      * @type {string}
      */
-    private storageRelativePath;
+    private storagePath;
     /**
      * @type {string}
      */
-    private resourceRelativePath;
+    private resourcePath;
     /**
      * @type {string}
      */
-    private moduleRelativePath;
+    private modulePath;
     /**
      * @type {Array<Module>}
      */
@@ -79,14 +79,19 @@ export declare class Application2 extends EventManagerAware implements EventMana
      */
     private loadWidget;
     /**
-     * @return {string}
-     */
-    getBasePath(): string;
-    /**
-     * @param {string} basePath
+     * @param {Module} module
      * @return {Application}
      */
-    setBasePath(basePath: string): this;
+    addModule(module: Module): this;
+    /**
+     * @return {Array<Module>}
+     */
+    getModules(): Module[];
+    /**
+     * @param {string} id
+     * @return Application
+     */
+    removeModule(id: string): this;
     /**
      * @param {Widget} widget
      * @return {Application}
@@ -107,56 +112,39 @@ export declare class Application2 extends EventManagerAware implements EventMana
      */
     getWidgets(): Widget[];
     /**
-     * @return {string}
-     */
-    getResourceRelativePath(): string;
-    /**
-     * @param {string} resourceRelativePath
+     * @param {string} resourcePath
      * @return {Application}
      */
-    setResourceRelativePath(resourceRelativePath: string): this;
+    setResourcePath(resourcePath: string): this;
     /**
      * @return string
      */
     getResourcePath(): string;
     /**
-     * @return {string}
-     */
-    getModuleRelativePath(): string;
-    /**
-     * @param {string} moduleRelativePath
+     * @param {string} modulePath
      * @return {Application}
      */
-    setModuleRelativePath(moduleRelativePath: string): this;
+    setModulePath(modulePath: string): this;
     /**
      * @return string
      */
     getModulePath(): string;
     /**
-     * @return {string}
-     */
-    getStorageRelativePath(): string;
-    /**
-     * @param {string} storageRelativePath
+     * @param {string} storagePath
      * @return {Application}
      */
-    setStorageRelativePath(storageRelativePath: string): this;
+    setStorageRelativePath(storagePath: string): this;
     /**
      * @return string
      */
     getStoragePath(): string;
     /**
-     * @param {Module} module
+     * @return {string}
+     */
+    getBasePath(): string;
+    /**
+     * @param {string} basePath
      * @return {Application}
      */
-    addModule(module: Module): this;
-    /**
-     * @return {Array<Module>}
-     */
-    getModules(): Module[];
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    removeModule(id: string): this;
+    setBasePath(basePath: string): this;
 }

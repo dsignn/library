@@ -27,17 +27,17 @@ export class Application2 extends EventManagerAware implements EventManagerAware
     /**
      * @type {string}
      */
-    private storageRelativePath: string;
+    private storagePath: string;
 
     /**
      * @type {string}
      */
-    private resourceRelativePath: string;
+    private resourcePath: string;
 
     /**
      * @type {string}
      */
-    private moduleRelativePath: string;
+    private modulePath: string;
 
     /**
      * @type {Array<Module>}
@@ -233,18 +233,32 @@ export class Application2 extends EventManagerAware implements EventManagerAware
     }
 
     /**
-     * @return {string}
+     * @param {Module} module
+     * @return {Application}
      */
-    public getBasePath() {
-        return this.basePath;
+    public addModule(module:Module) {
+        this.modules.push(module);
+        return this;
     }
 
     /**
-     * @param {string} basePath
-     * @return {Application}
+     * @return {Array<Module>}
      */
-    public setBasePath(basePath: string) {
-        this.basePath = basePath;
+    public getModules() {
+        return this.modules;
+    }
+
+    /**
+     * @param {string} id
+     * @return Application
+     */
+    public removeModule(id: string) {
+        for (let cont = 0; this.modules.length > cont; cont) {
+            if (this.modules[cont].getId() === id) {
+                this.modules.splice(cont, 1);
+                break;
+            }
+        }
         return this;
     }
 
@@ -289,18 +303,11 @@ export class Application2 extends EventManagerAware implements EventManagerAware
     }
 
     /**
-     * @return {string}
-     */
-    public getResourceRelativePath() {
-        return this.resourceRelativePath;
-    }
-
-    /**
-     * @param {string} resourceRelativePath
+     * @param {string} resourcePath
      * @return {Application}
      */
-    public setResourceRelativePath(resourceRelativePath: string) {
-        this.resourceRelativePath = resourceRelativePath;
+    public setResourcePath(resourcePath: string) {
+        this.resourcePath = resourcePath;
         return this;
     }
 
@@ -308,22 +315,15 @@ export class Application2 extends EventManagerAware implements EventManagerAware
      * @return string
      */
     public getResourcePath() {
-        return `${this.basePath}${this.resourceRelativePath}`
+        return `${this.basePath}${this.resourcePath}`
     }
 
     /**
-     * @return {string}
-     */
-    public getModuleRelativePath() {
-        return this.moduleRelativePath;
-    }
-
-    /**
-     * @param {string} moduleRelativePath
+     * @param {string} modulePath
      * @return {Application}
      */
-    public setModuleRelativePath(moduleRelativePath: string) {
-        this.moduleRelativePath = moduleRelativePath;
+    public setModulePath(modulePath: string) {
+        this.modulePath = modulePath;
         return this;
     }
 
@@ -331,22 +331,15 @@ export class Application2 extends EventManagerAware implements EventManagerAware
      * @return string
      */
     public getModulePath() {
-        return `${this.basePath}${this.moduleRelativePath}`
+        return `${this.basePath}${this.modulePath}`
     }
 
     /**
-     * @return {string}
-     */
-    public getStorageRelativePath() {
-        return this.storageRelativePath;
-    }
-
-    /**
-     * @param {string} storageRelativePath
+     * @param {string} storagePath
      * @return {Application}
      */
-    public setStorageRelativePath(storageRelativePath: string) {
-        this.storageRelativePath = storageRelativePath;
+    public setStorageRelativePath(storagePath: string) {
+        this.storagePath = storagePath;
         return this;
     }
 
@@ -355,37 +348,22 @@ export class Application2 extends EventManagerAware implements EventManagerAware
      * @return string
      */
     public getStoragePath() {
-        return `${this.basePath}${this.storageRelativePath}`
+        return `${this.basePath}${this.storagePath}`
     }
 
+    /**
+     * @return {string}
+     */
+    public getBasePath() {
+        return this.basePath;
+    }
 
     /**
-     * @param {Module} module
+     * @param {string} basePath
      * @return {Application}
      */
-    public addModule(module:Module) {
-        this.modules.push(module);
-        return this;
-    }
-
-    /**
-     * @return {Array<Module>}
-     */
-    public getModules() {
-        return this.modules;
-    }
-
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    public removeModule(id: string) {
-        for (let cont = 0; this.modules.length > cont; cont) {
-            if (this.modules[cont].getId() === id) {
-                this.modules.splice(cont, 1);
-                break;
-            }
-        }
+    public setBasePath(basePath: string) {
+        this.basePath = basePath;
         return this;
     }
 }
