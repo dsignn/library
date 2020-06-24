@@ -1,20 +1,36 @@
 import {ComponentInterface} from "../ComponentInterface";
+import {WidgetInterface} from "./WidgetInterface";
 
 /**
  * @class
  * Widget
  */
-export class Widget2 {
+export class Widget2 implements WidgetInterface {
 
     /**
      * @type {string}
      */
-    private name:string = null;
+    private name: string = null;
 
     /**
      * @type {string}
      */
-    private dataRequired: boolean = false;
+    private description: string = null;
+
+    /**
+     * @type {string}
+     */
+    private label: string = null;
+
+    /**
+     * @type {string}
+     */
+    private property: string = null;
+
+    /**
+     * @type {string}
+     */
+    private require: boolean = false;
 
     /**
      * @type {ComponentInterface}
@@ -26,64 +42,108 @@ export class Widget2 {
      */
     private webComponentData: ComponentInterface;
 
+
     /**
-     * @return string
+     * @inheritDoc
      */
     public getName(): string {
         return this.name;
     }
 
     /**
-     * @param {string} value
+     * @inheritDoc
      */
-    public setName(value: string): Widget2{
-        this.name = value;
+    public setName(name: string): WidgetInterface {
+        this.name = name;
         return this;
     }
 
     /**
-     *
+     * @inheritDoc
      */
-    public getDataRequired(): boolean {
-        return this.dataRequired;
+    public getDescription(): string {
+        return this.description;
     }
 
     /**
-     * @param {boolean} value
+     * @inheritDoc
      */
-    public setDataRequired(value: boolean): Widget2 {
-        this.dataRequired = value;
+    public setDescription(description: string): WidgetInterface {
+        this.description = description;
         return this;
     }
 
     /**
-     * @return {ComponentInterface}
+     * @inheritDoc
+     */
+    public getLabel(): string {
+        return this.label;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public setLabel(label: string): WidgetInterface {
+        this.label = label;
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public getProperty(): string {
+        return this.property;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public setProperty(property: string): WidgetInterface {
+        this.property = property;
+        return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public isRequire(): boolean {
+        return this.require;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public setRequire(require: boolean): WidgetInterface {
+        this.require = require;
+        return this;
+    }
+
+    /**
+     * @inheritDoc
      */
     public getWebComponent(): ComponentInterface {
         return this.webComponent;
     }
 
     /**
-     * @param {ComponentInterface} webComponent
-     * @return {Widget2}
+     * @inheritDoc
      */
-    public setWebComponent(webComponent: ComponentInterface): Widget2 {
+    public setWebComponent(webComponent: ComponentInterface): WidgetInterface {
         this.webComponent = webComponent;
         return this;
     }
 
     /**
-     * @return {ComponentInterface}
+     * @inheritDoc
      */
     public getWebComponentData(): ComponentInterface {
         return this.webComponentData;
     }
 
     /**
-     * @param {ComponentInterface} webComponentData
-     * @return {Widget2}
+     * @inheritDoc
      */
-    public setWebComponentData(webComponentData: ComponentInterface): Widget2 {
+    public setWebComponentData(webComponentData: ComponentInterface): WidgetInterface {
         this.webComponentData = webComponentData;
         return this;
     }

@@ -11,57 +11,106 @@ export class Widget2 {
         /**
          * @type {string}
          */
-        this.dataRequired = false;
+        this.description = null;
+        /**
+         * @type {string}
+         */
+        this.label = null;
+        /**
+         * @type {string}
+         */
+        this.property = null;
+        /**
+         * @type {string}
+         */
+        this.require = false;
     }
     /**
-     * @return string
+     * @inheritDoc
      */
     getName() {
         return this.name;
     }
     /**
-     * @param {string} value
+     * @inheritDoc
      */
-    setName(value) {
-        this.name = value;
+    setName(name) {
+        this.name = name;
         return this;
     }
     /**
-     *
+     * @inheritDoc
      */
-    getDataRequired() {
-        return this.dataRequired;
+    getDescription() {
+        return this.description;
     }
     /**
-     * @param {boolean} value
+     * @inheritDoc
      */
-    setDataRequired(value) {
-        this.dataRequired = value;
+    setDescription(description) {
+        this.description = description;
         return this;
     }
     /**
-     * @return {ComponentInterface}
+     * @inheritDoc
+     */
+    getLabel() {
+        return this.label;
+    }
+    /**
+     * @inheritDoc
+     */
+    setLabel(label) {
+        this.label = label;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getProperty() {
+        return this.property;
+    }
+    /**
+     * @inheritDoc
+     */
+    setProperty(property) {
+        this.property = property;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    isRequire() {
+        return this.require;
+    }
+    /**
+     * @inheritDoc
+     */
+    setRequire(require) {
+        this.require = require;
+        return this;
+    }
+    /**
+     * @inheritDoc
      */
     getWebComponent() {
         return this.webComponent;
     }
     /**
-     * @param {ComponentInterface} webComponent
-     * @return {Widget2}
+     * @inheritDoc
      */
     setWebComponent(webComponent) {
         this.webComponent = webComponent;
         return this;
     }
     /**
-     * @return {ComponentInterface}
+     * @inheritDoc
      */
     getWebComponentData() {
         return this.webComponentData;
     }
     /**
-     * @param {ComponentInterface} webComponentData
-     * @return {Widget2}
+     * @inheritDoc
      */
     setWebComponentData(webComponentData) {
         this.webComponentData = webComponentData;

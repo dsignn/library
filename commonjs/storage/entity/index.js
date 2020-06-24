@@ -13,3 +13,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./EntityIdentifierInterface"), exports);
 __exportStar(require("./EntityIdentifier"), exports);
 __exportStar(require("./EntityReference"), exports);
+__exportStar(require("./EntityNestedReference"), exports);
