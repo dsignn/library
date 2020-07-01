@@ -10,13 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Application = void 0;
-const EventManager_1 = require("../event/EventManager");
+const index_1 = require("../event/index");
 /**
  * @class
  * Application
  */
-class Application {
+class Application extends index_1.EventManagerAware {
     constructor() {
+        super(...arguments);
         /**
          * @type {Array<Module>}
          */
@@ -25,14 +26,6 @@ class Application {
          * @type {Array<Module>}
          */
         this.widgets = [];
-        /**
-         * @type {EventManager}
-         */
-        this.eventManager = new EventManager_1.EventManager();
-        /**
-         * @type {path}
-         */
-        this.path = require('path');
     }
     /**
      * @param {Array<Module>} modules
@@ -40,9 +33,11 @@ class Application {
      */
     loadModules(modules, container) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Load module
             for (let cont = 0; modules.length > cont; cont++) {
-                this.modules.push(yield this._loadModule(modules[cont], container));
+                yield this._loadModule(modules[cont], container);
             }
+            // Load widget
             for (let cont = 0; this.widgets.length > cont; cont++) {
                 yield this.loadWidget(this.widgets[cont]);
             }
@@ -58,22 +53,43 @@ class Application {
      */
     _loadModule(module, container) {
         return __awaiter(this, void 0, void 0, function* () {
+            this.addModule(module);
             /**
              * to run absolute path on windows, for polymer cli script c:/ !== /c:/ when use import
              */
-            let modulePath = this.getModulePath();
-            modulePath = modulePath.charAt(0) !== '/' ? `/${modulePath}` : modulePath;
-            let configModule;
-            let configModuleClass;
-            let autoloadRequire;
-            let wcEntryPoint;
-            let wcComponentPath;
             console.groupCollapsed(`Load Module ${module.getName()}`);
             /**
              * Load entry point module
              */
+            yield this._importEntryPoint(module);
+            /**
+             * Import auto load class
+             */
+            yield this._importAutoLoadClass(module);
+            /**
+             * Import auto load ws
+             */
+            yield this._importAutoLoadWs(module);
+            /**
+             * Import auto load ws
+             */
+            yield this._importConfigModule(module, container);
+            console.groupEnd();
+            return module;
+        });
+    }
+    /**
+     * @param {Module} module
+     * @private
+     */
+    _importEntryPoint(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let wcEntryPoint;
+            /**
+             * Load entry point module
+             */
             if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
-                wcEntryPoint = `${modulePath}${module.getName()}${this.path.sep}${module.getEntryPoint().getPath().getPath()}`;
+                wcEntryPoint = `${this.getModulePath()}/${module.getName()}/${module.getEntryPoint().getPath().getPath()}`;
                 try {
                     yield Promise.resolve().then(() => require(wcEntryPoint));
                     console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
@@ -82,39 +98,71 @@ class Application {
                     console.error(`Failed to load entry point module store in ${wcEntryPoint}`, err);
                 }
             }
+        });
+    }
+    /**
+     * @param {Module} module
+     * @private
+     */
+    _importAutoLoadClass(module) {
+        return __awaiter(this, void 0, void 0, function* () {
             if (module.getAutoloads().length > 0) {
+                let autoLoadPath;
+                let autoLoadImport;
                 for (let cont = 0; module.getAutoloads().length > cont; cont++) {
-                    autoloadRequire = require(`${this.getModulePath()}${module.getName()}${this.path.sep}${this.path.normalize(module.getAutoloads()[cont])}`);
-                    window[autoloadRequire.name] = autoloadRequire;
+                    autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
+                    try {
+                        autoLoadImport = yield Promise.resolve().then(() => require(autoLoadPath));
+                        window[module.getAutoloads()[cont].name] = autoLoadImport[module.getAutoloads()[cont].name];
+                        console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
+                    }
+                    catch (err) {
+                        console.error(`Failed to load auto load class ${module.getAutoloads()[cont].name} in ${module.getAutoloads()[cont].path}`, err);
+                    }
                 }
             }
+        });
+    }
+    /**
+     * @param {Module} module
+     * @private
+     */
+    _importAutoLoadWs(module) {
+        return __awaiter(this, void 0, void 0, function* () {
             if (module.getAutoloadsWs().length > 0) {
+                let wcComponentPath;
                 for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
                     if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
-                        wcComponentPath = `${modulePath}${module.getName()}${this.path.sep}${this.path.normalize(module.getAutoloadsWs()[cont].getPath().getPath())}`;
+                        wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWs()[cont].getPath().getPath()}`;
                         try {
                             let wcComponent = yield Promise.resolve().then(() => require(wcComponentPath));
-                            console.log(`Load web component store in  "${module.getAutoloadsWs()[cont].getPath().getPath()}" store in ${module.getAutoloadsWs()[cont].getName()}`, wcComponent);
+                            console.log(`Load web component "${module.getAutoloadsWs()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
                         }
                         catch (err) {
-                            console.error(`Failed to load autoloads store in ${module.getAutoloadsWs()[cont].getPath().getPath()}`, err);
+                            console.error(`Failed to load autoloads store in ${wcComponentPath}`, err);
                         }
                     }
                 }
             }
+        });
+    }
+    /**
+     * @param {Module} module
+     * @param {Container} container
+     * @private
+     */
+    _importConfigModule(module, container) {
+        return __awaiter(this, void 0, void 0, function* () {
             if (module.getConfigEntryPoint()) {
-                let configModulePath = `${this.getModulePath()}${module.getName()}${this.path.sep}${this.path.normalize(module.getConfigEntryPoint())}`;
-                configModule = require(configModulePath);
-                configModuleClass = new configModule();
-                window[configModuleClass.constructor.name] = configModule;
+                let configModule;
+                let configModuleClass;
+                let configModulePath = `${this.getModulePath()}/${module.getName()}/${module.getConfigEntryPoint()}`;
+                console.log(`Init ${module.name}`);
+                configModule = yield Promise.resolve().then(() => require(configModulePath));
+                configModuleClass = new configModule.Repository();
                 configModuleClass.setContainer(container);
-                /**
-                 * Init module
-                 */
-                yield configModuleClass.init();
+                configModuleClass.init();
             }
-            console.groupEnd();
-            return module;
         });
     }
     /**
@@ -126,21 +174,21 @@ class Application {
         return __awaiter(this, void 0, void 0, function* () {
             console.groupCollapsed(`Load Widget ${widget.getName()}`);
             let path;
-            if (widget.getWc() && customElements.get(widget.getWc()) === undefined) {
-                path = `${this.basePath}module/${widget.getSrc().getPath()}`;
+            if (widget.getWebComponent() && customElements.get(widget.getWebComponent().getName()) === undefined) {
+                path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
                 try {
                     yield Promise.resolve().then(() => require(path));
-                    console.log(`Load entry point module "${widget.getWc()}" store in ${path}`, widget);
+                    console.log(`Load entry point module "${widget.getWebComponent().getName()}" store in ${path}`, widget);
                 }
                 catch (err) {
                     console.error(`Failed to load entry point module store in ${path}`, err);
                 }
             }
-            if (widget.getWcData() && customElements.get(widget.getWcData()) === undefined) {
-                path = `${this.basePath}module/${widget.getSrcData().getPath()}`;
+            if (widget.getWebComponentData() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
+                path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
                 try {
                     yield Promise.resolve().then(() => require(path));
-                    console.log(`Load entry point module "${widget.getWcData()}" store in ${path}`, widget);
+                    console.log(`Load entry point module "${widget.getWebComponentData().getName()}" store in ${path}`, widget);
                 }
                 catch (err) {
                     console.error(`Failed to load entry point module store in ${path}`, err);
@@ -148,97 +196,6 @@ class Application {
             }
             console.groupEnd();
         });
-    }
-    /**
-     * @return {string}
-     */
-    getBasePath() {
-        return this.basePath;
-    }
-    /**
-     * @param {string} basePath
-     * @return {Application}
-     */
-    setBasePath(basePath) {
-        this.basePath = basePath;
-        return this;
-    }
-    /**
-     * @param {Widget} widget
-     * @return {Application}
-     */
-    addWidget(widget) {
-        this.widgets.push(widget);
-        return this;
-    }
-    /**
-     * @param {string} nameWs
-     * @return {Application}
-     */
-    removeWidget(nameWs) {
-        for (let cont = 0; this.widgets.length > cont; cont++) {
-            if (this.widgets[cont].getWc() === nameWs) {
-                this.widgets.splice(cont, 1);
-                break;
-            }
-        }
-        return this;
-    }
-    /**
-     * @param {Array<Widget>} widgets
-     * @return {this}
-     */
-    setWidgets(widgets) {
-        this.widgets = widgets;
-        return this;
-    }
-    /**
-     * @return {Array<Widget>}
-     */
-    getWidgets() {
-        return this.widgets;
-    }
-    /**
-     * @return {string}
-     */
-    getResourcePath() {
-        return this.resourcePath;
-    }
-    /**
-     * @param {string} resourcePath
-     * @return {Application}
-     */
-    setResourcePath(resourcePath) {
-        this.resourcePath = resourcePath;
-        return this;
-    }
-    /**
-     * @return {string}
-     */
-    getModulePath() {
-        return this.modulePath;
-    }
-    /**
-     * @param {string} modulePath
-     * @return {Application}
-     */
-    setModulePath(modulePath) {
-        this.modulePath = modulePath;
-        return this;
-    }
-    /**
-     * @return {string}
-     */
-    getStoragePath() {
-        return this.storagePath;
-    }
-    /**
-     * @param {string} storagePath
-     * @return {Application}
-     */
-    setStoragePath(storagePath) {
-        this.storagePath = storagePath;
-        return this;
     }
     /**
      * @param {Module} module
@@ -268,70 +225,95 @@ class Application {
         return this;
     }
     /**
-     * @param {EventManagerInterface} eventManager
-     * @return {this}
+     * @param {WidgetInterface} widget
+     * @return {Application}
      */
-    setEventManager(eventManager) {
-        this.eventManager = eventManager;
+    addWidget(widget) {
+        this.widgets.push(widget);
         return this;
     }
     /**
-     * @return {EventManagerInterface}
+     * @param {string} nameWs
+     * @return {Application}
      */
-    getEventManager() {
-        return this.eventManager;
+    removeWidget(nameWs) {
+        for (let cont = 0; this.widgets.length > cont; cont++) {
+            if (this.widgets[cont].getWebComponent().getName() === nameWs) {
+                this.widgets.splice(cont, 1);
+                break;
+            }
+        }
+        return this;
     }
     /**
-     *
-     * @param env
+     * @param {Array<WidgetInterface>} widgets
+     * @return {this}
      */
-    static getHomeApplicationDataDir(env) {
-        if (!env.HOME) {
-            throw 'Dont set home directory in environment object';
-        }
-        if (!env.npm_package_name) {
-            throw 'Dont set the name in the package json';
-        }
-        let directory;
-        const os = require('os');
-        const path = require('path');
-        switch (os.type()) {
-            case 'Linux':
-                directory = `${env.HOME}${path.sep}.config${path.sep}${env.npm_package_name}`;
-                break;
-            case 'Darwin':
-                directory = `${env.HOME}${path.sep}Library${path.sep}Application Support${path.sep}${env.npm_package_name}`;
-                break;
-            case 'Window_NT':
-                directory = `${env.HOME}${path.sep}AppData${path.sep}Local${path.sep}${env.npm_package_name}`;
-                break;
-        }
-        return directory;
+    setWidgets(widgets) {
+        this.widgets = widgets;
+        return this;
     }
     /**
-     * @param {string} dataPath
+     * @return {Array<Widget>}
      */
-    static createDirectories(dataPath) {
-        const fs = require('fs');
-        const fse = require('fs-extra');
-        const path = require('path');
-        try {
-            if (!fs.existsSync(`${dataPath}${path.sep}storage`)) {
-                fse.mkdirpSync(`${dataPath}${path.sep}storage`);
-            }
-            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}resource`)) {
-                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}resource`);
-            }
-            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}archive`)) {
-                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}archive`);
-            }
-            if (!fs.existsSync(`${dataPath}${path.sep}storage${path.sep}tmp`)) {
-                fse.mkdirpSync(`${dataPath}${path.sep}storage${path.sep}tmp`);
-            }
-        }
-        catch (err) {
-            console.error(err);
-        }
+    getWidgets() {
+        return this.widgets;
+    }
+    /**
+     * @param {string} resourcePath
+     * @return {Application}
+     */
+    setResourcePath(resourcePath) {
+        this.resourcePath = resourcePath;
+        return this;
+    }
+    /**
+     * @return string
+     */
+    getResourcePath() {
+        return this.resourcePath;
+    }
+    /**
+     * @param {string} modulePath
+     * @return {Application}
+     */
+    setModulePath(modulePath) {
+        this.modulePath = modulePath;
+        return this;
+    }
+    /**
+     * @return string
+     */
+    getModulePath() {
+        return this.modulePath;
+    }
+    /**
+     * @param {string} storagePath
+     * @return {Application}
+     */
+    setStoragePath(storagePath) {
+        this.storagePath = storagePath;
+        return this;
+    }
+    /**
+     * @return string
+     */
+    getStoragePath() {
+        return this.storagePath;
+    }
+    /**
+     * @return {string}
+     */
+    getBasePath() {
+        return this.basePath;
+    }
+    /**
+     * @param {string} basePath
+     * @return {Application}
+     */
+    setBasePath(basePath) {
+        this.basePath = basePath;
+        return this;
     }
 }
 exports.Application = Application;

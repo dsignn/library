@@ -146,8 +146,8 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
 
         let hydrator = this.getHydratorFromObject(data);
 
-        if (!hydrator && data.type) {
-            hydrator = this.getHydratorFromType(data.type);
+        if (!hydrator && data[this.type]) {
+            hydrator = this.getHydratorFromType(data[this.type]);
         }
 
         if (!hydrator) {

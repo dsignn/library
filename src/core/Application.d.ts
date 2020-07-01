@@ -1,12 +1,12 @@
 import { ContainerInterface } from "../container/index";
 import { Module } from "./module/index";
-import { EventManagerAwareInterface, EventManagerInterface } from "../event/index";
-import { Widget } from "./widget";
+import { EventManagerAware, EventManagerAwareInterface } from "../event/index";
+import { WidgetInterface } from "./widget/WidgetInterface";
 /**
  * @class
  * Application
  */
-export declare class Application implements EventManagerAwareInterface {
+export declare class Application extends EventManagerAware implements EventManagerAwareInterface {
     /**
      * @type {string}
      */
@@ -25,8 +25,6 @@ export declare class Application implements EventManagerAwareInterface {
     private storagePath;
     /**
      * @type {string}
-     * @deprecated
-     * TODO remove and use only storage path to compute path
      */
     private resourcePath;
     /**
@@ -42,14 +40,6 @@ export declare class Application implements EventManagerAwareInterface {
      */
     private widgets;
     /**
-     * @type {EventManager}
-     */
-    private eventManager;
-    /**
-     * @type {path}
-     */
-    private path;
-    /**
      * @param {Array<Module>} modules
      * @param {ContainerInterface} container
      */
@@ -62,66 +52,32 @@ export declare class Application implements EventManagerAwareInterface {
      */
     private _loadModule;
     /**
+     * @param {Module} module
+     * @private
+     */
+    _importEntryPoint(module: any): Promise<void>;
+    /**
+     * @param {Module} module
+     * @private
+     */
+    _importAutoLoadClass(module: any): Promise<void>;
+    /**
+     * @param {Module} module
+     * @private
+     */
+    _importAutoLoadWs(module: any): Promise<void>;
+    /**
+     * @param {Module} module
+     * @param {Container} container
+     * @private
+     */
+    _importConfigModule(module: any, container: any): Promise<void>;
+    /**
      *
      * @param {Widget} widget
      * @return {Promise<void>}
      */
     private loadWidget;
-    /**
-     * @return {string}
-     */
-    getBasePath(): string;
-    /**
-     * @param {string} basePath
-     * @return {Application}
-     */
-    setBasePath(basePath: string): this;
-    /**
-     * @param {Widget} widget
-     * @return {Application}
-     */
-    addWidget(widget: Widget): this;
-    /**
-     * @param {string} nameWs
-     * @return {Application}
-     */
-    removeWidget(nameWs: string): this;
-    /**
-     * @param {Array<Widget>} widgets
-     * @return {this}
-     */
-    setWidgets(widgets: any): this;
-    /**
-     * @return {Array<Widget>}
-     */
-    getWidgets(): Widget[];
-    /**
-     * @return {string}
-     */
-    getResourcePath(): string;
-    /**
-     * @param {string} resourcePath
-     * @return {Application}
-     */
-    setResourcePath(resourcePath: string): this;
-    /**
-     * @return {string}
-     */
-    getModulePath(): string;
-    /**
-     * @param {string} modulePath
-     * @return {Application}
-     */
-    setModulePath(modulePath: string): this;
-    /**
-     * @return {string}
-     */
-    getStoragePath(): string;
-    /**
-     * @param {string} storagePath
-     * @return {Application}
-     */
-    setStoragePath(storagePath: string): this;
     /**
      * @param {Module} module
      * @return {Application}
@@ -137,21 +93,58 @@ export declare class Application implements EventManagerAwareInterface {
      */
     removeModule(id: string): this;
     /**
-     * @param {EventManagerInterface} eventManager
+     * @param {WidgetInterface} widget
+     * @return {Application}
+     */
+    addWidget(widget: WidgetInterface): this;
+    /**
+     * @param {string} nameWs
+     * @return {Application}
+     */
+    removeWidget(nameWs: string): this;
+    /**
+     * @param {Array<WidgetInterface>} widgets
      * @return {this}
      */
-    setEventManager(eventManager: EventManagerInterface): this;
+    setWidgets(widgets: Array<WidgetInterface>): this;
     /**
-     * @return {EventManagerInterface}
+     * @return {Array<Widget>}
      */
-    getEventManager(): EventManagerInterface;
+    getWidgets(): WidgetInterface[];
     /**
-     *
-     * @param env
+     * @param {string} resourcePath
+     * @return {Application}
      */
-    static getHomeApplicationDataDir(env: any): any;
+    setResourcePath(resourcePath: string): this;
     /**
-     * @param {string} dataPath
+     * @return string
      */
-    static createDirectories(dataPath: string): void;
+    getResourcePath(): string;
+    /**
+     * @param {string} modulePath
+     * @return {Application}
+     */
+    setModulePath(modulePath: string): this;
+    /**
+     * @return string
+     */
+    getModulePath(): string;
+    /**
+     * @param {string} storagePath
+     * @return {Application}
+     */
+    setStoragePath(storagePath: string): this;
+    /**
+     * @return string
+     */
+    getStoragePath(): string;
+    /**
+     * @return {string}
+     */
+    getBasePath(): string;
+    /**
+     * @param {string} basePath
+     * @return {Application}
+     */
+    setBasePath(basePath: string): this;
 }

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Widget = void 0;
 /**
- * @class Widget
- * @deprecated
+ * @class
+ * Widget
  */
 class Widget {
     constructor() {
@@ -16,59 +16,108 @@ class Widget {
          */
         this.description = null;
         /**
-         * Name of the web component of the widget
-         *
          * @type {string}
          */
-        this.wc = null;
-        /**
-         * Name of the web component of the data injector
-         *
-         * @type {string}
-         */
-        this.wcData = null;
+        this.label = null;
         /**
          * @type {string}
          */
-        this.dataProperty = null;
+        this.property = null;
         /**
          * @type {string}
          */
-        this.dataLabel = null;
-        /**
-         * @type {string}
-         */
-        this.dataRequired = false;
+        this.require = false;
     }
     /**
-     * @return {Path}
-     */
-    getSrcData() {
-        return this.srcData;
-    }
-    /**
-     * @return {Path}
-     */
-    getSrc() {
-        return this.src;
-    }
-    /**
-     * @return {string}
+     * @inheritDoc
      */
     getName() {
         return this.name;
     }
     /**
-     * @return {string}
+     * @inheritDoc
      */
-    getWc() {
-        return this.wc;
+    setName(name) {
+        this.name = name;
+        return this;
     }
     /**
-     * @return {string}
+     * @inheritDoc
      */
-    getWcData() {
-        return this.wcData;
+    getDescription() {
+        return this.description;
+    }
+    /**
+     * @inheritDoc
+     */
+    setDescription(description) {
+        this.description = description;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getLabel() {
+        return this.label;
+    }
+    /**
+     * @inheritDoc
+     */
+    setLabel(label) {
+        this.label = label;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getProperty() {
+        return this.property;
+    }
+    /**
+     * @inheritDoc
+     */
+    setProperty(property) {
+        this.property = property;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    isRequire() {
+        return this.require;
+    }
+    /**
+     * @inheritDoc
+     */
+    setRequire(require) {
+        this.require = require;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getWebComponent() {
+        return this.webComponent;
+    }
+    /**
+     * @inheritDoc
+     */
+    setWebComponent(webComponent) {
+        this.webComponent = webComponent;
+        return this;
+    }
+    /**
+     * @inheritDoc
+     */
+    getWebComponentData() {
+        return this.webComponentData;
+    }
+    /**
+     * @inheritDoc
+     */
+    setWebComponentData(webComponentData) {
+        this.webComponentData = webComponentData;
+        return this;
     }
 }
 exports.Widget = Widget;

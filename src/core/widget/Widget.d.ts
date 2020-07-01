@@ -1,9 +1,10 @@
-import { PathInterface } from "../../path/index";
+import { ComponentInterface } from "../ComponentInterface";
+import { WidgetInterface } from "./WidgetInterface";
 /**
- * @class Widget
- * @deprecated
+ * @class
+ * Widget
  */
-export declare class Widget {
+export declare class Widget implements WidgetInterface {
     /**
      * @type {string}
      */
@@ -13,56 +14,79 @@ export declare class Widget {
      */
     private description;
     /**
-     * Name of the web component of the widget
-     *
      * @type {string}
      */
-    private wc;
-    /**
-     * Name of the web component of the data injector
-     *
-     * @type {string}
-     */
-    private wcData;
+    private label;
     /**
      * @type {string}
      */
-    private dataProperty;
+    private property;
     /**
      * @type {string}
      */
-    private dataLabel;
+    private require;
     /**
-     * @type {string}
+     * @type {ComponentInterface}
      */
-    private dataRequired;
+    private webComponent;
     /**
-     * @type {PathInterface
-     * }
+     * @type {ComponentInterface}
      */
-    private src;
+    private webComponentData;
     /**
-     * @type {Path}
-     */
-    private srcData;
-    /**
-     * @return {Path}
-     */
-    getSrcData(): PathInterface;
-    /**
-     * @return {Path}
-     */
-    getSrc(): PathInterface;
-    /**
-     * @return {string}
+     * @inheritDoc
      */
     getName(): string;
     /**
-     * @return {string}
+     * @inheritDoc
      */
-    getWc(): string;
+    setName(name: string): WidgetInterface;
     /**
-     * @return {string}
+     * @inheritDoc
      */
-    getWcData(): string;
+    getDescription(): string;
+    /**
+     * @inheritDoc
+     */
+    setDescription(description: string): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    getLabel(): string;
+    /**
+     * @inheritDoc
+     */
+    setLabel(label: string): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    getProperty(): string;
+    /**
+     * @inheritDoc
+     */
+    setProperty(property: string): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    isRequire(): boolean;
+    /**
+     * @inheritDoc
+     */
+    setRequire(require: boolean): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    getWebComponent(): ComponentInterface;
+    /**
+     * @inheritDoc
+     */
+    setWebComponent(webComponent: ComponentInterface): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    getWebComponentData(): ComponentInterface;
+    /**
+     * @inheritDoc
+     */
+    setWebComponentData(webComponentData: ComponentInterface): WidgetInterface;
 }
