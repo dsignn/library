@@ -7,7 +7,7 @@ export declare class AggregatePropertyHydrator extends AbstractHydrator implemen
     /**
      * @type string
      */
-    protected type: string;
+    protected types: Array<string>;
     /**
      * @type {object}
      */
@@ -17,7 +17,7 @@ export declare class AggregatePropertyHydrator extends AbstractHydrator implemen
      * @param {object} valueStrategies
      * @param {object} propertyStrategies
      */
-    constructor(type: string, valueStrategies?: object, propertyStrategies?: object);
+    constructor(type: Array<string>, valueStrategies?: object, propertyStrategies?: object);
     /**
      * @param {AbstractHydrator} hydrator
      * @param {Array<string>} map
@@ -53,4 +53,14 @@ export declare class AggregatePropertyHydrator extends AbstractHydrator implemen
     hydrate(data: {
         type?: string;
     }, object?: object): any;
+    /**
+     * @param {Object} data
+     * @return boolean
+     */
+    hasTypeInData(data: any): boolean;
+    /**
+     * @param {Object} data
+     * @return {string|null}
+     */
+    getTypeInData(data: any): any;
 }

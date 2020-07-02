@@ -18,9 +18,9 @@ class AggregatePropertyHydrator extends AbstractHydrator_1.AbstractHydrator {
          */
         this.hydratorMap = {};
         /**
-         * @type {object}
+         * @type Array<string>
          */
-        this.type = type;
+        this.types = type;
         /**
          * @type {object}
          */
@@ -119,8 +119,8 @@ class AggregatePropertyHydrator extends AbstractHydrator_1.AbstractHydrator {
      */
     extract(data) {
         let hydrator = this.getHydratorFromObject(data);
-        if (!hydrator && data[this.type]) {
-            hydrator = this.getHydratorFromType(data[this.type]);
+        if (!hydrator && this.hasTypeInData(data)) {
+            hydrator = this.getHydratorFromType(this.getTypeInData(data));
         }
         if (!hydrator) {
             throw new Error("Hydrator not found");
@@ -139,13 +139,32 @@ class AggregatePropertyHydrator extends AbstractHydrator_1.AbstractHydrator {
         if (!hydrator && !object) {
             hydrator = this.getHydratorFromObject(this.getTemplateObjectHydration());
         }
-        if (!hydrator && data[this.type]) {
-            hydrator = this.getHydratorFromType(data[this.type]);
+        if (!hydrator && this.hasTypeInData(data)) {
+            hydrator = this.getHydratorFromType(this.getTypeInData(data));
         }
         if (!hydrator) {
             throw new Error("Hydrator not found");
         }
         return hydrator.hydrate(data, object);
+    }
+    /**
+     * @param {Object} data
+     * @return boolean
+     */
+    hasTypeInData(data) {
+        return !!this.getTypeInData(data);
+    }
+    /**
+     * @param {Object} data
+     * @return {string|null}
+     */
+    getTypeInData(data) {
+        for (let element of this.types) {
+            if (!!data[element]) {
+                return data[element];
+            }
+        }
+        return null;
     }
 }
 exports.AggregatePropertyHydrator = AggregatePropertyHydrator;

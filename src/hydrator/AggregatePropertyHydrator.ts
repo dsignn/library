@@ -9,24 +9,25 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
     /**
      * @type string
      */
-    protected type:string;
+    protected types: Array<string>;
 
     /**
      * @type {object}
      */
-    protected hydratorMap:object = {};
+    protected hydratorMap: object = {};
 
     /**
      * @param {string} type
      * @param {object} valueStrategies
      * @param {object} propertyStrategies
      */
-    constructor(type: string, valueStrategies?:object, propertyStrategies?:object) {
+    constructor(type: Array<string>, valueStrategies?:object, propertyStrategies?:object) {
+
         super();
         /**
-         * @type {object}
+         * @type Array<string>
          */
-        this.type = type;
+        this.types = type;
 
         /**
          * @type {object}
@@ -146,8 +147,8 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
 
         let hydrator = this.getHydratorFromObject(data);
 
-        if (!hydrator && data[this.type]) {
-            hydrator = this.getHydratorFromType(data[this.type]);
+        if (!hydrator && this.hasTypeInData(data)) {
+            hydrator = this.getHydratorFromType(this.getTypeInData(data));
         }
 
         if (!hydrator) {
@@ -173,8 +174,8 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
             hydrator = this.getHydratorFromObject(this.getTemplateObjectHydration());
         }
 
-        if (!hydrator && data[this.type]) {
-            hydrator = this.getHydratorFromType(data[this.type]);
+        if (!hydrator && this.hasTypeInData(data)) {
+            hydrator = this.getHydratorFromType(this.getTypeInData(data));
         }
 
         if (!hydrator) {
@@ -182,5 +183,26 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
         }
 
         return hydrator.hydrate(data, object);
+    }
+
+    /**
+     * @param {Object} data
+     * @return boolean
+     */
+    hasTypeInData(data) {
+        return !!this.getTypeInData(data);
+    }
+
+    /**
+     * @param {Object} data
+     * @return {string|null}
+     */
+    getTypeInData(data) {
+        for (let element of this.types) {
+            if (!!data[element]) {
+                return data[element];
+            }
+        }
+        return null;
     }
 }
