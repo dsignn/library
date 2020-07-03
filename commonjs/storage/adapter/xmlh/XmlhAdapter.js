@@ -113,7 +113,7 @@ class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('request ok', request.status);
+                console.log('GET entity request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -139,7 +139,7 @@ class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('request ok', request.status);
+                console.log('GET request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -168,7 +168,7 @@ class XmlhAdapter {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
                 let decodeResponse = this.dataDecode.dataDecode(request.response);
-                console.log('APGINATe ok', decodeResponse);
+                console.log('PAGINATE request', decodeResponse);
                 // TODO add adapter for pagination
                 resolve(new pagination_1.Pagination(decodeResponse['data'], decodeResponse['meta']['page'], decodeResponse['meta']['item-per-page'], decodeResponse['meta']['total-count']));
             });
@@ -184,7 +184,27 @@ class XmlhAdapter {
      * @inheritDoc
      */
     remove(data) {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            let method = 'DELETE';
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method), true);
+            // Append headers
+            this._appendHeaders(request, method);
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response));
+                }
+                console.log('POST request', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+            });
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+            });
+            request.send();
+        });
     }
     /**
      * @inheritDoc
@@ -201,7 +221,7 @@ class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('request ok', request.status);
+                console.log('POST request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -216,7 +236,27 @@ class XmlhAdapter {
      * @inheritDoc
      */
     update(data) {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+            let method = 'PUT';
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method), true);
+            // Append headers
+            this._appendHeaders(request, method);
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response));
+                }
+                console.log('PUT request', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+            });
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+            });
+            request.send(this.dataEncode.dataEncode(data));
+        });
     }
 }
 exports.XmlhAdapter = XmlhAdapter;

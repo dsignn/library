@@ -164,7 +164,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response))
                 }
-                console.log('request ok', request.status);
+                console.log('GET entity request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
 
             });
@@ -202,7 +202,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response))
                 }
-                console.log('request ok', request.status);
+                console.log('GET request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
 
             });
@@ -245,7 +245,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
                 }
 
                 let decodeResponse = this.dataDecode.dataDecode(request.response);
-                console.log('APGINATe ok', decodeResponse);
+                console.log('PAGINATE request', decodeResponse);
 
                 // TODO add adapter for pagination
                 resolve(new Pagination(decodeResponse['data'],
@@ -271,7 +271,39 @@ export class XmlhAdapter implements StorageAdapterInterface {
      * @inheritDoc
      */
     remove(data: any): Promise<any> {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+
+            let method = 'DELETE';
+
+            request.open(
+                method,
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method),
+                true
+            );
+
+            // Append headers
+            this._appendHeaders(request, method);
+
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response))
+                }
+                console.log('POST request', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+
+            });
+
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+
+            });
+
+            request.send();
+        });
     }
 
     /**
@@ -297,7 +329,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response))
                 }
-                console.log('request ok', request.status);
+                console.log('POST request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
 
             });
@@ -317,6 +349,38 @@ export class XmlhAdapter implements StorageAdapterInterface {
      * @inheritDoc
      */
     update(data: any): Promise<any> {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+
+            let method = 'PUT';
+
+            request.open(
+                method,
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method),
+                true
+            );
+
+            // Append headers
+            this._appendHeaders(request, method);
+
+            // Result handler
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+                    return reject(this.dataDecode.dataDecode(request.response))
+                }
+                console.log('PUT request', request.status);
+                resolve(this.dataDecode.dataDecode(request.response));
+
+            });
+
+            // Error handler
+            request.addEventListener('error', () => {
+                console.log('error', request.status);
+                reject(request.response);
+
+            });
+
+            request.send(this.dataEncode.dataEncode(data));
+        });
     }
 }
