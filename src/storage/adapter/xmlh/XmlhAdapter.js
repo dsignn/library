@@ -196,8 +196,8 @@ export class XmlhAdapter {
                 if (request.status >= 300) {
                     return reject(this.dataDecode.dataDecode(request.response));
                 }
-                console.log('POST request', request.status);
-                resolve(this.dataDecode.dataDecode(request.response));
+                console.log('DELETE request', request.status);
+                resolve(request.response);
             });
             // Error handler
             request.addEventListener('error', () => {
