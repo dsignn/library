@@ -187,7 +187,11 @@ class XmlhAdapter {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'DELETE';
-            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method), true);
+            let id = data['id'] ? data['id'] : null;
+            if (!id) {
+                throw 'id not found';
+            }
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method, id), true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler

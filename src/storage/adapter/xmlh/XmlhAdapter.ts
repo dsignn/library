@@ -4,6 +4,7 @@ import {DataEncodeInterface} from "../../../data-transform/DataEncodeInterface";
 import {UrlBuilderInterface} from "./url/UrlBuilderInterface";
 import {DefaultBuilder} from "./url/DefaultBuilder";
 import {Pagination} from "../../../pagination";
+import {throws} from "assert";
 
 /**
  * @class XmlhAdapter
@@ -275,10 +276,14 @@ export class XmlhAdapter implements StorageAdapterInterface {
             let request = new XMLHttpRequest();
 
             let method = 'DELETE';
+            let id = data['id'] ? data['id'] : null;
+            if (!id) {
+                throw 'id not found'
+            }
 
             request.open(
                 method,
-                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method),
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method, id),
                 true
             );
 
