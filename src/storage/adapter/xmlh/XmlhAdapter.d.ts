@@ -6,6 +6,7 @@ import { UrlBuilderInterface } from "./url/UrlBuilderInterface";
  * @class XmlhAdapter
  */
 export declare class XmlhAdapter implements StorageAdapterInterface {
+    protected errorStatus: Object;
     /**
      * @type string
      */
