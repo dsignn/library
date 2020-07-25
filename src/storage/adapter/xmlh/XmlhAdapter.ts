@@ -241,7 +241,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method)}${this._buildQueryString(filter)}`,
+                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method) + '/all'}${this._buildQueryString(filter)}`,
                 true
             );
             // Append headers
@@ -255,7 +255,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
                         message: this.errorStatus[request.status]
                     });
                 }
-                console.log('GET request', request.status);
+                console.log('GET ALL request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
 
             });

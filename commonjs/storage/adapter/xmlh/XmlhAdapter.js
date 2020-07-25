@@ -180,7 +180,7 @@ class XmlhAdapter {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'GET';
-            request.open(method, `${this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method)}${this._buildQueryString(filter)}`, true);
+            request.open(method, `${this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method) + '/all'}${this._buildQueryString(filter)}`, true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler
@@ -191,7 +191,7 @@ class XmlhAdapter {
                         message: this.errorStatus[request.status]
                     });
                 }
-                console.log('GET request', request.status);
+                console.log('GET ALL request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
