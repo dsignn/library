@@ -278,10 +278,17 @@ export class XmlhAdapter {
             // Result handler
             request.addEventListener('load', () => {
                 if (request.status >= 300) {
-                    return reject({
+                    let response = {
                         status: request.status,
                         message: this.errorStatus[request.status]
-                    });
+                    };
+                    if (request.status === 422 && request.response) {
+                        let errorResponse = this.dataDecode.dataDecode(request.response);
+                        if (errorResponse['errors']) {
+                            response['errors'] = errorResponse['errors'];
+                        }
+                    }
+                    return reject(response);
                 }
                 console.log('POST request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
@@ -307,10 +314,17 @@ export class XmlhAdapter {
             // Result handler
             request.addEventListener('load', () => {
                 if (request.status >= 300) {
-                    return reject({
+                    let response = {
                         status: request.status,
                         message: this.errorStatus[request.status]
-                    });
+                    };
+                    if (request.status === 422 && request.response) {
+                        let errorResponse = this.dataDecode.dataDecode(request.response);
+                        if (errorResponse['errors']) {
+                            response['errors'] = errorResponse['errors'];
+                        }
+                    }
+                    return reject(response);
                 }
                 console.log('PUT request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
