@@ -159,7 +159,6 @@ export class XmlhAdapter {
                         message: this.errorStatus[request.status]
                     });
                 }
-                console.log('GET entity request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -188,7 +187,6 @@ export class XmlhAdapter {
                         message: this.errorStatus[request.status]
                     });
                 }
-                console.log('GET ALL request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -220,8 +218,6 @@ export class XmlhAdapter {
                     });
                 }
                 let decodeResponse = this.dataDecode.dataDecode(request.response);
-                console.log('PAGINATE request', decodeResponse);
-                // TODO add adapter for pagination
                 resolve(new Pagination(decodeResponse['data'], decodeResponse['meta']['page'], decodeResponse['meta']['item-per-page'], decodeResponse['meta']['total-count']));
             });
             // Error handler
@@ -254,7 +250,6 @@ export class XmlhAdapter {
                         message: this.errorStatus[request.status]
                     });
                 }
-                console.log('DELETE request', request.status);
                 resolve(request.response);
             });
             // Error handler
@@ -290,7 +285,6 @@ export class XmlhAdapter {
                     }
                     return reject(response);
                 }
-                console.log('POST request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
@@ -326,7 +320,6 @@ export class XmlhAdapter {
                     }
                     return reject(response);
                 }
-                console.log('PUT request', request.status);
                 resolve(this.dataDecode.dataDecode(request.response));
             });
             // Error handler
