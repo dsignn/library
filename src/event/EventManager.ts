@@ -40,7 +40,7 @@ export class EventManager implements EventManagerInterface {
         if (this.listeners[evtName] !== undefined) {
             let event = new Event(evtName, params);
             for (let cont = 0; this.listeners[evtName].length > cont; cont++) {
-console.log(typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function');
+
                 switch (true) {
                     case typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function':
                         this.listeners[evtName][cont].execute(event);
