@@ -1,5 +1,4 @@
 import { Event } from "./Event";
-import { Listener } from "./Listener";
 /**
  * @class
  * EventManagerInterface
@@ -32,8 +31,9 @@ export class EventManager {
         if (this.listeners[evtName] !== undefined) {
             let event = new Event(evtName, params);
             for (let cont = 0; this.listeners[evtName].length > cont; cont++) {
+                console.log(typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function');
                 switch (true) {
-                    case this.listeners[evtName][cont] instanceof Listener === true:
+                    case typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function':
                         this.listeners[evtName][cont].execute(event);
                         break;
                     default:

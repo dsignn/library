@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventManager = void 0;
 const Event_1 = require("./Event");
-const Listener_1 = require("./Listener");
 /**
  * @class
  * EventManagerInterface
@@ -35,8 +34,9 @@ class EventManager {
         if (this.listeners[evtName] !== undefined) {
             let event = new Event_1.Event(evtName, params);
             for (let cont = 0; this.listeners[evtName].length > cont; cont++) {
+                console.log(typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function');
                 switch (true) {
-                    case this.listeners[evtName][cont] instanceof Listener_1.Listener === true:
+                    case typeof this.listeners[evtName][cont] === 'object' && typeof this.listeners[evtName][cont]['execute'] == 'function':
                         this.listeners[evtName][cont].execute(event);
                         break;
                     default:
