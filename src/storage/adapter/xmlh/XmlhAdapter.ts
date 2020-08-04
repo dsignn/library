@@ -429,7 +429,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method),
+                this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method, data.id),
                 true
             );
 

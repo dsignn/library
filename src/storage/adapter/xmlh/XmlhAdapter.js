@@ -302,7 +302,7 @@ export class XmlhAdapter {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
             let method = 'PUT';
-            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method), true);
+            request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method, data.id), true);
             // Append headers
             this._appendHeaders(request, method);
             // Result handler
