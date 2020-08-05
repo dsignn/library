@@ -28,6 +28,10 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
      */
     protected headers: Object;
     /**
+     * @type string
+     */
+    protected updateMethod: string;
+    /**
      * @type UrlBuilderInterface
      */
     protected urlBuilder: UrlBuilderInterface;
@@ -67,6 +71,10 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
      * @inheritDoc
      */
     getNameCollection(): string;
+    /**
+     * @param {string} method
+     */
+    setUpdateMethod(method: any): this;
     /**
      * @inheritDoc
      */

@@ -83,6 +83,11 @@ export class XmlhAdapter implements StorageAdapterInterface {
     protected headers: Object = {};
 
     /**
+     * @type string
+     */
+    protected updateMethod = 'PUT';
+
+    /**
      * @type UrlBuilderInterface
      */
     protected urlBuilder: UrlBuilderInterface = new DefaultBuilder();
@@ -187,6 +192,13 @@ export class XmlhAdapter implements StorageAdapterInterface {
         return this.nameResource;
     }
 
+    /**
+     * @param {string} method
+     */
+    setUpdateMethod(method) {
+        this.updateMethod = method;
+        return this;
+    }
 
     /**
      * @inheritDoc
@@ -425,7 +437,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
 
-            let method = 'PUT';
+            let method = this.updateMethod;
 
             request.open(
                 method,

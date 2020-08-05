@@ -65,6 +65,10 @@ class XmlhAdapter {
          */
         this.headers = {};
         /**
+         * @type string
+         */
+        this.updateMethod = 'PUT';
+        /**
          * @type UrlBuilderInterface
          */
         this.urlBuilder = new DefaultBuilder_1.DefaultBuilder();
@@ -143,6 +147,13 @@ class XmlhAdapter {
      */
     getNameCollection() {
         return this.nameResource;
+    }
+    /**
+     * @param {string} method
+     */
+    setUpdateMethod(method) {
+        this.updateMethod = method;
+        return this;
     }
     /**
      * @inheritDoc
@@ -304,7 +315,7 @@ class XmlhAdapter {
     update(data) {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
-            let method = 'PUT';
+            let method = this.updateMethod;
             request.open(method, this.urlBuilder.buildUrl(this.rootPath, this.getNameCollection(), method, data.id), true);
             // Append headers
             this._appendHeaders(request, method);
