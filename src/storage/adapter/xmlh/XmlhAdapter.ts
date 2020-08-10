@@ -253,7 +253,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             request.open(
                 method,
-                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method) + '/all'}${this._buildQueryString(filter)}`,
+                `${this.urlBuilder.buildUrl(this.rootPath,  this.getNameCollection(), method, '/all')}${this._buildQueryString(filter)}`,
                 true
             );
             // Append headers
