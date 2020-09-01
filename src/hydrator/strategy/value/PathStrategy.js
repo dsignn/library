@@ -1,5 +1,5 @@
 import { PropertyHydrator } from "../../PropertyHydrator";
-import { PathNode } from "../../../path/PathNode";
+import { PathNode } from "../../../path";
 /**
  *
  */

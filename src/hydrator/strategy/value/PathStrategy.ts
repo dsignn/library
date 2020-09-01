@@ -1,7 +1,7 @@
 import {ValueStrategyInteface} from "./ValueStrategyInteface";
 import {PropertyHydrator} from "../../PropertyHydrator";
 import {AbstractHydrator} from "../../AbstractHydrator";
-import {PathNode} from "../../../path/PathNode";
+import {PathNode} from "../../../path";
 
 /**
  *
