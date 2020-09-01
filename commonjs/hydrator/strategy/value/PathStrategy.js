@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PathStrategy = void 0;
 const PropertyHydrator_1 = require("../../PropertyHydrator");
-const Path_1 = require("../../../path/Path");
+const PathNode_1 = require("../../../path/PathNode");
 /**
  *
  */
@@ -12,7 +12,7 @@ class PathStrategy {
          * @type {PropertyHydrator}
          * @private
          */
-        this._hydrator = new PropertyHydrator_1.PropertyHydrator(new Path_1.Path());
+        this._hydrator = new PropertyHydrator_1.PropertyHydrator(new PathNode_1.PathNode());
     }
     /**
      * @inheritDoc
@@ -28,7 +28,7 @@ class PathStrategy {
         let computeData = data;
         switch (true) {
             case typeof data === 'string':
-                computeData = new Path_1.Path();
+                computeData = new PathNode_1.PathNode();
                 let nameFile = data.replace(/^.*[\\\/]/, '');
                 computeData.setNameFile(this._getNameFile(nameFile));
                 computeData.setExtension(this._getExtensionFile(nameFile));

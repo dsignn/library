@@ -1,7 +1,7 @@
 import {ValueStrategyInteface} from "./ValueStrategyInteface";
 import {PropertyHydrator} from "../../PropertyHydrator";
 import {AbstractHydrator} from "../../AbstractHydrator";
-import {Path} from "../../../path/Path";
+import {PathNode} from "../../../path/PathNode";
 
 /**
  *
@@ -12,7 +12,7 @@ export class PathStrategy implements ValueStrategyInteface {
      * @type {PropertyHydrator}
      * @private
      */
-    private _hydrator: AbstractHydrator = new PropertyHydrator(new Path());
+    private _hydrator: AbstractHydrator = new PropertyHydrator(new PathNode());
 
     /**
      * @inheritDoc
@@ -29,7 +29,7 @@ export class PathStrategy implements ValueStrategyInteface {
         let computeData = data;
         switch (true) {
             case typeof data === 'string':
-                computeData = new Path();
+                computeData = new PathNode();
                 let nameFile = data.replace(/^.*[\\\/]/, '');
                 computeData.setNameFile(this._getNameFile(nameFile));
                 computeData.setExtension(this._getExtensionFile(nameFile));

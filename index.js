@@ -50,7 +50,6 @@ module.exports = {
       P2p: require('./commonjs/net/P2p').P2p
     },
     path : {
-        Path : require('./commonjs/path/Path').Path,
         PathGeneric : require('./commonjs/path/PathGeneric').PathGeneric,
         PathNode : require('./commonjs/path/PathNode').PathNode,
     },
@@ -68,6 +67,7 @@ module.exports = {
     },
     sender : {
         ProxyIpc : require('./commonjs/sender/ProxyIpc').ProxyIpc,
+        IpcWrapper : require('./commonjs/sender/IpcWrapper').IpcWrapper,
         AbstractSender : require('./commonjs/sender/AbstractSender').AbstractSender
     },
     storage : {

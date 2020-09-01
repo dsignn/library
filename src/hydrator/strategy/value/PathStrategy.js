@@ -1,5 +1,5 @@
 import { PropertyHydrator } from "../../PropertyHydrator";
-import { Path } from "../../../path/Path";
+import { PathNode } from "../../../path/PathNode";
 /**
  *
  */
@@ -9,7 +9,7 @@ export class PathStrategy {
          * @type {PropertyHydrator}
          * @private
          */
-        this._hydrator = new PropertyHydrator(new Path());
+        this._hydrator = new PropertyHydrator(new PathNode());
     }
     /**
      * @inheritDoc
@@ -25,7 +25,7 @@ export class PathStrategy {
         let computeData = data;
         switch (true) {
             case typeof data === 'string':
-                computeData = new Path();
+                computeData = new PathNode();
                 let nameFile = data.replace(/^.*[\\\/]/, '');
                 computeData.setNameFile(this._getNameFile(nameFile));
                 computeData.setExtension(this._getExtensionFile(nameFile));

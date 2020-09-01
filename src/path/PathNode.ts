@@ -24,11 +24,6 @@ export class PathNode implements PathInterface {
     protected extension:string = '';
 
     /**
-     * @type {path}
-     */
-    private _pathNode:any = require('path');
-
-    /**
      * @return {string}
      */
     public getPath() {
@@ -37,7 +32,7 @@ export class PathNode implements PathInterface {
             file = `${this.nameFile}.${this.extension}`;
         }
 
-        let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}`: '';
+        let path = (this.directory.length) ? `${this.directory}${require('path').sep}`: '';
 
         return `${path}${file}`;
     }
@@ -47,15 +42,15 @@ export class PathNode implements PathInterface {
      */
     public isAbsolute() {
 
-        let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}`: '';
-        return this._pathNode.isAbsolute(`${path}${this.nameFile}.${this.extension}`);
+        let path = (this.directory.length) ? `${this.directory}${require('path').sep}`: '';
+        return require('path').isAbsolute(`${path}${this.nameFile}.${this.extension}`);
     }
 
     /**
      * @param {string} directory
      */
     public setDirectory(directory:string): PathInterface {
-        if (directory.slice(-1) === this._pathNode.sep) {
+        if (directory.slice(-1) === require('path').sep) {
             directory = directory.substring(0, directory.length - 1);
         }
         this.directory = directory;

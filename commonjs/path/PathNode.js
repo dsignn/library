@@ -18,10 +18,6 @@ class PathNode {
          * @type {string}
          */
         this.extension = '';
-        /**
-         * @type {path}
-         */
-        this._pathNode = require('path');
     }
     /**
      * @return {string}
@@ -31,21 +27,21 @@ class PathNode {
         if (this.nameFile && this.extension) {
             file = `${this.nameFile}.${this.extension}`;
         }
-        let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}` : '';
+        let path = (this.directory.length) ? `${this.directory}${require('path').sep}` : '';
         return `${path}${file}`;
     }
     /**
      * @return {boolean}
      */
     isAbsolute() {
-        let path = (this.directory.length) ? `${this.directory}${this._pathNode.sep}` : '';
-        return this._pathNode.isAbsolute(`${path}${this.nameFile}.${this.extension}`);
+        let path = (this.directory.length) ? `${this.directory}${require('path').sep}` : '';
+        return require('path').isAbsolute(`${path}${this.nameFile}.${this.extension}`);
     }
     /**
      * @param {string} directory
      */
     setDirectory(directory) {
-        if (directory.slice(-1) === this._pathNode.sep) {
+        if (directory.slice(-1) === require('path').sep) {
             directory = directory.substring(0, directory.length - 1);
         }
         this.directory = directory;

@@ -26,7 +26,7 @@ export declare class AutoLoadClass {
      */
     getPath(): PathInterface;
     /**
-     * @param {Path} path
+     * @param {PathNode} path
      * @return {this}
      */
     setPath(path: PathInterface): AutoLoadClass;

@@ -1,4 +1,3 @@
-import {Path} from "../../path/Path";
 import {PathInterface} from "../../path";
 
 /**
@@ -41,7 +40,7 @@ export class AutoLoadClass {
     }
 
     /**
-     * @param {Path} path
+     * @param {PathNode} path
      * @return {this}
      */
     public setPath(path : PathInterface): AutoLoadClass {

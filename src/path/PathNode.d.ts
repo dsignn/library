@@ -19,10 +19,6 @@ export declare class PathNode implements PathInterface {
      */
     protected extension: string;
     /**
-     * @type {path}
-     */
-    private _pathNode;
-    /**
      * @return {string}
      */
     getPath(): string;

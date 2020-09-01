@@ -30,7 +30,7 @@ export class AutoLoadClass {
         return this.path;
     }
     /**
-     * @param {Path} path
+     * @param {PathNode} path
      * @return {this}
      */
     setPath(path) {
