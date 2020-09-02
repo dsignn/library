@@ -7,7 +7,7 @@ export class Utils {
      *
      * @param environment
      */
-    public static getHomeDir(environment: object) {
+    public static getHomeDir(environment: object): string {
 
         if (!environment['HOME']) {
             throw 'Dont set home directory in environment object';
