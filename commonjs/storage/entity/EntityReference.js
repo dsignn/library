@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EntityReference = void 0;
-const index_1 = require("./index");
+const EntityIdentifier_1 = require("./EntityIdentifier");
 /**
- *
+ * @class EntityReference
  */
-class EntityReference extends index_1.EntityIdentifier {
+class EntityReference extends EntityIdentifier_1.EntityIdentifier {
     /**
      * @return {string}
      */

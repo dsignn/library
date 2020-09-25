@@ -1,6 +1,6 @@
-import { EntityIdentifier } from "./index";
+import { EntityIdentifier } from "./EntityIdentifier";
 /**
- *
+ * @class EntityReference
  */
 export class EntityReference extends EntityIdentifier {
     /**

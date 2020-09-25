@@ -1,6 +1,7 @@
-import { EntityIdentifierInterface, EntityIdentifier } from "./index";
+import { EntityIdentifier } from "./EntityIdentifier";
+import { EntityIdentifierInterface } from "./EntityIdentifierInterface";
 /**
- *
+ * @class EntityReference
  */
 export declare class EntityReference extends EntityIdentifier implements EntityIdentifierInterface {
     /**
