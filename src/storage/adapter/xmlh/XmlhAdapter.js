@@ -144,7 +144,7 @@ export class XmlhAdapter {
      * @param method
      */
     getHeaders(method) {
-        if (!this.headers[method]) {
+        if (!!this.headers[method]) {
             return this.headers[method];
         }
         return null;

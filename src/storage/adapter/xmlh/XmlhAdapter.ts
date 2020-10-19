@@ -190,7 +190,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
      * @param method
      */
     getHeaders(method: string) {
-        if (!this.headers[method]) {
+        if (!!this.headers[method]) {
             return this.headers[method];
         }
         return null;
