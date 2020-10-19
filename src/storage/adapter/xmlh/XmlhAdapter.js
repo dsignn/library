@@ -141,6 +141,15 @@ export class XmlhAdapter {
         return this;
     }
     /**
+     * @param method
+     */
+    getHeaders(method) {
+        if (!this.headers[method]) {
+            return this.headers[method];
+        }
+        return null;
+    }
+    /**
      * @inheritDoc
      */
     getNameCollection() {
@@ -388,7 +397,7 @@ export class XmlhAdapter {
             /**
              * Decode message
              */
-            request.send(this.dataEncode.dataEncode(data));
+            request.send(this.dataEncode.dataEncode(Object.keys(data).length === 0 && data.constructor === Object ? data : null));
         });
     }
 }

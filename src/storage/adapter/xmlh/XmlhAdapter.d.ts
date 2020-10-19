@@ -69,6 +69,10 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
      */
     removeHeader(header: string, method: string): XmlhAdapter;
     /**
+     * @param method
+     */
+    getHeaders(method: string): any;
+    /**
      * @inheritDoc
      */
     getNameCollection(): string;

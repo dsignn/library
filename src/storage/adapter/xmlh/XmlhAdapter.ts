@@ -187,6 +187,16 @@ export class XmlhAdapter implements StorageAdapterInterface {
     }
 
     /**
+     * @param method
+     */
+    getHeaders(method: string) {
+        if (!this.headers[method]) {
+            return this.headers[method];
+        }
+        return null;
+    }
+
+    /**
      * @inheritDoc
      */
     getNameCollection(): string {
@@ -538,7 +548,7 @@ export class XmlhAdapter implements StorageAdapterInterface {
             /**
              * Decode message
              */
-            request.send(this.dataEncode.dataEncode(data));
+            request.send(this.dataEncode.dataEncode(Object.keys(data).length === 0 && data.constructor === Object ? data : null));
         });
     }
 }
