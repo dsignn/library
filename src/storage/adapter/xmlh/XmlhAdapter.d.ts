@@ -3,6 +3,7 @@ import { DataDecodeInterface } from "../../../data-transform/DataDecodeInterface
 import { DataEncodeInterface } from "../../../data-transform/DataEncodeInterface";
 import { UrlBuilderInterface } from "./url/UrlBuilderInterface";
 /**
+ * TODO refactor
  * @class XmlhAdapter
  */
 export declare class XmlhAdapter implements StorageAdapterInterface {
@@ -99,4 +100,14 @@ export declare class XmlhAdapter implements StorageAdapterInterface {
      * @inheritDoc
      */
     update(data: any): Promise<any>;
+    /**
+     *
+     * @param method
+     * @param url
+     * @param headers
+     * @param data
+     * @param query
+     * @param options
+     */
+    request(method: string, url: string, headers: object, data: object, query: object, options: object): Promise<unknown>;
 }

@@ -6,6 +6,7 @@ import {DefaultBuilder} from "./url/DefaultBuilder";
 import {Pagination} from "../../../pagination";
 
 /**
+ * TODO refactor
  * @class XmlhAdapter
  */
 export class XmlhAdapter implements StorageAdapterInterface {
@@ -477,6 +478,66 @@ export class XmlhAdapter implements StorageAdapterInterface {
 
             });
 
+            request.send(this.dataEncode.dataEncode(data));
+        });
+    }
+
+    /**
+     *
+     * @param method
+     * @param url
+     * @param headers
+     * @param data
+     * @param query
+     * @param options
+     */
+    request(method: string, url: string, headers: object, data: object, query: object, options: object) {
+
+        return new Promise((resolve, reject) => {
+            let request = new XMLHttpRequest();
+
+            /**
+             * Create request
+             */
+            request.open(method, `${url}${this._buildQueryString(query)}`, true);
+
+            /**
+             * Append headers
+             */
+            for (let headerName in headers) {
+                request.setRequestHeader(headerName, headers[headerName]);
+            }
+
+            request.addEventListener('load', () => {
+                if (request.status >= 300) {
+
+                    let response = {
+                        status: request.status,
+                        message: this.errorStatus[request.status]
+                    };
+
+                    if (request.status === 422 && request.response) {
+                        let errorResponse = this.dataDecode.dataDecode(request.response);
+                        if (errorResponse['errors']) {
+                            response['errors'] = errorResponse['errors'];
+                        }
+                    }
+                    return reject(response);
+                }
+                resolve(this.dataDecode.dataDecode(request.response));
+
+            });
+
+            // Error handler
+            request.addEventListener('error', () => {
+                console.warn('Error xmlh adapter:', request.status);
+                reject(request.response);
+
+            });
+
+            /**
+             * Decode message
+             */
             request.send(this.dataEncode.dataEncode(data));
         });
     }
