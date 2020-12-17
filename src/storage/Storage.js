@@ -1,4 +1,4 @@
-import { EventManager } from "../event/index";
+import { EventManager } from "../event/EventManager";
 /**
  *
  */

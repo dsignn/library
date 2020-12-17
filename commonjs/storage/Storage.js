@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Storage = void 0;
-const index_1 = require("../event/index");
+const EventManager_1 = require("../event/EventManager");
 /**
  *
  */
@@ -13,7 +13,7 @@ class Storage {
         /**
          * @type {EventManagerInterface}
          */
-        this.eventManager = new index_1.EventManager();
+        this.eventManager = new EventManager_1.EventManager();
         /**
          * @type {StorageAdapterInterface}
          */

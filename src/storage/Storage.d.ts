@@ -30,6 +30,8 @@ export declare class Storage implements StorageInterface, StorageAdapterAwareInt
      * @type {HydratorAwareInterface}
      */
     protected hydrator: HydratorInterface;
+    protected test: any;
+    string: any;
     /**
      * @param {StorageAdapterInterface} adapter
      */

@@ -1,6 +1,7 @@
 import {EntityIdentifierInterface} from "./entity";
-import {StorageAdapterInterface, StorageAdapterAwareInterface} from "./adapter/index";
-import {EventManagerInterface, EventManager, EventManagerAwareInterface} from "../event/index";
+import {StorageAdapterAwareInterface, StorageAdapterInterface} from "./adapter/index";
+import {EventManagerInterface} from "../event/index";
+import {EventManager} from "../event/EventManager";
 import {HydratorAwareInterface, HydratorInterface} from "../hydrator";
 import {StorageInterface} from "./StorageInterface";
 
@@ -42,6 +43,9 @@ export class Storage implements StorageInterface, StorageAdapterAwareInterface {
      * @type {HydratorAwareInterface}
      */
     protected hydrator:HydratorInterface;
+
+
+    protected test; string;
 
     /**
      * @param {StorageAdapterInterface} adapter
