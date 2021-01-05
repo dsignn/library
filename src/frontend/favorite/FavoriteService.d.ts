@@ -1,6 +1,7 @@
 import { StorageInterface } from "../../storage/StorageInterface";
 import { EventManagerAwareInterface } from "../../event/EventManagerAwareInterface";
 import { EventManagerInterface } from "../../event/EventManagerInterface";
+import { EntityIdentifierInterface } from "../../storage/entity";
 /**
  * @class FavoriteService
  */
@@ -43,4 +44,42 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      * @param eventManager
      */
     setEventManager(eventManager: EventManagerInterface): this;
+    /**
+     * @param {EntityIdentifierInterface} menuItem
+     * @return {FavoriteService}
+     */
+    addFavorite(menuItem: EntityIdentifierInterface): this;
+    /**
+     * @param {EntityIdentifierInterface} menuItem
+     * @return {FavoriteService}
+     */
+    removeFavorite(menuItem: EntityIdentifierInterface): this;
+    /**
+     * @param {EntityIdentifierInterface} favorite
+     */
+    upsertFavorite(favorite: EntityIdentifierInterface): void;
+    /**
+     * @param {EntityIdentifierInterface} menuItem
+     */
+    hasFavorite(menuItem: EntityIdentifierInterface): boolean;
+    /**
+     * @param menuItem
+     */
+    getFavorite(menuItem: EntityIdentifierInterface): any;
+    /**
+     *
+     */
+    getFavorites(): Promise<any>;
+    /**
+     * @param menuItem
+     */
+    deleteFavorite(menuItem: EntityIdentifierInterface): Promise<any>;
+    /**
+     * @return {number}
+     */
+    getAmount(): number;
+    /**
+     * @return {string}
+     */
+    getRestaurantId(): any;
 }
