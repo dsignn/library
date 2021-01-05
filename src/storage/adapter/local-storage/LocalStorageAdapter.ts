@@ -22,6 +22,11 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
     private data: Array<any> = [];
 
     /**
+     * @type function
+     */
+    private filterCallback: Function = (filter) => { return filter };
+
+    /**
      * @param {string} name
      * @param {string} nameCollection
      */
@@ -141,6 +146,14 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
     }
 
     /**
+     * @param filterCallback
+     */
+    public setFilterCallback(filterCallback: Function) {
+        this.filterCallback = filterCallback;
+        return this;
+    }
+
+    /**
      * @param data
      * @return {Promise<any>}
      */
@@ -167,6 +180,6 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
      * @return {Array<any>}
      */
     protected filter(filter) {
-        return this.data;
+        return this.filterCallback(this.data);
     }
 }

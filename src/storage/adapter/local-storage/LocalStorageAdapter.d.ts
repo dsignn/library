@@ -16,6 +16,10 @@ export declare class LocalStorageAdapter implements StorageAdapterInterface {
      */
     private data;
     /**
+     * @type function
+     */
+    private filterCallback;
+    /**
      * @param {string} name
      * @param {string} nameCollection
      */
@@ -60,6 +64,10 @@ export declare class LocalStorageAdapter implements StorageAdapterInterface {
      */
     save(data: any): Promise<any>;
     /**
+     * @param filterCallback
+     */
+    setFilterCallback(filterCallback: Function): this;
+    /**
      * @param data
      * @return {Promise<any>}
      */
@@ -68,5 +76,5 @@ export declare class LocalStorageAdapter implements StorageAdapterInterface {
      * @param filter
      * @return {Array<any>}
      */
-    protected filter(filter: any): any[];
+    protected filter(filter: any): any;
 }

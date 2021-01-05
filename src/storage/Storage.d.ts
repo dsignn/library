@@ -1,5 +1,5 @@
 import { EntityIdentifierInterface } from "./entity";
-import { StorageAdapterInterface, StorageAdapterAwareInterface } from "./adapter/index";
+import { StorageAdapterAwareInterface, StorageAdapterInterface } from "./adapter/index";
 import { EventManagerInterface } from "../event/index";
 import { HydratorInterface } from "../hydrator";
 import { StorageInterface } from "./StorageInterface";

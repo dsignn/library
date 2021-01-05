@@ -15,6 +15,10 @@ class LocalStorageAdapter {
          * @type Array
          */
         this.data = [];
+        /**
+         * @type function
+         */
+        this.filterCallback = (filter) => { return filter; };
         this.name = name;
         this.nameCollection = nameCollection;
         this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : [];
@@ -116,6 +120,13 @@ class LocalStorageAdapter {
         });
     }
     /**
+     * @param filterCallback
+     */
+    setFilterCallback(filterCallback) {
+        this.filterCallback = filterCallback;
+        return this;
+    }
+    /**
      * @param data
      * @return {Promise<any>}
      */
@@ -139,7 +150,7 @@ class LocalStorageAdapter {
      * @return {Array<any>}
      */
     filter(filter) {
-        return this.data;
+        return this.filterCallback(this.data);
     }
 }
 exports.LocalStorageAdapter = LocalStorageAdapter;
