@@ -66,6 +66,7 @@ class FavoriteService {
             favorite.totalCount++;
         }
         else {
+            favorite = menuItem;
             favorite.totalCount = 1;
             favorite.currentCount = 0;
             favorite.restaurantId = this.getRestaurantId();
@@ -141,7 +142,7 @@ class FavoriteService {
      * @return {string}
      */
     getRestaurantId() {
-        if (!this.menu['organization'] || this.menu['organization']['_id']) {
+        if (!this.menu['organization'] || !this.menu['organization']['_id']) {
             throw new Error('Restaurant id not found');
         }
         return this.menu['organization']['_id'];

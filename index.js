@@ -25,6 +25,11 @@ module.exports = {
         EventManager: require('./commonjs/event/EventManager').EventManager,
         Listener: require('./commonjs/event/Listener').Listener
     },
+    frontend: {
+        favorite: {
+            FavoriteService: require('./commonjs/frontend/favorite/FavoriteService').FavoriteService,
+        }
+    },
     hydrator : {
         AbstractHydrator: require('./commonjs/hydrator/AbstractHydrator').AbstractHydrator,
         PropertyHydrator: require('./commonjs/hydrator/PropertyHydrator').PropertyHydrator,
