@@ -22,6 +22,11 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
     private data: Array<any> = [];
 
     /**
+     * @type string
+     */
+    private identifier = '_id';
+
+    /**
      * @type function
      */
     private filterCallback: Function = (filter) => { return filter };
@@ -67,7 +72,7 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
         return new Promise((resolve, reject) => {
 
             let index = this.data.findIndex((element) => {
-                return id === element.id;
+                return id === element[this.identifier];
             });
 
             if (index >= 0) {
@@ -116,7 +121,7 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
         return new Promise((resolve, reject) => {
 
             let index = this.data.findIndex((element) => {
-                return data.id === element.id;
+                return data[this.identifier] === element[this.identifier];
             });
 
             if (index >= 0) {
@@ -161,7 +166,7 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
         return new Promise((resolve, reject) => {
 
             let index = this.data.findIndex((element) => {
-                return data.id === element.id;
+                return data[this.identifier] === element[this.identifier];
             });
 
             if (index >= 0) {
@@ -181,5 +186,13 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
      */
     protected filter(filter) {
         return this.filterCallback(this.data);
+    }
+
+    /**
+     *
+     * @param identifier
+     */
+    public setIdentifier(identifier: string) {
+        this.identifier = identifier;
     }
 }

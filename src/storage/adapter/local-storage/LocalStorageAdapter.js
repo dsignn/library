@@ -13,6 +13,10 @@ export class LocalStorageAdapter {
          */
         this.data = [];
         /**
+         * @type string
+         */
+        this.identifier = '_id';
+        /**
          * @type function
          */
         this.filterCallback = (filter) => { return filter; };
@@ -46,7 +50,7 @@ export class LocalStorageAdapter {
     get(id) {
         return new Promise((resolve, reject) => {
             let index = this.data.findIndex((element) => {
-                return id === element.id;
+                return id === element[this.identifier];
             });
             if (index >= 0) {
                 resolve(this.data[index]);
@@ -91,7 +95,7 @@ export class LocalStorageAdapter {
     remove(data) {
         return new Promise((resolve, reject) => {
             let index = this.data.findIndex((element) => {
-                return data.id === element.id;
+                return data[this.identifier] === element[this.identifier];
             });
             if (index >= 0) {
                 this.data.splice(index, 1);
@@ -130,7 +134,7 @@ export class LocalStorageAdapter {
     update(data) {
         return new Promise((resolve, reject) => {
             let index = this.data.findIndex((element) => {
-                return data.id === element.id;
+                return data[this.identifier] === element[this.identifier];
             });
             if (index >= 0) {
                 this.data[index] = data;
@@ -148,6 +152,13 @@ export class LocalStorageAdapter {
      */
     filter(filter) {
         return this.filterCallback(this.data);
+    }
+    /**
+     *
+     * @param identifier
+     */
+    setIdentifier(identifier) {
+        this.identifier = identifier;
     }
 }
 //# sourceMappingURL=LocalStorageAdapter.js.map

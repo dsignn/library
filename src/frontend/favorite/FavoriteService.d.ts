@@ -19,6 +19,10 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      */
     private favorites;
     /**
+     * @type string
+     */
+    private identifier;
+    /**
      * @param {StorageInterface} storage
      * @param {object} menu
      */
@@ -82,4 +86,9 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      * @return {string}
      */
     getRestaurantId(): any;
+    /**
+     *
+     * @param identifier
+     */
+    setIdentifier(identifier: string): void;
 }

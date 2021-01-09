@@ -16,6 +16,10 @@ export declare class LocalStorageAdapter implements StorageAdapterInterface {
      */
     private data;
     /**
+     * @type string
+     */
+    private identifier;
+    /**
      * @type function
      */
     private filterCallback;
@@ -77,4 +81,9 @@ export declare class LocalStorageAdapter implements StorageAdapterInterface {
      * @return {Array<any>}
      */
     protected filter(filter: any): any;
+    /**
+     *
+     * @param identifier
+     */
+    setIdentifier(identifier: string): void;
 }

@@ -11,6 +11,10 @@ export class FavoriteService {
          * @type Array
          */
         this.favorites = [];
+        /**
+         * @type string
+         */
+        this.identifier = '_id';
         this.storage = storage;
         this.setMenu(menu);
     }
@@ -100,7 +104,7 @@ export class FavoriteService {
      */
     hasFavorite(menuItem) {
         return this.favorites.findIndex((element) => {
-            return element.id === menuItem["id"];
+            return element.id === menuItem[this.identifier];
         }) > -1;
     }
     /**
@@ -108,7 +112,7 @@ export class FavoriteService {
      */
     getFavorite(menuItem) {
         return this.favorites.find((element) => {
-            return element.id === menuItem["id"];
+            return element.id === menuItem[this.identifier];
         });
     }
     /**
@@ -116,7 +120,7 @@ export class FavoriteService {
      */
     getFavorites() {
         return this.storage.getAll({
-            restaurantId: this.menu["organization"]["id"]
+            restaurantId: this.menu["organization"][this.identifier]
         });
     }
     /**
@@ -139,10 +143,17 @@ export class FavoriteService {
      * @return {string}
      */
     getRestaurantId() {
-        if (!this.menu['organization'] || !this.menu['organization']['_id']) {
+        if (!this.menu['organization'] || !this.menu['organization'][this.identifier]) {
             throw new Error('Restaurant id not found');
         }
-        return this.menu['organization']['_id'];
+        return this.menu['organization'][this.identifier];
+    }
+    /**
+     *
+     * @param identifier
+     */
+    setIdentifier(identifier) {
+        this.identifier = identifier;
     }
 }
 //# sourceMappingURL=FavoriteService.js.map
