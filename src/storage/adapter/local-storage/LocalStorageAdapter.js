@@ -53,7 +53,7 @@ export class LocalStorageAdapter {
                 return id === element[this.identifier];
             });
             if (index >= 0) {
-                resolve(this.data[index]);
+                resolve(Object.assign({}, this.data[index]));
             }
             else {
                 resolve(null);
@@ -151,7 +151,7 @@ export class LocalStorageAdapter {
      * @return {Array<any>}
      */
     filter(filter) {
-        return this.filterCallback(this.data);
+        return JSON.parse(JSON.stringify(this.filterCallback(this.data)));
     }
     /**
      *

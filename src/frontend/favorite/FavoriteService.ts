@@ -8,6 +8,10 @@ import {EntityIdentifierInterface} from "../../storage/entity";
  */
 export class FavoriteService implements EventManagerAwareInterface {
 
+    /**
+     * Constants
+     */
+    public static RESET_FAVORITES = "reset-favorites";
 
     /**
      * @type number
@@ -127,17 +131,18 @@ export class FavoriteService implements EventManagerAwareInterface {
 
     /**
      * @param {EntityIdentifierInterface} favorite
+     * @return Promise<any>
      */
-    public upsertFavorite(favorite: EntityIdentifierInterface) {
-        this.storage.update(favorite);
+    public upsertFavorite(favorite: EntityIdentifierInterface): Promise<any> {
+        return  this.storage.update(favorite);
     }
 
     /**
      * @param {EntityIdentifierInterface} menuItem
      */
-    public hasFavorite(menuItem: EntityIdentifierInterface) {
+    public hasFavorite(menuItem: EntityIdentifierInterface): boolean {
         return this.favorites.findIndex((element) => {
-            return element.id === menuItem[this.identifier];
+            return element[this.identifier] === menuItem[this.identifier];
         }) > -1;
     }
 
@@ -146,14 +151,14 @@ export class FavoriteService implements EventManagerAwareInterface {
      */
     public getFavorite(menuItem: EntityIdentifierInterface) {
         return this.favorites.find((element) => {
-            return element.id === menuItem[this.identifier];
+            return element[this.identifier] === menuItem[this.identifier];
         });
     }
 
     /**
-     *
+     * @return Array
      */
-    public getFavorites() {
+    public getFavorites(): Promise<any> {
         return this.storage.getAll({
             restaurantId: this.menu["organization"][this.identifier]
         })
@@ -194,5 +199,23 @@ export class FavoriteService implements EventManagerAwareInterface {
      */
     public setIdentifier(identifier: string) {
         this.identifier = identifier;
+    }
+
+    /**
+     *
+     */
+    public resetFavorites() {
+        this.getFavorites().then((data) => {
+            console.log('reset', data);
+            let favorites =  [];
+            for (let index = 0; data.length > index; index++) {
+                data[index].currentCount = 0;
+                favorites.push(this.upsertFavorite(data[index]));
+            }
+
+            Promise.all(favorites).then((data) => {
+                this.getEventManager().emit(FavoriteService.RESET_FAVORITES, data);
+            })
+        });
     }
 }

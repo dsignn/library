@@ -98,16 +98,17 @@ class FavoriteService {
     }
     /**
      * @param {EntityIdentifierInterface} favorite
+     * @return Promise<any>
      */
     upsertFavorite(favorite) {
-        this.storage.update(favorite);
+        return this.storage.update(favorite);
     }
     /**
      * @param {EntityIdentifierInterface} menuItem
      */
     hasFavorite(menuItem) {
         return this.favorites.findIndex((element) => {
-            return element.id === menuItem[this.identifier];
+            return element[this.identifier] === menuItem[this.identifier];
         }) > -1;
     }
     /**
@@ -115,11 +116,11 @@ class FavoriteService {
      */
     getFavorite(menuItem) {
         return this.favorites.find((element) => {
-            return element.id === menuItem[this.identifier];
+            return element[this.identifier] === menuItem[this.identifier];
         });
     }
     /**
-     *
+     * @return Array
      */
     getFavorites() {
         return this.storage.getAll({
@@ -158,5 +159,25 @@ class FavoriteService {
     setIdentifier(identifier) {
         this.identifier = identifier;
     }
+    /**
+     *
+     */
+    resetFavorites() {
+        this.getFavorites().then((data) => {
+            console.log('reset', data);
+            let favorites = [];
+            for (let index = 0; data.length > index; index++) {
+                data[index].currentCount = 0;
+                favorites.push(this.upsertFavorite(data[index]));
+            }
+            Promise.all(favorites).then((data) => {
+                this.getEventManager().emit(FavoriteService.RESET_FAVORITES, data);
+            });
+        });
+    }
 }
 exports.FavoriteService = FavoriteService;
+/**
+ * Constants
+ */
+FavoriteService.RESET_FAVORITES = "reset-favorites";

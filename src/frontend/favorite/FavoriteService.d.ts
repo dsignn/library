@@ -7,6 +7,10 @@ import { EntityIdentifierInterface } from "../../storage/entity";
  */
 export declare class FavoriteService implements EventManagerAwareInterface {
     /**
+     * Constants
+     */
+    static RESET_FAVORITES: string;
+    /**
      * @type number
      */
     private storage;
@@ -60,8 +64,9 @@ export declare class FavoriteService implements EventManagerAwareInterface {
     removeFavorite(menuItem: EntityIdentifierInterface): this;
     /**
      * @param {EntityIdentifierInterface} favorite
+     * @return Promise<any>
      */
-    upsertFavorite(favorite: EntityIdentifierInterface): void;
+    upsertFavorite(favorite: EntityIdentifierInterface): Promise<any>;
     /**
      * @param {EntityIdentifierInterface} menuItem
      */
@@ -71,7 +76,7 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      */
     getFavorite(menuItem: EntityIdentifierInterface): any;
     /**
-     *
+     * @return Array
      */
     getFavorites(): Promise<any>;
     /**
@@ -91,4 +96,8 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      * @param identifier
      */
     setIdentifier(identifier: string): void;
+    /**
+     *
+     */
+    resetFavorites(): void;
 }
