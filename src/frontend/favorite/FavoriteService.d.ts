@@ -11,6 +11,10 @@ export declare class FavoriteService implements EventManagerAwareInterface {
      */
     static RESET_FAVORITES: string;
     /**
+     * Constants
+     */
+    static NEW_FAVORITES: string;
+    /**
      * @type number
      */
     private storage;

@@ -65,6 +65,7 @@ class FavoriteService {
      */
     addFavorite(menuItem) {
         let favorite;
+        let newFavorite = false;
         if (this.hasFavorite(menuItem)) {
             favorite = this.getFavorite(menuItem);
             favorite.totalCount++;
@@ -75,8 +76,13 @@ class FavoriteService {
             favorite.currentCount = 0;
             favorite.restaurantId = this.getRestaurantId();
             this.favorites.push(favorite);
+            newFavorite = true;
         }
-        this.storage.update(favorite);
+        this.storage.update(favorite).then((data) => {
+            if (newFavorite) {
+                this.getEventManager().emit(FavoriteService.NEW_FAVORITES, data);
+            }
+        });
         return this;
     }
     /**
@@ -181,3 +187,7 @@ exports.FavoriteService = FavoriteService;
  * Constants
  */
 FavoriteService.RESET_FAVORITES = "reset-favorites";
+/**
+ * Constants
+ */
+FavoriteService.NEW_FAVORITES = "new-favorites";

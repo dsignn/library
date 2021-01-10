@@ -14,6 +14,11 @@ export class FavoriteService implements EventManagerAwareInterface {
     public static RESET_FAVORITES = "reset-favorites";
 
     /**
+     * Constants
+     */
+    public static NEW_FAVORITES = "new-favorites";
+
+    /**
      * @type number
      */
     private storage: StorageInterface;
@@ -94,6 +99,7 @@ export class FavoriteService implements EventManagerAwareInterface {
      */
     public addFavorite(menuItem: EntityIdentifierInterface) {
         let favorite;
+        let newFavorite = false;
         if (this.hasFavorite(menuItem)) {
             favorite = this.getFavorite(menuItem);
             favorite.totalCount++;
@@ -103,9 +109,15 @@ export class FavoriteService implements EventManagerAwareInterface {
             favorite.currentCount = 0;
             favorite.restaurantId = this.getRestaurantId();
             this.favorites.push(favorite);
+            newFavorite = true;
         }
 
-        this.storage.update(favorite);
+        this.storage.update(favorite).then((data) => {
+            if(newFavorite) {
+                this.getEventManager().emit(FavoriteService.NEW_FAVORITES, data);
+            }
+        });
+
         return this;
     }
 
