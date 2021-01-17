@@ -29,7 +29,7 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
     /**
      * @type function
      */
-    private filterCallback: Function = (filter) => { return filter };
+    private filterCallback: Function = (filter) => { return this.data };
 
     /**
      * @param {string} name
@@ -185,7 +185,7 @@ export class LocalStorageAdapter implements StorageAdapterInterface {
      * @return {Array<any>}
      */
     protected filter(filter) {
-        return JSON.parse(JSON.stringify(this.filterCallback(this.data)));
+        return JSON.parse(JSON.stringify(this.filterCallback(filter)));
     }
 
     /**

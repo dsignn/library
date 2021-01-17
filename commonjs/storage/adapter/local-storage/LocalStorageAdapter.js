@@ -22,7 +22,7 @@ class LocalStorageAdapter {
         /**
          * @type function
          */
-        this.filterCallback = (filter) => { return filter; };
+        this.filterCallback = (filter) => { return this.data; };
         this.name = name;
         this.nameCollection = nameCollection;
         this.data = localStorage.getItem(this.getNamespace()) ? JSON.parse(localStorage.getItem(this.getNamespace())) : [];
@@ -154,7 +154,7 @@ class LocalStorageAdapter {
      * @return {Array<any>}
      */
     filter(filter) {
-        return JSON.parse(JSON.stringify(this.filterCallback(this.data)));
+        return JSON.parse(JSON.stringify(this.filterCallback(filter)));
     }
     /**
      *
