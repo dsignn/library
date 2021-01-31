@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FavoriteService = void 0;
+const Storage_1 = require("../../storage/Storage");
 /**
  * @class FavoriteService
  */
@@ -20,6 +21,14 @@ class FavoriteService {
         this.identifier = '_id';
         this.storage = storage;
         this.setMenu(menu);
+        this.storage.getEventManager().on(Storage_1.Storage.POST_REMOVE, (data) => {
+            let index = this.favorites.findIndex((element) => {
+                return element[this.identifier] === data.data[this.identifier];
+            });
+            if (index >= 0) {
+                this.favorites.splice(index, 1);
+            }
+        });
     }
     /**
      * @return {object}

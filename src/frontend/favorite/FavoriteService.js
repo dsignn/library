@@ -1,3 +1,4 @@
+import { Storage } from "../../storage/Storage";
 /**
  * @class FavoriteService
  */
@@ -17,6 +18,14 @@ export class FavoriteService {
         this.identifier = '_id';
         this.storage = storage;
         this.setMenu(menu);
+        this.storage.getEventManager().on(Storage.POST_REMOVE, (data) => {
+            let index = this.favorites.findIndex((element) => {
+                return element[this.identifier] === data.data[this.identifier];
+            });
+            if (index >= 0) {
+                this.favorites.splice(index, 1);
+            }
+        });
     }
     /**
      * @return {object}

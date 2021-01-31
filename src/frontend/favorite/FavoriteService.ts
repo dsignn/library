@@ -1,4 +1,5 @@
 import {StorageInterface} from "../../storage/StorageInterface";
+import {Storage} from "../../storage/Storage";
 import {EventManagerAwareInterface} from "../../event/EventManagerAwareInterface";
 import {EventManagerInterface} from "../../event/EventManagerInterface";
 import {EntityIdentifierInterface} from "../../storage/entity";
@@ -47,6 +48,18 @@ export class FavoriteService implements EventManagerAwareInterface {
         this.storage = storage;
 
         this.setMenu(menu);
+
+        this.storage.getEventManager().on(
+            Storage.POST_REMOVE,
+            (data) => {
+                let index = this.favorites.findIndex((element) => {
+                    return element[this.identifier] === data.data[this.identifier];
+                });
+                if (index >= 0) {
+                    this.favorites.splice(index, 1);
+                }
+
+            });
     }
 
     /**
