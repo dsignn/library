@@ -49,9 +49,12 @@ class MongoDb {
      */
     connect() {
         const mongoClient = require('mongodb');
-        mongoClient.connect(`mongodb://${this.uri}:${this.port}/${this.name}`, this.options).then((client) => {
+        mongoClient.connect(`mongodb://${this.uri}:${this.port}/${this.name}`, this.options)
+            .then((client) => {
             this.db = client.db();
             this.eventManager.emit(MongoDb.READY_CONNECTION, this);
+        }).catch((error) => {
+            console.error(error);
         });
     }
     /**
