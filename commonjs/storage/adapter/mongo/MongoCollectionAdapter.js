@@ -19,6 +19,29 @@ class MongoCollectionAdapter {
          * @type {string}
          */
         this.nameCollection = nameCollection;
+        /**
+         * @type function
+         */
+        this.identityCriteria = (data) => {
+            let objReturn = {};
+            switch (true) {
+                case data['_id'] !== undefined && data['_id'] instanceof require('mongodb').ObjectID:
+                    objReturn['_id'] = data['_id'];
+                    break;
+                case data['_id'] !== undefined && typeof data['_id'] === 'string':
+                    objReturn['_id'] = new (require('mongodb').ObjectID)(data['_id']);
+                    break;
+                case data['id'] !== undefined && data['id'] instanceof require('mongodb').ObjectID:
+                    objReturn['_id'] = data['id'];
+                    break;
+                case data['id'] !== undefined && typeof data['id'] === 'string':
+                    objReturn['_id'] = new (require('mongodb').ObjectID)(data['id']);
+                    break;
+                default:
+                    throw 'Identity property not found _id or id';
+            }
+            return objReturn;
+        };
     }
     /**
      * @inheritDoc
@@ -66,7 +89,7 @@ class MongoCollectionAdapter {
         return new Promise((resolve, reject) => {
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
-                .updateOne(this._getIdCriteria(data), { $set: data }, { upsert: true }, (error, result) => {
+                .updateOne(this.identityCriteria(data), { $set: data }, { upsert: true }, (error, result) => {
                 if (error) {
                     reject(error);
                     return;
@@ -82,7 +105,7 @@ class MongoCollectionAdapter {
         return new Promise((resolve, reject) => {
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
-                .deleteOne(this._getIdCriteria(data), (error, result) => {
+                .deleteOne(this.identityCriteria(data), (error, result) => {
                 if (error) {
                     reject(error);
                     return;
@@ -137,21 +160,13 @@ class MongoCollectionAdapter {
         });
     }
     /**
-     * @param data
-     * @return {object}
-     * @private
+     *
+     * @param {Function} identityCriteria
+     * @return MongoCollectionAdapter
      */
-    _getIdCriteria(data) {
-        let objReturn = {};
-        switch (true) {
-            case data['_id'] !== undefined && data['_id'] instanceof require('mongodb').ObjectID:
-                objReturn['_id'] = data['_id'];
-                break;
-            case data['_id'] !== undefined && typeof data['_id'] === 'string':
-                objReturn['_id'] = new (require('mongodb').ObjectID)(data['_id']);
-                break;
-        }
-        return objReturn;
+    setIdentityCriteria(identityCriteria) {
+        this.identityCriteria = identityCriteria;
+        return this;
     }
     /**
      * @param filter

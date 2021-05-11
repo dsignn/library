@@ -17,6 +17,11 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
     protected nameCollection:string;
 
     /**
+     *
+     */
+    protected identityCriteria: Function;
+
+    /**
      * @param {MongoDb} MongoDb
      * @param {string} nameCollection
      */
@@ -31,6 +36,34 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
          * @type {string}
          */
         this.nameCollection = nameCollection;
+
+        /**
+         * @type function
+         */
+        this.identityCriteria = (data) => {
+            let objReturn = {};
+
+            switch (true) {
+                case  data['_id'] !== undefined && data['_id'] instanceof require('mongodb').ObjectID:
+                    objReturn['_id'] =  data['_id'];
+                    break;
+
+                case data['_id'] !== undefined && typeof data['_id'] === 'string':
+                    objReturn['_id'] = new (require('mongodb').ObjectID)(data['_id']);
+                    break;
+                case  data['id'] !== undefined && data['id'] instanceof require('mongodb').ObjectID:
+                    objReturn['_id'] =  data['id'];
+                    break;
+
+                case data['id'] !== undefined && typeof data['id'] === 'string':
+                    objReturn['_id'] = new (require('mongodb').ObjectID)(data['id']);
+                    break;
+                default:
+                    throw 'Identity property not found _id or id';
+            }
+
+            return objReturn
+        }
     }
 
     /**
@@ -90,7 +123,7 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
                 .updateOne(
-                    this._getIdCriteria(data),
+                    this.identityCriteria(data),
                     {$set :data},
                     {upsert: true},
                     (error, result) => {
@@ -114,7 +147,7 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
             this.mongoDb.getDb()
                 .collection(this.nameCollection)
                 .deleteOne(
-                    this._getIdCriteria(data),
+                    this.identityCriteria(data),
                     (error, result) => {
                         if (error) {
                             reject(error);
@@ -190,26 +223,14 @@ export class MongoCollectionAdapter implements StorageAdapterInterface {
     }
 
     /**
-     * @param data
-     * @return {object}
-     * @private
+     *
+     * @param {Function} identityCriteria
+     * @return MongoCollectionAdapter
      */
-    _getIdCriteria(data : any) {
-        let objReturn = {};
+    setIdentityCriteria(identityCriteria: Function) {
 
-        switch (true) {
-            case  data['_id'] !== undefined && data['_id'] instanceof require('mongodb').ObjectID:
-                objReturn['_id'] =  data['_id'];
-                break;
-
-            case data['_id'] !== undefined && typeof data['_id'] === 'string':
-                objReturn['_id'] = new (require('mongodb').ObjectID)(data['_id']);
-                break;
-        }
-
-
-
-        return objReturn;
+        this.identityCriteria = identityCriteria;
+        return this;
     }
 
     /**

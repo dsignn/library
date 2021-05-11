@@ -13,6 +13,10 @@ export declare class MongoCollectionAdapter implements StorageAdapterInterface {
      */
     protected nameCollection: string;
     /**
+     *
+     */
+    protected identityCriteria: Function;
+    /**
      * @param {MongoDb} MongoDb
      * @param {string} nameCollection
      */
@@ -46,11 +50,11 @@ export declare class MongoCollectionAdapter implements StorageAdapterInterface {
      */
     getPaged(page: number, itemCount: number, filter: Object): Promise<any>;
     /**
-     * @param data
-     * @return {object}
-     * @private
+     *
+     * @param {Function} identityCriteria
+     * @return MongoCollectionAdapter
      */
-    _getIdCriteria(data: any): {};
+    setIdentityCriteria(identityCriteria: Function): this;
     /**
      * @param filter
      * @return {object}
