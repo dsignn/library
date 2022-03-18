@@ -1,4 +1,4 @@
-import {EventManagerAware, EventManagerAwareInterface} from "../event/index";
+import {EventManagerAware, EventManagerAwareInterface} from "./../event/index";
 
 /**
  *
