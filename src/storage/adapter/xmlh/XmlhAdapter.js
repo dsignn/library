@@ -184,7 +184,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -212,7 +211,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -243,7 +241,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -275,7 +272,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -310,7 +306,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send(this.dataEncode.dataEncode(data));
@@ -345,7 +340,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send(this.dataEncode.dataEncode(data));
@@ -392,7 +386,6 @@ export class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.warn('Error xmlh adapter:', request.status);
                 reject(request.response);
             });
             /**

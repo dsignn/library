@@ -187,7 +187,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -215,7 +214,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -246,7 +244,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -278,7 +275,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send();
@@ -313,7 +309,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send(this.dataEncode.dataEncode(data));
@@ -348,7 +343,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.log('error', request.status);
                 reject(request.response);
             });
             request.send(this.dataEncode.dataEncode(data));
@@ -395,7 +389,6 @@ class XmlhAdapter {
             });
             // Error handler
             request.addEventListener('error', () => {
-                console.warn('Error xmlh adapter:', request.status);
                 reject(request.response);
             });
             /**
