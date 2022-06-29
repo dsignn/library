@@ -36,7 +36,11 @@ export class Module {
         /**
          * @type Array<ComponentInterface>
          */
-        this.autoloadsWs = [];
+        this.autoloadsWc = [];
+        /**
+          * @type Array<ComponentInterface>
+         */
+        this.widgets = [];
     }
     /**
      * @return {string}
@@ -107,29 +111,43 @@ export class Module {
         this.autoloads = autoloads;
     }
     /**
-     * @return {Array<WebComponent>}
+     * @return {Array<ComponentInterface>}
      */
-    getAutoloadsWs() {
-        return this.autoloadsWs;
+    getAutoloadsWc() {
+        return this.autoloadsWc;
     }
     /**
-     * @param {Array<WebComponent>} autoloadsWs
+     * @param {Array<ComponentInterface>} autoloadsWc
      */
-    setAutoloadsWs(autoloadsWs) {
-        this.autoloadsWs = autoloadsWs;
+    setAutoloadsWc(autoloadsWc) {
+        this.autoloadsWc = autoloadsWc;
     }
     /**
-     * @return {WebComponent}
+     * @return {ComponentInterface}
      */
     getEntryPoint() {
         return this.entryPoint;
     }
     /**
-     * @param {WebComponent} entryPoint
+     * @param {ComponentInterface} entryPoint
      * @return {this}
      */
     setEntryPoint(entryPoint) {
         this.entryPoint = entryPoint;
+        return this;
+    }
+    /**
+     * @returns {Array<ComponentInterface>}
+     */
+    getWidgets() {
+        return this.widgets;
+    }
+    /**
+     * @param {Array<ComponentInterface>} widgets
+     * @return {this}
+     */
+    setWidgets(widgets) {
+        this.widgets = widgets;
         return this;
     }
 }

@@ -2,6 +2,7 @@ import { ContainerInterface } from "../container/index";
 import { Module } from "./module/index";
 import { EventManagerAware, EventManagerAwareInterface } from "../event/index";
 import { WidgetInterface } from "./widget/WidgetInterface";
+import { HydratorInterface } from "../hydrator";
 /**
  * @class
  * Application
@@ -15,6 +16,10 @@ export declare class Application extends EventManagerAware implements EventManag
      * @type {string}
      */
     static LOAD_MODULE: string;
+    /**
+  * @type {string}
+  */
+    static IMPORT_MODULE: string;
     /**
      * @type {string}
      */
@@ -40,10 +45,21 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     private widgets;
     /**
+         * @type {HydratorInterface}
+     */
+    private moduleHydrator;
+    /**
      * @param {Array<Module>} modules
      * @param {ContainerInterface} container
      */
     loadModules(modules: Array<Module>, container: ContainerInterface): Promise<Module[]>;
+    /**
+     *
+     * @param {string} pathModule
+     * @param {ContainerInterface} container
+     * @returns
+     */
+    importModule(pathModule: string, container: ContainerInterface): Promise<string>;
     /**
      * @param {Module} module
      * @param {ContainerInterface} container
@@ -55,29 +71,29 @@ export declare class Application extends EventManagerAware implements EventManag
      * @param {Module} module
      * @private
      */
-    _importEntryPoint(module: any): Promise<void>;
+    _importEntryPoint(module: Module): Promise<void>;
     /**
      * @param {Module} module
      * @private
      */
-    _importAutoLoadClass(module: any): Promise<void>;
+    _importAutoLoadClass(module: Module): Promise<void>;
     /**
      * @param {Module} module
      * @private
      */
-    _importAutoLoadWs(module: any): Promise<void>;
+    _importAutoLoadWc(module: Module): Promise<void>;
     /**
      * @param {Module} module
      * @param {Container} container
      * @private
      */
-    _importConfigModule(module: any, container: any): Promise<void>;
+    _importConfigModule(module: Module, container: any): Promise<void>;
     /**
      *
      * @param {Widget} widget
      * @return {Promise<void>}
      */
-    private loadWidget;
+    private _loadWidget;
     /**
      * @param {Module} module
      * @return {Application}
@@ -147,4 +163,9 @@ export declare class Application extends EventManagerAware implements EventManag
      * @return {Application}
      */
     setBasePath(basePath: string): this;
+    /**
+     * @param {HydratorInterface} moduleHydrator
+     * @return {Application}
+     */
+    setModuleHydrator(moduleHydrator: HydratorInterface): this;
 }

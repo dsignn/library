@@ -2,6 +2,7 @@ import {ContainerInterface, ContainerAwareInterface} from "../container/index";
 import {Module} from "./module/index";
 import {EventManagerAware, EventManagerAwareInterface, EventManagerInterface} from "../event/index";
 import {WidgetInterface} from "./widget/WidgetInterface";
+import { HydratorInterface } from "../hydrator";
 
 /**
  * @class
@@ -18,6 +19,11 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @type {string}
      */
     static LOAD_MODULE: string = 'laod-module';
+
+       /**
+     * @type {string}
+     */
+    static IMPORT_MODULE: string = 'import-module';
 
     /**
      * @type {string}
@@ -49,6 +55,11 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     private widgets: Array<WidgetInterface> = [];
 
+    /**
+         * @type {HydratorInterface}
+     */
+    private moduleHydrator: HydratorInterface;
+
 
     /**
      * @param {Array<Module>} modules
@@ -59,14 +70,55 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         // Load module
         for (let cont = 0; modules.length > cont; cont++) {
             await this._loadModule(modules[cont], container);
+            this.addModule(modules[cont]);
         }
         // Load widget
         for (let cont = 0; this.widgets.length > cont; cont++) {
-            await this.loadWidget(this.widgets[cont]);
+            await this._loadWidget(this.widgets[cont]);
         }
 
         this.getEventManager().emit(Application.BOOTSTRAP_MODULE, this.modules);
         return this.modules;
+    }
+    
+    /**
+     * 
+     * @param {string} pathModule 
+     * @param {ContainerInterface} container 
+     * @returns 
+     */
+    public async importModule(pathModule: string, container: ContainerInterface) {
+     
+        let fs = require('fs');
+        if (!fs.existsSync(pathModule)) {
+            return 'File not found at ' + pathModule;
+        }
+        
+        let decompress = require('decompress');
+        let done = await decompress(pathModule, this.modulePath);
+
+        if (done[0].type !== 'directory') {
+            return 'File dont contain module directory';
+        }
+
+        let configFile = `${this.modulePath}/${done[0].path}package.json`;
+        if (!fs.existsSync(configFile)) {
+            return 'File dont contain module directory';
+        }
+
+        let module = this.moduleHydrator.hydrate(JSON.parse(fs.readFileSync(configFile)));
+    
+        let laod = await this._loadModule(module, container);
+        this.modules.splice((this.modules.length-1), 0, module);
+
+        this.getEventManager().emit(Application.IMPORT_MODULE, module);
+
+        fs.writeFile(`${this.basePath}config/module.json` , JSON.stringify(this.modules, null, 4), function (err) {
+            if (err) return console.error(err);
+   
+        });
+
+        // TODO rewrite import widget
     }
 
     /**
@@ -77,12 +129,9 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     private async _loadModule(module:Module, container:ContainerInterface) {
 
-        this.addModule(module);
-
         /**
          * to run absolute path on windows, for polymer cli script c:/ !== /c:/ when use import
          */
-
         console.groupCollapsed(`Load Module ${module.getName()}`);
 
         /**
@@ -98,7 +147,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         /**
          * Import auto load ws
          */
-        await this._importAutoLoadWs(module);
+        await this._importAutoLoadWc(module);
 
         /**
          * Import auto load ws
@@ -113,7 +162,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {Module} module
      * @private
      */
-    async _importEntryPoint(module) {
+    async _importEntryPoint(module: Module) {
 
         let wcEntryPoint;
         /**
@@ -131,12 +180,11 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         }
     }
 
-
     /**
      * @param {Module} module
      * @private
      */
-    async _importAutoLoadClass(module) {
+    async _importAutoLoadClass(module: Module) {
 
         if (module.getAutoloads().length > 0) {
             let autoLoadPath;
@@ -147,12 +195,12 @@ export class Application extends EventManagerAware implements EventManagerAwareI
                 try {
 
                     autoLoadImport = await import(autoLoadPath);
-                    window[module.getAutoloads()[cont].name] = autoLoadImport[module.getAutoloads()[cont].name];
+                    window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                     console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
 
                 }
                 catch (err) {
-                    console.error(`Failed to load auto load class ${module.getAutoloads()[cont].name} in ${module.getAutoloads()[cont].path}`, err);
+                    console.error(`Failed to load auto load class ${module.getAutoloads()[cont].getName()} in ${module.getAutoloads()[cont].getPath()}`, err);
                 }
             }
         }
@@ -162,16 +210,16 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {Module} module
      * @private
      */
-    async _importAutoLoadWs(module) {
+    async _importAutoLoadWc(module: Module) {
 
-        if (module.getAutoloadsWs().length > 0) {
+        if (module.getAutoloadsWc().length > 0) {
             let wcComponentPath;
-            for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
-                if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
-                    wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWs()[cont].getPath().getPath()}`;
+            for (let cont = 0; module.getAutoloadsWc().length > cont; cont++) {
+                if (customElements.get(module.getAutoloadsWc()[cont].getName()) === undefined) {
+                    wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWc()[cont].getPath().getPath()}`;
                     try {
                         let wcComponent = await import(wcComponentPath);
-                        console.log(`Load web component "${module.getAutoloadsWs()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                        console.log(`Load web component "${module.getAutoloadsWc()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
                     }
                     catch (err) {
                         console.error(`Failed to load autoloads store in ${wcComponentPath}`, err);
@@ -186,13 +234,13 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {Container} container
      * @private
      */
-    async _importConfigModule(module, container) {
+    async _importConfigModule(module : Module, container) {
         if (module.getConfigEntryPoint()) {
 
             let configModule;
             let configModuleClass;
             let configModulePath = `${this.getModulePath()}/${module.getName()}/${module.getConfigEntryPoint()}`;
-            console.log(`Init ${module.name}`);
+            console.log(`Init ${module.getName()}`);
 
             configModule = await import(configModulePath);
             configModuleClass = new configModule.Repository();
@@ -206,7 +254,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {Widget} widget
      * @return {Promise<void>}
      */
-    private async loadWidget(widget: WidgetInterface) {
+    private async _loadWidget(widget: WidgetInterface) {
         console.groupCollapsed(`Load Widget ${widget.getName()}`);
         let path;
 
@@ -363,6 +411,15 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     public setBasePath(basePath: string) {
         this.basePath = basePath;
+        return this;
+    }
+
+    /**
+     * @param {HydratorInterface} moduleHydrator 
+     * @return {Application}
+     */
+    public setModuleHydrator(moduleHydrator: HydratorInterface) {
+        this.moduleHydrator = moduleHydrator;
         return this;
     }
 }

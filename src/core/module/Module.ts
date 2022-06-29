@@ -1,5 +1,6 @@
 import {WebComponent} from "../webcomponent";
 import {ComponentInterface} from "../ComponentInterface";
+import { Widget } from "../widget";
 
 /**
  * @class Module
@@ -45,7 +46,12 @@ export class Module {
     /**
      * @type Array<ComponentInterface>
      */
-    private autoloadsWs: Array<ComponentInterface> = [];
+    private autoloadsWc: Array<ComponentInterface> = [];
+
+    /**
+      * @type Array<ComponentInterface>
+     */
+    private widgets: Array<ComponentInterface> = [];
 
     /**
      * @return {string}
@@ -126,32 +132,48 @@ export class Module {
     }
 
     /**
-     * @return {Array<WebComponent>}
+     * @return {Array<ComponentInterface>}
      */
-    public getAutoloadsWs() {
-        return this.autoloadsWs;
+    public getAutoloadsWc() {
+        return this.autoloadsWc;
     }
 
     /**
-     * @param {Array<WebComponent>} autoloadsWs
+     * @param {Array<ComponentInterface>} autoloadsWc
      */
-    public setAutoloadsWs(autoloadsWs: Array<ComponentInterface>) {
-        this.autoloadsWs = autoloadsWs;
+    public setAutoloadsWc(autoloadsWc: Array<ComponentInterface>) {
+        this.autoloadsWc = autoloadsWc;
     }
 
     /**
-     * @return {WebComponent}
+     * @return {ComponentInterface}
      */
     public getEntryPoint() {
         return this.entryPoint;
     }
 
     /**
-     * @param {WebComponent} entryPoint
+     * @param {ComponentInterface} entryPoint
      * @return {this}
      */
     public setEntryPoint(entryPoint: ComponentInterface) {
         this.entryPoint = entryPoint;
+        return this;
+    }
+
+    /**
+     * @returns {Array<ComponentInterface>} 
+     */
+    public getWidgets() {
+        return this.widgets;
+    }
+
+    /**
+     * @param {Array<ComponentInterface>} widgets
+     * @return {this}
+     */
+    public setWidgets(widgets: Array<ComponentInterface>) {
+        this.widgets = widgets;
         return this;
     }
 }

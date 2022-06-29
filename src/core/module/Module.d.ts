@@ -35,7 +35,11 @@ export declare class Module {
     /**
      * @type Array<ComponentInterface>
      */
-    private autoloadsWs;
+    private autoloadsWc;
+    /**
+      * @type Array<ComponentInterface>
+     */
+    private widgets;
     /**
      * @return {string}
      */
@@ -81,20 +85,29 @@ export declare class Module {
      */
     setAutoloads(autoloads: Array<ComponentInterface>): void;
     /**
-     * @return {Array<WebComponent>}
+     * @return {Array<ComponentInterface>}
      */
-    getAutoloadsWs(): ComponentInterface[];
+    getAutoloadsWc(): ComponentInterface[];
     /**
-     * @param {Array<WebComponent>} autoloadsWs
+     * @param {Array<ComponentInterface>} autoloadsWc
      */
-    setAutoloadsWs(autoloadsWs: Array<ComponentInterface>): void;
+    setAutoloadsWc(autoloadsWc: Array<ComponentInterface>): void;
     /**
-     * @return {WebComponent}
+     * @return {ComponentInterface}
      */
     getEntryPoint(): ComponentInterface;
     /**
-     * @param {WebComponent} entryPoint
+     * @param {ComponentInterface} entryPoint
      * @return {this}
      */
     setEntryPoint(entryPoint: ComponentInterface): this;
+    /**
+     * @returns {Array<ComponentInterface>}
+     */
+    getWidgets(): ComponentInterface[];
+    /**
+     * @param {Array<ComponentInterface>} widgets
+     * @return {this}
+     */
+    setWidgets(widgets: Array<ComponentInterface>): this;
 }

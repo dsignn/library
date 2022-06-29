@@ -36,13 +36,46 @@ class Application extends index_1.EventManagerAware {
             // Load module
             for (let cont = 0; modules.length > cont; cont++) {
                 yield this._loadModule(modules[cont], container);
+                this.addModule(modules[cont]);
             }
             // Load widget
             for (let cont = 0; this.widgets.length > cont; cont++) {
-                yield this.loadWidget(this.widgets[cont]);
+                yield this._loadWidget(this.widgets[cont]);
             }
             this.getEventManager().emit(Application.BOOTSTRAP_MODULE, this.modules);
             return this.modules;
+        });
+    }
+    /**
+     *
+     * @param {string} pathModule
+     * @param {ContainerInterface} container
+     * @returns
+     */
+    importModule(pathModule, container) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let fs = require('fs');
+            if (!fs.existsSync(pathModule)) {
+                return 'File not found at ' + pathModule;
+            }
+            let decompress = require('decompress');
+            let done = yield decompress(pathModule, this.modulePath);
+            if (done[0].type !== 'directory') {
+                return 'File dont contain module directory';
+            }
+            let configFile = `${this.modulePath}/${done[0].path}package.json`;
+            if (!fs.existsSync(configFile)) {
+                return 'File dont contain module directory';
+            }
+            let module = this.moduleHydrator.hydrate(JSON.parse(fs.readFileSync(configFile)));
+            let laod = yield this._loadModule(module, container);
+            this.modules.splice((this.modules.length - 1), 0, module);
+            this.getEventManager().emit(Application.IMPORT_MODULE, module);
+            fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
+                if (err)
+                    return console.error(err);
+            });
+            // TODO rewrite import widget
         });
     }
     /**
@@ -53,7 +86,6 @@ class Application extends index_1.EventManagerAware {
      */
     _loadModule(module, container) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.addModule(module);
             /**
              * to run absolute path on windows, for polymer cli script c:/ !== /c:/ when use import
              */
@@ -69,7 +101,7 @@ class Application extends index_1.EventManagerAware {
             /**
              * Import auto load ws
              */
-            yield this._importAutoLoadWs(module);
+            yield this._importAutoLoadWc(module);
             /**
              * Import auto load ws
              */
@@ -113,11 +145,11 @@ class Application extends index_1.EventManagerAware {
                     autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                     try {
                         autoLoadImport = yield Promise.resolve().then(() => require(autoLoadPath));
-                        window[module.getAutoloads()[cont].name] = autoLoadImport[module.getAutoloads()[cont].name];
+                        window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                         console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
                     }
                     catch (err) {
-                        console.error(`Failed to load auto load class ${module.getAutoloads()[cont].name} in ${module.getAutoloads()[cont].path}`, err);
+                        console.error(`Failed to load auto load class ${module.getAutoloads()[cont].getName()} in ${module.getAutoloads()[cont].getPath()}`, err);
                     }
                 }
             }
@@ -127,16 +159,16 @@ class Application extends index_1.EventManagerAware {
      * @param {Module} module
      * @private
      */
-    _importAutoLoadWs(module) {
+    _importAutoLoadWc(module) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (module.getAutoloadsWs().length > 0) {
+            if (module.getAutoloadsWc().length > 0) {
                 let wcComponentPath;
-                for (let cont = 0; module.getAutoloadsWs().length > cont; cont++) {
-                    if (customElements.get(module.getAutoloadsWs()[cont].getName()) === undefined) {
-                        wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWs()[cont].getPath().getPath()}`;
+                for (let cont = 0; module.getAutoloadsWc().length > cont; cont++) {
+                    if (customElements.get(module.getAutoloadsWc()[cont].getName()) === undefined) {
+                        wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWc()[cont].getPath().getPath()}`;
                         try {
                             let wcComponent = yield Promise.resolve().then(() => require(wcComponentPath));
-                            console.log(`Load web component "${module.getAutoloadsWs()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                            console.log(`Load web component "${module.getAutoloadsWc()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
                         }
                         catch (err) {
                             console.error(`Failed to load autoloads store in ${wcComponentPath}`, err);
@@ -157,7 +189,7 @@ class Application extends index_1.EventManagerAware {
                 let configModule;
                 let configModuleClass;
                 let configModulePath = `${this.getModulePath()}/${module.getName()}/${module.getConfigEntryPoint()}`;
-                console.log(`Init ${module.name}`);
+                console.log(`Init ${module.getName()}`);
                 configModule = yield Promise.resolve().then(() => require(configModulePath));
                 configModuleClass = new configModule.Repository();
                 configModuleClass.setContainer(container);
@@ -170,7 +202,7 @@ class Application extends index_1.EventManagerAware {
      * @param {Widget} widget
      * @return {Promise<void>}
      */
-    loadWidget(widget) {
+    _loadWidget(widget) {
         return __awaiter(this, void 0, void 0, function* () {
             console.groupCollapsed(`Load Widget ${widget.getName()}`);
             let path;
@@ -315,6 +347,14 @@ class Application extends index_1.EventManagerAware {
         this.basePath = basePath;
         return this;
     }
+    /**
+     * @param {HydratorInterface} moduleHydrator
+     * @return {Application}
+     */
+    setModuleHydrator(moduleHydrator) {
+        this.moduleHydrator = moduleHydrator;
+        return this;
+    }
 }
 exports.Application = Application;
 /**
@@ -325,3 +365,7 @@ Application.BOOTSTRAP_MODULE = 'bootstrap-module';
  * @type {string}
  */
 Application.LOAD_MODULE = 'laod-module';
+/**
+* @type {string}
+*/
+Application.IMPORT_MODULE = 'import-module';
