@@ -70,6 +70,14 @@ module.exports = {
         IpcWrapper : require('./commonjs/sender/IpcWrapper').IpcWrapper,
         AbstractSender : require('./commonjs/sender/AbstractSender').AbstractSender
     },
+    sport: {
+        ice_hockey: {
+            IceHockeyMatch: require('./commonjs/sport/ice_hockey/match/IceHockeyMatch').IceHockeyMatch,
+            IceHockeyPlayer: require('./commonjs/sport/ice_hockey/player/IceHockeyPlayer').IceHockeyPlayer,
+            IceHockeyMatch: require('./commonjs/sport/ice_hockey/score/IceHockeyScore').IceHockeyScore,
+            IceHockeyMatch: require('./commonjs/sport/ice_hockey/team/IceHockeyTeam').IceHockeyTeam,
+        }
+    },
     storage : {
         Storage : require('./commonjs/storage/Storage').Storage,
         adapter : {
