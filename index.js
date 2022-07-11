@@ -72,10 +72,10 @@ module.exports = {
     },
     sport: {
         ice_hockey: {
-            IceHockeyMatch: require('./commonjs/sport/ice_hockey/match/IceHockeyMatch').IceHockeyMatch,
-            IceHockeyPlayer: require('./commonjs/sport/ice_hockey/player/IceHockeyPlayer').IceHockeyPlayer,
-            IceHockeyMatch: require('./commonjs/sport/ice_hockey/score/IceHockeyScore').IceHockeyScore,
-            IceHockeyMatch: require('./commonjs/sport/ice_hockey/team/IceHockeyTeam').IceHockeyTeam,
+            IceHockeyMatch: require('./commonjs/sport/ice-hockey/match/IceHockeyMatch').IceHockeyMatch,
+            IceHockeyPlayer: require('./commonjs/sport/ice-hockey/player/IceHockeyPlayer').IceHockeyPlayer,
+            IceHockeyMatch: require('./commonjs/sport/ice-hockey/score/IceHockeyScore').IceHockeyScore,
+            IceHockeyMatch: require('./commonjs/sport/ice-hockey/team/IceHockeyTeam').IceHockeyTeam,
         }
     },
     storage : {
