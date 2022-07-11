@@ -1,3 +1,4 @@
+import { GenericPeriod } from "../../match/GenericPeriod";
 import { AbstractMatch } from "./../../match/AbstractMatch";
 import { MatchInterface } from "./../../match/MatchInterface";
 import { PeriodInterface } from "./../../match/PeriodInterface";
@@ -9,7 +10,9 @@ export class IceHockeyMatch extends AbstractMatch {
         super();
         
         this.periods = [
-            new Period
+            new GenericPeriod('first'),
+            new GenericPeriod('second'),
+            new GenericPeriod('third')
         ];
     }
     

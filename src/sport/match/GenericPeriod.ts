@@ -11,6 +11,13 @@ import { PeriodInterface } from "./PeriodInterface";
    protected name: string;
 
    /**
+    * @param name
+    */
+   constructor(name: string) {
+      this.name = name;
+   }
+
+   /**
     * @return {string}
     */
    getName(): string {
@@ -25,4 +32,4 @@ import { PeriodInterface } from "./PeriodInterface";
       this.name = name;
       return this;
    }
- }
+}
