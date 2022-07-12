@@ -1,12 +1,21 @@
+import { GenericTeam } from "../team/GenericTeam";
 /**
  * @interface AbstractPlayer
  */
 export class AbstractMatch {
     constructor() {
         /**
+         * @var TeamInteface
+         */
+        this.homeTeam = new GenericTeam();
+        /**
          * @var Array<ScoreInterface>
          */
         this.homeScores = [];
+        /**
+         * @var TeamInteface
+         */
+        this.guestTeam = new GenericTeam();
         /**
          * @var Array<ScoreInterface>
          */

@@ -1,5 +1,7 @@
 import { ScoreInterface } from "../score/ScoreInterface";
+import { GenericTeam } from "../team/GenericTeam";
 import { TeamInterface } from "../team/TeamInteface";
+import { GenericPeriod } from "./GenericPeriod";
 import { MatchInterface } from "./MatchInterface";
 import { PeriodInterface } from "./PeriodInterface";
 
@@ -11,7 +13,7 @@ export abstract class AbstractMatch implements MatchInterface {
     /**
      * @var TeamInteface
      */
-    protected homeTeam: TeamInterface;
+    protected homeTeam: TeamInterface = new GenericTeam();
 
     /**
      * @var Array<ScoreInterface>
@@ -21,7 +23,7 @@ export abstract class AbstractMatch implements MatchInterface {
     /**
      * @var TeamInteface
      */
-    protected guestTeam: TeamInterface;
+    protected guestTeam: TeamInterface = new GenericTeam();
 
     /**
      * @var Array<ScoreInterface>

@@ -1,15 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbstractMatch = void 0;
+const GenericTeam_1 = require("../team/GenericTeam");
 /**
  * @interface AbstractPlayer
  */
 class AbstractMatch {
     constructor() {
         /**
+         * @var TeamInteface
+         */
+        this.homeTeam = new GenericTeam_1.GenericTeam();
+        /**
          * @var Array<ScoreInterface>
          */
         this.homeScores = [];
+        /**
+         * @var TeamInteface
+         */
+        this.guestTeam = new GenericTeam_1.GenericTeam();
         /**
          * @var Array<ScoreInterface>
          */
