@@ -20,9 +20,17 @@ export declare abstract class AbstractPlayer implements PlayerInteface {
      */
     protected role: any;
     /**
+     * @var {string}
+     */
+    protected shirtNumber: any;
+    /**
      * @inheritdoc
      */
     getFirstName(): string;
+    /**
+ * @inheritdoc
+ */
+    setFirstName(firstName: string): PlayerInteface;
     /**
      * @inheritdoc
      */
@@ -30,9 +38,29 @@ export declare abstract class AbstractPlayer implements PlayerInteface {
     /**
      * @inheritdoc
      */
+    setLastName(lastName: string): PlayerInteface;
+    /**
+     * @inheritdoc
+     */
     getBirthday(): Date;
     /**
      * @inheritdoc
      */
+    setBirthday(date: Date): PlayerInteface;
+    /**
+     * @inheritdoc
+     */
     getRole(): string;
+    /**
+     * @inheritdoc
+     */
+    setRole(role: string): PlayerInteface;
+    /**
+     * @inheritdoc
+     */
+    getShirtNumber(): string;
+    /**
+     * @inheritdoc
+     */
+    setShirtNumber(shirtNumber: string): PlayerInteface;
 }

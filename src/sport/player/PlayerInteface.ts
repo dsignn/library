@@ -23,4 +23,9 @@
      * @return {string}
      */
     getRole(): string;
+
+    /**
+     * @return {string}
+     */
+    getShirtNumber(): string;
 }

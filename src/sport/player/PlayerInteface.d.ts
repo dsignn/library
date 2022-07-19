@@ -18,4 +18,8 @@ export interface PlayerInteface {
      * @return {string}
      */
     getRole(): string;
+    /**
+     * @return {string}
+     */
+    getShirtNumber(): string;
 }
