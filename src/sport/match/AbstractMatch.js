@@ -27,7 +27,7 @@ export class AbstractMatch {
         /**
          * @var PeriodInterface
          */
-        this.currentPeriond = null;
+        this.currentPeriod = null;
         /**
          * @var Date
          */
@@ -101,8 +101,14 @@ export class AbstractMatch {
      * @inheritdoc
      */
     setCurrentPeriod(period) {
-        this.currentPeriond = period;
+        this.currentPeriod = period;
         return this;
+    }
+    /**
+     * @inheritdoc
+     */
+    getCurrentPeriod() {
+        return this.currentPeriod;
     }
 }
 //# sourceMappingURL=AbstractMatch.js.map

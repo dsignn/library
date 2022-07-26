@@ -38,7 +38,7 @@ export abstract class AbstractMatch implements MatchInterface {
     /**
      * @var PeriodInterface
      */
-    protected currentPeriond: PeriodInterface = null;
+    protected currentPeriod: PeriodInterface = null;
 
     /**
      * @var Date
@@ -144,7 +144,14 @@ export abstract class AbstractMatch implements MatchInterface {
      * @inheritdoc
      */
     setCurrentPeriod(period: PeriodInterface): MatchInterface {
-        this.currentPeriond = period;
+        this.currentPeriod = period;
         return this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    getCurrentPeriod(): PeriodInterface {
+        return this.currentPeriod;
     }
 }

@@ -30,7 +30,7 @@ class AbstractMatch {
         /**
          * @var PeriodInterface
          */
-        this.currentPeriond = null;
+        this.currentPeriod = null;
         /**
          * @var Date
          */
@@ -104,8 +104,14 @@ class AbstractMatch {
      * @inheritdoc
      */
     setCurrentPeriod(period) {
-        this.currentPeriond = period;
+        this.currentPeriod = period;
         return this;
+    }
+    /**
+     * @inheritdoc
+     */
+    getCurrentPeriod() {
+        return this.currentPeriod;
     }
 }
 exports.AbstractMatch = AbstractMatch;
