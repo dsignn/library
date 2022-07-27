@@ -99,7 +99,6 @@ class Storage {
                         result[cont] = this.hydrator ? this.hydrator.hydrate(result[cont]) : result[cont];
                     }
                 }
-                console.log(this.adapter.getNameCollection(), result);
                 resolve(result);
             })
                 .catch((error) => {
