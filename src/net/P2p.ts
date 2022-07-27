@@ -112,7 +112,6 @@ export class P2p extends EventManagerAware {
      * @private
      */
     private _onBroadcasterListening() {
-        console.log('BROADCASTER LISTENING');
         this.udpClient.setBroadcast(true);
     }
 
