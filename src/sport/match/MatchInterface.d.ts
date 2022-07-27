@@ -73,4 +73,8 @@ export interface MatchInterface {
      * @returns {MatchInterface}
      */
     setCurrentPeriod(period: PeriodInterface): MatchInterface;
+    /**
+     * @returns {PeriodInterface}
+     */
+    getCurrentPeriod(): PeriodInterface;
 }
