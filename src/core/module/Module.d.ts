@@ -25,6 +25,10 @@ export declare class Module {
      */
     private configEntryPoint;
     /**
+     * @type {Boolean}
+     */
+    private core;
+    /**
      * @type string
      */
     private label;
@@ -57,7 +61,7 @@ export declare class Module {
      * @param {string} name
      * @return {Module}
      */
-    setName(name: string): this;
+    setName(name: string): Module;
     /**
      * @return {string}
      */
@@ -66,7 +70,7 @@ export declare class Module {
      * @param {string} icon
      * @return {Module}
      */
-    setIcon(icon: string): this;
+    setIcon(icon: string): Module;
     /**
      * @return {string}
      */
@@ -75,39 +79,46 @@ export declare class Module {
      * @param {string} configEntryPoint
      * @return {Module}
      */
-    setConfigEntryPoint(configEntryPoint: string): this;
+    setConfigEntryPoint(configEntryPoint: string): Module;
     /**
      * @return {Array<ComponentInterface>}
      */
     getAutoloads(): ComponentInterface[];
     /**
      * @param {Array<ComponentInterface>} autoloads
+     * @return {Module}
      */
-    setAutoloads(autoloads: Array<ComponentInterface>): void;
+    setAutoloads(autoloads: Array<ComponentInterface>): Module;
     /**
      * @return {Array<ComponentInterface>}
      */
     getAutoloadsWc(): ComponentInterface[];
     /**
      * @param {Array<ComponentInterface>} autoloadsWc
+     * @return {Module}
      */
-    setAutoloadsWc(autoloadsWc: Array<ComponentInterface>): void;
+    setAutoloadsWc(autoloadsWc: Array<ComponentInterface>): Module;
     /**
      * @return {ComponentInterface}
      */
     getEntryPoint(): ComponentInterface;
     /**
      * @param {ComponentInterface} entryPoint
-     * @return {this}
+     * @return {Module}
      */
-    setEntryPoint(entryPoint: ComponentInterface): this;
+    setEntryPoint(entryPoint: ComponentInterface): Module;
     /**
      * @returns {Array<ComponentInterface>}
      */
     getWidgets(): ComponentInterface[];
     /**
      * @param {Array<ComponentInterface>} widgets
-     * @return {this}
+     * @return {Module}
      */
-    setWidgets(widgets: Array<ComponentInterface>): this;
+    setWidgets(widgets: Array<ComponentInterface>): Module;
+    /**
+     * @returns boolean
+     */
+    getCore(): Boolean;
+    setCore(core: Boolean): Module;
 }

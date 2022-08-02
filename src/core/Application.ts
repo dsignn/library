@@ -20,7 +20,12 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     static LOAD_MODULE: string = 'laod-module';
 
-       /**
+    /**
+     * @type {string}
+     */
+    static DELETE_MODULE: string = 'delete-module';
+
+    /**
      * @type {string}
      */
     static IMPORT_MODULE: string = 'import-module';
@@ -121,6 +126,26 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         // TODO rewrite import widget
     }
 
+    public async deleteModule(module: Module) {
+
+        let fs = require('fs');
+
+        let index = this.modules.findIndex((element) => {
+            return element.getName() === module.getName();
+        });
+
+        this.modules.splice(index, 1);
+
+        this.getEventManager().emit(Application.DELETE_MODULE, module);
+
+        fs.writeFile(`${this.basePath}config/module.json` , JSON.stringify(this.modules, null, 4), function (err) {
+            if (err) return console.error(err);
+   
+        });
+
+        await fs.rm(`${this.getModulePath()}/${module.getName()}`, { recursive: true, force: true });
+    };
+ 
     /**
      * @param {Module} module
      * @param {ContainerInterface} container

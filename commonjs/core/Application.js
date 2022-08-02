@@ -78,6 +78,22 @@ class Application extends index_1.EventManagerAware {
             // TODO rewrite import widget
         });
     }
+    deleteModule(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let fs = require('fs');
+            let index = this.modules.findIndex((element) => {
+                return element.getName() === module.getName();
+            });
+            this.modules.splice(index, 1);
+            this.getEventManager().emit(Application.DELETE_MODULE, module);
+            fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
+                if (err)
+                    return console.error(err);
+            });
+            yield fs.rm(`${this.getModulePath()}/${module.getName()}`, { recursive: true, force: true });
+        });
+    }
+    ;
     /**
      * @param {Module} module
      * @param {ContainerInterface} container
@@ -366,6 +382,10 @@ Application.BOOTSTRAP_MODULE = 'bootstrap-module';
  */
 Application.LOAD_MODULE = 'laod-module';
 /**
-* @type {string}
-*/
+ * @type {string}
+ */
+Application.DELETE_MODULE = 'delete-module';
+/**
+ * @type {string}
+ */
 Application.IMPORT_MODULE = 'import-module';

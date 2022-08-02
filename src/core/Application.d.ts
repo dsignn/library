@@ -17,8 +17,12 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     static LOAD_MODULE: string;
     /**
-  * @type {string}
-  */
+     * @type {string}
+     */
+    static DELETE_MODULE: string;
+    /**
+     * @type {string}
+     */
     static IMPORT_MODULE: string;
     /**
      * @type {string}
@@ -60,6 +64,7 @@ export declare class Application extends EventManagerAware implements EventManag
      * @returns
      */
     importModule(pathModule: string, container: ContainerInterface): Promise<string>;
+    deleteModule(module: Module): Promise<void>;
     /**
      * @param {Module} module
      * @param {ContainerInterface} container

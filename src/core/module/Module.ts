@@ -31,7 +31,12 @@ export class Module {
     /**
      * @type {string}
      */
-    private configEntryPoint:string = '';
+    private configEntryPoint: string = '';
+
+    /**
+     * @type {Boolean}
+     */
+    private core: Boolean = true;
 
     /**
      * @type string
@@ -80,7 +85,7 @@ export class Module {
      * @param {string} name
      * @return {Module}
      */
-    public setName(name: string) {
+    public setName(name: string): Module {
         this.name = name;
         return this;
     }
@@ -96,7 +101,7 @@ export class Module {
      * @param {string} icon
      * @return {Module}
      */
-    public setIcon(icon: string) {
+    public setIcon(icon: string): Module {
         this.icon = icon;
         return this;
     }
@@ -112,7 +117,7 @@ export class Module {
      * @param {string} configEntryPoint
      * @return {Module}
      */
-    public setConfigEntryPoint(configEntryPoint: string) {
+    public setConfigEntryPoint(configEntryPoint: string): Module {
         this.configEntryPoint = configEntryPoint;
         return this;
     }
@@ -126,9 +131,11 @@ export class Module {
 
     /**
      * @param {Array<ComponentInterface>} autoloads
+     * @return {Module}
      */
-    public setAutoloads(autoloads: Array<ComponentInterface>) {
+    public setAutoloads(autoloads: Array<ComponentInterface>): Module {
         this.autoloads = autoloads;
+        return this
     }
 
     /**
@@ -140,9 +147,11 @@ export class Module {
 
     /**
      * @param {Array<ComponentInterface>} autoloadsWc
+     * @return {Module}
      */
-    public setAutoloadsWc(autoloadsWc: Array<ComponentInterface>) {
+    public setAutoloadsWc(autoloadsWc: Array<ComponentInterface>): Module {
         this.autoloadsWc = autoloadsWc;
+        return this
     }
 
     /**
@@ -154,9 +163,9 @@ export class Module {
 
     /**
      * @param {ComponentInterface} entryPoint
-     * @return {this}
+     * @return {Module}
      */
-    public setEntryPoint(entryPoint: ComponentInterface) {
+    public setEntryPoint(entryPoint: ComponentInterface): Module {
         this.entryPoint = entryPoint;
         return this;
     }
@@ -170,10 +179,22 @@ export class Module {
 
     /**
      * @param {Array<ComponentInterface>} widgets
-     * @return {this}
+     * @return {Module}
      */
-    public setWidgets(widgets: Array<ComponentInterface>) {
+    public setWidgets(widgets: Array<ComponentInterface>): Module {
         this.widgets = widgets;
+        return this;
+    }
+
+    /**
+     * @returns boolean
+     */
+    public getCore(): Boolean {
+        return this.core;
+    }
+
+    public setCore(core: Boolean): Module {
+        this.core = core;
         return this;
     }
 }

@@ -29,6 +29,10 @@ class Module {
          */
         this.configEntryPoint = '';
         /**
+         * @type {Boolean}
+         */
+        this.core = true;
+        /**
          * @type string
          */
         this.label = '';
@@ -109,9 +113,11 @@ class Module {
     }
     /**
      * @param {Array<ComponentInterface>} autoloads
+     * @return {Module}
      */
     setAutoloads(autoloads) {
         this.autoloads = autoloads;
+        return this;
     }
     /**
      * @return {Array<ComponentInterface>}
@@ -121,9 +127,11 @@ class Module {
     }
     /**
      * @param {Array<ComponentInterface>} autoloadsWc
+     * @return {Module}
      */
     setAutoloadsWc(autoloadsWc) {
         this.autoloadsWc = autoloadsWc;
+        return this;
     }
     /**
      * @return {ComponentInterface}
@@ -133,7 +141,7 @@ class Module {
     }
     /**
      * @param {ComponentInterface} entryPoint
-     * @return {this}
+     * @return {Module}
      */
     setEntryPoint(entryPoint) {
         this.entryPoint = entryPoint;
@@ -147,10 +155,20 @@ class Module {
     }
     /**
      * @param {Array<ComponentInterface>} widgets
-     * @return {this}
+     * @return {Module}
      */
     setWidgets(widgets) {
         this.widgets = widgets;
+        return this;
+    }
+    /**
+     * @returns boolean
+     */
+    getCore() {
+        return this.core;
+    }
+    setCore(core) {
+        this.core = core;
         return this;
     }
 }
