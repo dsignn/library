@@ -62,18 +62,22 @@ export class Application extends EventManagerAware {
         });
         // TODO rewrite import widget
     }
+    /**
+     *
+     * @param module
+     */
     async deleteModule(module) {
         let fs = require('fs');
         let index = this.modules.findIndex((element) => {
             return element.getName() === module.getName();
         });
         this.modules.splice(index, 1);
-        this.getEventManager().emit(Application.DELETE_MODULE, module);
         fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
             if (err)
                 return console.error(err);
         });
         await fs.rm(`${this.getModulePath()}/${module.getName()}`, { recursive: true, force: true });
+        this.getEventManager().emit(Application.DELETE_MODULE, module);
     }
     ;
     /**

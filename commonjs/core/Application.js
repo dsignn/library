@@ -78,6 +78,10 @@ class Application extends index_1.EventManagerAware {
             // TODO rewrite import widget
         });
     }
+    /**
+     *
+     * @param module
+     */
     deleteModule(module) {
         return __awaiter(this, void 0, void 0, function* () {
             let fs = require('fs');
@@ -85,12 +89,12 @@ class Application extends index_1.EventManagerAware {
                 return element.getName() === module.getName();
             });
             this.modules.splice(index, 1);
-            this.getEventManager().emit(Application.DELETE_MODULE, module);
             fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
                 if (err)
                     return console.error(err);
             });
             yield fs.rm(`${this.getModulePath()}/${module.getName()}`, { recursive: true, force: true });
+            this.getEventManager().emit(Application.DELETE_MODULE, module);
         });
     }
     ;

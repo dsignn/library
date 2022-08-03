@@ -64,6 +64,10 @@ export declare class Application extends EventManagerAware implements EventManag
      * @returns
      */
     importModule(pathModule: string, container: ContainerInterface): Promise<string>;
+    /**
+     *
+     * @param module
+     */
     deleteModule(module: Module): Promise<void>;
     /**
      * @param {Module} module
