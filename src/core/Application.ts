@@ -286,7 +286,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         console.groupCollapsed(`Load Widget ${widget.getName()}`);
         let path;
 
-        if (widget.getWebComponent() && customElements.get(widget.getWebComponent().getName()) === undefined) {
+        if (widget.getWebComponent() && widget.getWebComponent().getName() && customElements.get(widget.getWebComponent().getName()) === undefined) {
             path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
             try {
                 await import(path);
@@ -296,7 +296,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
             }
         }
 
-        if (widget.getWebComponentData() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
+        if (widget.getWebComponentData() && widget.getWebComponentData().getName() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
             path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
             try {
                 await import(path);

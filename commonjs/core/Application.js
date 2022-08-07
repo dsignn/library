@@ -226,7 +226,7 @@ class Application extends index_1.EventManagerAware {
         return __awaiter(this, void 0, void 0, function* () {
             console.groupCollapsed(`Load Widget ${widget.getName()}`);
             let path;
-            if (widget.getWebComponent() && customElements.get(widget.getWebComponent().getName()) === undefined) {
+            if (widget.getWebComponent() && widget.getWebComponent().getName() && customElements.get(widget.getWebComponent().getName()) === undefined) {
                 path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
                 try {
                     yield Promise.resolve().then(() => require(path));
@@ -236,7 +236,7 @@ class Application extends index_1.EventManagerAware {
                     console.error(`Failed to load entry point module store in ${path}`, err);
                 }
             }
-            if (widget.getWebComponentData() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
+            if (widget.getWebComponentData() && widget.getWebComponentData().getName() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
                 path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
                 try {
                     yield Promise.resolve().then(() => require(path));
