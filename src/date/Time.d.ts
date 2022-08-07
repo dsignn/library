@@ -16,11 +16,21 @@ export declare class Time {
      */
     private seconds;
     /**
+     * @type {string}
+     */
+    private id;
+    /**
      * @param {number} hours
      * @param {number} minutes
      * @param {number} seconds
      */
     constructor(hours?: number, minutes?: number, seconds?: number);
+    getIdentifier(): string;
+    /**
+     * @param identifier
+     * @returns {Time}
+     */
+    setIdentifier(identifier: string): this;
     /**
      * If this is highest then timer 1, 0 if is equal and -1 if is lowest;
      *

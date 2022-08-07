@@ -20,6 +20,11 @@ export class Time {
     private seconds: number = 0;
 
     /**
+     * @type {string}
+     */
+    private id: string = '';
+
+    /**
      * @param {number} hours
      * @param {number} minutes
      * @param {number} seconds
@@ -40,6 +45,19 @@ export class Time {
          * @type {number}
          */
         this.seconds = seconds;
+    }
+
+    public getIdentifier() {
+        return this.id;
+    }
+
+    /**
+     * @param identifier 
+     * @returns {Time}
+     */
+    public setIdentifier(identifier: string) {
+        this.id = identifier;
+        return this;
     }
 
     /**

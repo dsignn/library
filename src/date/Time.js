@@ -22,6 +22,10 @@ export class Time {
          */
         this.seconds = 0;
         /**
+         * @type {string}
+         */
+        this.id = '';
+        /**
          * @type {number}
          */
         this.hours = hours;
@@ -33,6 +37,17 @@ export class Time {
          * @type {number}
          */
         this.seconds = seconds;
+    }
+    getIdentifier() {
+        return this.id;
+    }
+    /**
+     * @param identifier
+     * @returns {Time}
+     */
+    setIdentifier(identifier) {
+        this.id = identifier;
+        return this;
     }
     /**
      * If this is highest then timer 1, 0 if is equal and -1 if is lowest;
