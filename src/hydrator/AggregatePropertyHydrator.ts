@@ -152,7 +152,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator implements Hydra
         }
 
         if (!hydrator) {
-            throw new Error("Hydrator not found");
+            return data;
         }
 
         return hydrator.extract(data);

@@ -120,7 +120,7 @@ export class AggregatePropertyHydrator extends AbstractHydrator {
             hydrator = this.getHydratorFromType(this.getTypeInData(data));
         }
         if (!hydrator) {
-            throw new Error("Hydrator not found");
+            return data;
         }
         return hydrator.extract(data);
     }
