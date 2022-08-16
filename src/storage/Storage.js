@@ -128,7 +128,6 @@ export class Storage {
             let data = this.hydrator ? this.hydrator.extract(entity) : entity;
             this.adapter.save(data)
                 .then((data) => {
-                entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                 this.getEventManager().emit(Storage.POST_SAVE, entity);
                 resolve(entity);
             }).catch((err) => {
