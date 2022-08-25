@@ -99,14 +99,16 @@ export class Application extends EventManagerAware implements EventManagerAwareI
             return 'File not found at ' + pathModule;
         }
         
-        let decompress = require('decompress');
-        let done = await decompress(pathModule, this.modulePath);
-
-        if (done[0].type !== 'directory') {
+        let admZip = require('adm-zip');
+        let zip = new admZip(pathModule);
+        zip.extractAllTo(this.modulePath, true);
+        var zipEntries = zip.getEntries(); 
+        
+        if (!zipEntries[0].isDirectory) {
             return 'File dont contain module directory';
         }
 
-        let configFile = `${this.modulePath}/${done[0].path}package.json`;
+        let configFile = `${this.modulePath}/${zipEntries[0].entryName}package.json`;
         if (!fs.existsSync(configFile)) {
             return 'File dont contain module directory';
         }

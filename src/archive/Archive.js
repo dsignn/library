@@ -173,12 +173,13 @@ export class Archive {
     async restore(path) {
         let fs = require('fs');
         let fsExtra = require('fs-extra');
-        let decompress = require('decompress');
+        let admZip = require('adm-zip');
         let evtData = { path: path };
         this.eventManager.emit('star-progress-extract', evtData);
         fsExtra.emptyDirSync(this.tmpDir);
         try {
-            let done = await decompress(path, this.tmpDir);
+            let zip = new admZip(path);
+            zip.extractAllTo(this.tmpDir, true);
         }
         catch (e) {
             this.eventManager.emit('error-extract', { path: e });
