@@ -48,8 +48,9 @@ class MongoDb {
      * Connect to db
      */
     connect() {
-        const mongoClient = require('mongodb');
-        mongoClient.connect(`mongodb://${this.uri}:${this.port}/${this.name}`, this.options)
+        const { MongoClient } = require("mongodb");
+        const mongoClient = new MongoClient(`mongodb://${this.uri}:${this.port}/${this.name}`, this.options);
+        mongoClient.connect()
             .then((client) => {
             this.db = client.db();
             this.eventManager.emit(MongoDb.READY_CONNECTION, this);
