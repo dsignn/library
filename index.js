@@ -86,6 +86,9 @@ module.exports = {
                 DexieAdapter : require('./commonjs/storage/adapter/dexie/DexieAdapter').DexieAdapter,
                 Store : require('./commonjs/storage/adapter/dexie/Store').Store
             },
+            fileSystem:{
+                FileSystemAdapter : require('./commonjs/storage/adapter/file-system/FileSystemAdapter').FileSystemAdapter
+            },
             localStorage: {
                 LocalStorageAdapter : require('./commonjs/storage/adapter/local-storage/LocalStorageAdapter').LocalStorageAdapter
             },
