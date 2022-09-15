@@ -1,7 +1,6 @@
 import { ContainerInterface } from "../container/index";
 import { Module } from "./module/index";
 import { EventManagerAware, EventManagerAwareInterface } from "../event/index";
-import { WidgetInterface } from "./widget/WidgetInterface";
 import { HydratorInterface } from "../hydrator";
 /**
  * @class
@@ -44,10 +43,6 @@ export declare class Application extends EventManagerAware implements EventManag
      * @type {Array<Module>}
      */
     private modules;
-    /**
-     * @type {Array<Module>}
-     */
-    private widgets;
     /**
          * @type {HydratorInterface}
      */
@@ -118,24 +113,9 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     removeModule(id: string): this;
     /**
-     * @param {WidgetInterface} widget
-     * @return {Application}
-     */
-    addWidget(widget: WidgetInterface): this;
-    /**
-     * @param {string} nameWs
-     * @return {Application}
-     */
-    removeWidget(nameWs: string): this;
-    /**
-     * @param {Array<WidgetInterface>} widgets
-     * @return {this}
-     */
-    setWidgets(widgets: Array<WidgetInterface>): this;
-    /**
      * @return {Array<Widget>}
      */
-    getWidgets(): WidgetInterface[];
+    getWidgets(): any[];
     /**
      * @param {string} resourcePath
      * @return {Application}

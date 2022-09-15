@@ -1,6 +1,7 @@
 import {WebComponent} from "../webcomponent";
 import {ComponentInterface} from "../ComponentInterface";
 import { Widget } from "../widget";
+import { WidgetInterface } from "../widget/WidgetInterface";
 
 /**
  * @class Module
@@ -54,9 +55,9 @@ export class Module {
     private autoloadsWc: Array<ComponentInterface> = [];
 
     /**
-      * @type Array<ComponentInterface>
+      * @type Array<WidgetInterface>
      */
-    private widgets: Array<ComponentInterface> = [];
+    private widgets: Array<WidgetInterface> = [];
 
     /**
      * @return {string}
@@ -171,17 +172,17 @@ export class Module {
     }
 
     /**
-     * @returns {Array<ComponentInterface>} 
+     * @returns {Array<WidgetInterface>} 
      */
     public getWidgets() {
         return this.widgets;
     }
 
     /**
-     * @param {Array<ComponentInterface>} widgets
+     * @param {Array<WidgetInterface>} widgets
      * @return {Module}
      */
-    public setWidgets(widgets: Array<ComponentInterface>): Module {
+    public setWidgets(widgets: Array<WidgetInterface>): Module {
         this.widgets = widgets;
         return this;
     }

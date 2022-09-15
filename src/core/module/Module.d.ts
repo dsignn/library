@@ -1,4 +1,5 @@
 import { ComponentInterface } from "../ComponentInterface";
+import { WidgetInterface } from "../widget/WidgetInterface";
 /**
  * @class Module
  */
@@ -41,7 +42,7 @@ export declare class Module {
      */
     private autoloadsWc;
     /**
-      * @type Array<ComponentInterface>
+      * @type Array<WidgetInterface>
      */
     private widgets;
     /**
@@ -108,14 +109,14 @@ export declare class Module {
      */
     setEntryPoint(entryPoint: ComponentInterface): Module;
     /**
-     * @returns {Array<ComponentInterface>}
+     * @returns {Array<WidgetInterface>}
      */
-    getWidgets(): ComponentInterface[];
+    getWidgets(): WidgetInterface[];
     /**
-     * @param {Array<ComponentInterface>} widgets
+     * @param {Array<WidgetInterface>} widgets
      * @return {Module}
      */
-    setWidgets(widgets: Array<ComponentInterface>): Module;
+    setWidgets(widgets: Array<WidgetInterface>): Module;
     /**
      * @returns boolean
      */

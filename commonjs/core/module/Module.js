@@ -45,7 +45,7 @@ class Module {
          */
         this.autoloadsWc = [];
         /**
-          * @type Array<ComponentInterface>
+          * @type Array<WidgetInterface>
          */
         this.widgets = [];
     }
@@ -148,13 +148,13 @@ class Module {
         return this;
     }
     /**
-     * @returns {Array<ComponentInterface>}
+     * @returns {Array<WidgetInterface>}
      */
     getWidgets() {
         return this.widgets;
     }
     /**
-     * @param {Array<ComponentInterface>} widgets
+     * @param {Array<WidgetInterface>} widgets
      * @return {Module}
      */
     setWidgets(widgets) {

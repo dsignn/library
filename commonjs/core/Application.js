@@ -22,10 +22,6 @@ class Application extends index_1.EventManagerAware {
          * @type {Array<Module>}
          */
         this.modules = [];
-        /**
-         * @type {Array<Module>}
-         */
-        this.widgets = [];
     }
     /**
      * @param {Array<Module>} modules
@@ -38,9 +34,11 @@ class Application extends index_1.EventManagerAware {
                 yield this._loadModule(modules[cont], container);
                 this.addModule(modules[cont]);
             }
-            // Load widget
-            for (let cont = 0; this.widgets.length > cont; cont++) {
-                yield this._loadWidget(this.widgets[cont]);
+            for (let cont = 0; this.modules.length > cont; cont++) {
+                let widgets = this.modules[cont].getWidgets();
+                for (let cont1 = 0; widgets.length > cont1; cont1++) {
+                    yield this._loadWidget(widgets[cont1]);
+                }
             }
             this.getEventManager().emit(Application.BOOTSTRAP_MODULE, this.modules);
             return this.modules;
@@ -71,13 +69,12 @@ class Application extends index_1.EventManagerAware {
             }
             let module = this.moduleHydrator.hydrate(JSON.parse(fs.readFileSync(configFile)));
             let laod = yield this._loadModule(module, container);
+            let widgets = module.getWidgets();
+            for (let cont1 = 0; widgets.length > cont1; cont1++) {
+                yield this._loadWidget(widgets[cont1]);
+            }
             this.modules.splice((this.modules.length - 1), 0, module);
             this.getEventManager().emit(Application.IMPORT_MODULE, module);
-            fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
-                if (err)
-                    return console.error(err);
-            });
-            // TODO rewrite import widget
         });
     }
     /**
@@ -91,11 +88,6 @@ class Application extends index_1.EventManagerAware {
                 return element.getName() === module.getName();
             });
             this.modules.splice(index, 1);
-            fs.writeFile(`${this.basePath}config/module.json`, JSON.stringify(this.modules, null, 4), function (err) {
-                if (err)
-                    return console.error(err);
-            });
-            yield fs.rm(`${this.getModulePath()}/${module.getName()}`, { recursive: true, force: true });
             this.getEventManager().emit(Application.DELETE_MODULE, module);
         });
     }
@@ -279,39 +271,17 @@ class Application extends index_1.EventManagerAware {
         return this;
     }
     /**
-     * @param {WidgetInterface} widget
-     * @return {Application}
-     */
-    addWidget(widget) {
-        this.widgets.push(widget);
-        return this;
-    }
-    /**
-     * @param {string} nameWs
-     * @return {Application}
-     */
-    removeWidget(nameWs) {
-        for (let cont = 0; this.widgets.length > cont; cont++) {
-            if (this.widgets[cont].getWebComponent().getName() === nameWs) {
-                this.widgets.splice(cont, 1);
-                break;
-            }
-        }
-        return this;
-    }
-    /**
-     * @param {Array<WidgetInterface>} widgets
-     * @return {this}
-     */
-    setWidgets(widgets) {
-        this.widgets = widgets;
-        return this;
-    }
-    /**
      * @return {Array<Widget>}
      */
     getWidgets() {
-        return this.widgets;
+        let data = [];
+        for (let cont = 0; this.modules.length > cont; cont++) {
+            let widgets = this.modules[cont].getWidgets;
+            for (let cont1 = 0; widgets.length > cont1; cont1++) {
+                data.push(widgets[cont1]);
+            }
+        }
+        return data;
     }
     /**
      * @param {string} resourcePath
