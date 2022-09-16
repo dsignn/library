@@ -14,7 +14,8 @@ module.exports = {
         },
         widget: {
             Module: require('./commonjs/core/widget/Widget').Widget
-        }
+        },
+        Utils: require('./commonjs/core/Utils').Utils
     },
     date: {
         Time: require('./commonjs/date/Time').Time,
