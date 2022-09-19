@@ -12,6 +12,9 @@ module.exports = {
         module: {
             Module: require('./commonjs/core/module/Module').Module
         },
+        autoload: {
+            AutoLoadClass: require('./commonjs/core/autoload/AutoLoadClass').AutoLoadClass
+        },
         widget: {
             Module: require('./commonjs/core/widget/Widget').Widget
         },
