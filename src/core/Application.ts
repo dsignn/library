@@ -51,6 +51,27 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     private modulePath: string;
 
     /**
+     * @type {string}
+     */
+    private additionalModulePath: string;
+
+    /**
+     * @type {string}
+     */
+    private nodeModulePath: string;
+
+    /**
+     * @type {Array}
+     */
+    private coreModules: Array<string> = [
+        'dashboard',
+        'monitor',
+        'resource',
+        'timeslot',
+        'admin'
+    ];
+
+    /**
      * @type {Array<Module>}
      */
     private modules: Array<Module> = [];
@@ -59,7 +80,6 @@ export class Application extends EventManagerAware implements EventManagerAwareI
          * @type {HydratorInterface}
      */
     private moduleHydrator: HydratorInterface;
-
 
     /**
      * @param {Array<Module>} modules
@@ -304,7 +324,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {Module} module
      * @return {Application}
      */
-    public addModule(module:Module) {
+    public addModule(module:Module): Application {
         this.modules.push(module);
         return this;
     }
@@ -312,7 +332,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     /**
      * @return {Array<Module>}
      */
-    public getModules() {
+    public getModules(): Array<Module> {
         return this.modules;
     }
 
@@ -320,7 +340,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {string} id
      * @return Application
      */
-    public removeModule(id: string) {
+    public removeModule(id: string): Application {
         for (let cont = 0; this.modules.length > cont; cont) {
             if (this.modules[cont].getId() === id) {
                 this.modules.splice(cont, 1);
@@ -331,9 +351,9 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     }
 
     /**
-     * @return {Array<Widget>}
+     * @return {Array<WidgetInterface>}
      */
-    public getWidgets() {
+    public getWidgets(): Array<WidgetInterface> {
         let data =  [];
         for (let cont = 0; this.modules.length > cont; cont++) {
             let widgets = this.modules[cont].getWidgets;
@@ -348,7 +368,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {string} resourcePath
      * @return {Application}
      */
-    public setResourcePath(resourcePath: string) {
+    public setResourcePath(resourcePath: string): Application {
         this.resourcePath = resourcePath;
         return this;
     }
@@ -356,7 +376,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     /**
      * @return string
      */
-    public getResourcePath() {
+    public getResourcePath(): string {
         return this.resourcePath;
     }
 
@@ -364,7 +384,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {string} modulePath
      * @return {Application}
      */
-    public setModulePath(modulePath: string) {
+    public setModulePath(modulePath: string): Application {
         this.modulePath = modulePath;
         return this;
     }
@@ -372,15 +392,47 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     /**
      * @return string
      */
-    public getModulePath() {
+    public getModulePath(): string {
         return this.modulePath;
+    }
+
+    /**
+     * @param {string} additionalModulePath 
+     * @returns {Application}
+     */
+    public setAdditionalModulePath(additionalModulePath: string): Application {
+        this.additionalModulePath = additionalModulePath;
+        return this;
+    }
+
+    /**
+     * @returns 
+     */
+    public getAdditionalModulePath(): string {
+        return this.additionalModulePath;
+    }
+
+    /**
+     * @param {string} nodeModulePath 
+     * @returns {Application}
+     */
+     public setNodeModulePath(nodeModulePath: string): Application {
+        this.nodeModulePath = nodeModulePath;
+        return this;
+    }
+
+    /**
+     * @returns 
+     */
+    public getNodeModulePath(): string {
+        return this.nodeModulePath;
     }
 
     /**
      * @param {string} storagePath
      * @return {Application}
      */
-    public setStoragePath(storagePath: string) {
+    public setStoragePath(storagePath: string): Application {
         this.storagePath = storagePath;
         return this;
     }
@@ -388,31 +440,31 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     /**
      * @return string
      */
-    public getStoragePath() {
+    public getStoragePath(): string {
         return this.storagePath;
-    }
-
-    /**
-     * @return {string}
-     */
-    public getBasePath() {
-        return this.basePath;
     }
 
     /**
      * @param {string} basePath
      * @return {Application}
      */
-    public setBasePath(basePath: string) {
+    public setBasePath(basePath: string): Application {
         this.basePath = basePath;
         return this;
+    }
+
+    /**
+     * @return {string}
+     */
+    public getBasePath(): string {
+        return this.basePath;
     }
 
     /**
      * @param {HydratorInterface} moduleHydrator 
      * @return {Application}
      */
-    public setModuleHydrator(moduleHydrator: HydratorInterface) {
+    public setModuleHydrator(moduleHydrator: HydratorInterface): Application {
         this.moduleHydrator = moduleHydrator;
         return this;
     }

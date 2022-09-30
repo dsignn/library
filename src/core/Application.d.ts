@@ -1,6 +1,7 @@
 import { ContainerInterface } from "../container/index";
 import { Module } from "./module/index";
 import { EventManagerAware, EventManagerAwareInterface } from "../event/index";
+import { WidgetInterface } from "./widget/WidgetInterface";
 import { HydratorInterface } from "../hydrator";
 /**
  * @class
@@ -39,6 +40,18 @@ export declare class Application extends EventManagerAware implements EventManag
      * @type {string}
      */
     private modulePath;
+    /**
+     * @type {string}
+     */
+    private additionalModulePath;
+    /**
+     * @type {string}
+     */
+    private nodeModulePath;
+    /**
+     * @type {Array}
+     */
+    private coreModules;
     /**
      * @type {Array<Module>}
      */
@@ -102,25 +115,25 @@ export declare class Application extends EventManagerAware implements EventManag
      * @param {Module} module
      * @return {Application}
      */
-    addModule(module: Module): this;
+    addModule(module: Module): Application;
     /**
      * @return {Array<Module>}
      */
-    getModules(): Module[];
+    getModules(): Array<Module>;
     /**
      * @param {string} id
      * @return Application
      */
-    removeModule(id: string): this;
+    removeModule(id: string): Application;
     /**
-     * @return {Array<Widget>}
+     * @return {Array<WidgetInterface>}
      */
-    getWidgets(): any[];
+    getWidgets(): Array<WidgetInterface>;
     /**
      * @param {string} resourcePath
      * @return {Application}
      */
-    setResourcePath(resourcePath: string): this;
+    setResourcePath(resourcePath: string): Application;
     /**
      * @return string
      */
@@ -129,32 +142,50 @@ export declare class Application extends EventManagerAware implements EventManag
      * @param {string} modulePath
      * @return {Application}
      */
-    setModulePath(modulePath: string): this;
+    setModulePath(modulePath: string): Application;
     /**
      * @return string
      */
     getModulePath(): string;
     /**
+     * @param {string} additionalModulePath
+     * @returns {Application}
+     */
+    setAdditionalModulePath(additionalModulePath: string): Application;
+    /**
+     * @returns
+     */
+    getAdditionalModulePath(): string;
+    /**
+     * @param {string} nodeModulePath
+     * @returns {Application}
+     */
+    setNodeModulePath(nodeModulePath: string): Application;
+    /**
+     * @returns
+     */
+    getNodeModulePath(): string;
+    /**
      * @param {string} storagePath
      * @return {Application}
      */
-    setStoragePath(storagePath: string): this;
+    setStoragePath(storagePath: string): Application;
     /**
      * @return string
      */
     getStoragePath(): string;
     /**
+     * @param {string} basePath
+     * @return {Application}
+     */
+    setBasePath(basePath: string): Application;
+    /**
      * @return {string}
      */
     getBasePath(): string;
     /**
-     * @param {string} basePath
-     * @return {Application}
-     */
-    setBasePath(basePath: string): this;
-    /**
      * @param {HydratorInterface} moduleHydrator
      * @return {Application}
      */
-    setModuleHydrator(moduleHydrator: HydratorInterface): this;
+    setModuleHydrator(moduleHydrator: HydratorInterface): Application;
 }

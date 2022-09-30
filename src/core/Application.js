@@ -7,6 +7,16 @@ export class Application extends EventManagerAware {
     constructor() {
         super(...arguments);
         /**
+         * @type {Array}
+         */
+        this.coreModules = [
+            'dashboard',
+            'monitor',
+            'resource',
+            'timeslot',
+            'admin'
+        ];
+        /**
          * @type {Array<Module>}
          */
         this.modules = [];
@@ -241,7 +251,7 @@ export class Application extends EventManagerAware {
         return this;
     }
     /**
-     * @return {Array<Widget>}
+     * @return {Array<WidgetInterface>}
      */
     getWidgets() {
         let data = [];
@@ -282,6 +292,34 @@ export class Application extends EventManagerAware {
         return this.modulePath;
     }
     /**
+     * @param {string} additionalModulePath
+     * @returns {Application}
+     */
+    setAdditionalModulePath(additionalModulePath) {
+        this.additionalModulePath = additionalModulePath;
+        return this;
+    }
+    /**
+     * @returns
+     */
+    getAdditionalModulePath() {
+        return this.additionalModulePath;
+    }
+    /**
+     * @param {string} nodeModulePath
+     * @returns {Application}
+     */
+    setNodeModulePath(nodeModulePath) {
+        this.nodeModulePath = nodeModulePath;
+        return this;
+    }
+    /**
+     * @returns
+     */
+    getNodeModulePath() {
+        return this.nodeModulePath;
+    }
+    /**
      * @param {string} storagePath
      * @return {Application}
      */
@@ -296,18 +334,18 @@ export class Application extends EventManagerAware {
         return this.storagePath;
     }
     /**
-     * @return {string}
-     */
-    getBasePath() {
-        return this.basePath;
-    }
-    /**
      * @param {string} basePath
      * @return {Application}
      */
     setBasePath(basePath) {
         this.basePath = basePath;
         return this;
+    }
+    /**
+     * @return {string}
+     */
+    getBasePath() {
+        return this.basePath;
     }
     /**
      * @param {HydratorInterface} moduleHydrator
