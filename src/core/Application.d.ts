@@ -105,7 +105,7 @@ export declare class Application extends EventManagerAware implements EventManag
      * @private
      */
     _importConfigModule(module: Module, container: any): Promise<void>;
-    /**
+    /**)
      *
      * @param {Widget} widget
      * @return {Promise<void>}
@@ -146,7 +146,7 @@ export declare class Application extends EventManagerAware implements EventManag
     /**
      * @return string
      */
-    getModulePath(): string;
+    getModulePath(module: Module): string;
     /**
      * @param {string} additionalModulePath
      * @returns {Application}

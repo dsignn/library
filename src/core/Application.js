@@ -124,7 +124,7 @@ export class Application extends EventManagerAware {
          * Load entry point module
          */
         if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
-            wcEntryPoint = `${this.getModulePath()}/${module.getName()}/${module.getEntryPoint().getPath().getPath()}`;
+            wcEntryPoint = `${this.getModulePath(module)}/${module.getName()}/${module.getEntryPoint().getPath().getPath()}`;
             try {
                 await import(wcEntryPoint);
                 console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
@@ -143,9 +143,15 @@ export class Application extends EventManagerAware {
             let autoLoadPath;
             let autoLoadImport;
             for (let cont = 0; module.getAutoloads().length > cont; cont++) {
-                autoLoadPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
+                autoLoadPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                 try {
                     autoLoadImport = await import(autoLoadPath);
+                    if (module.getName() === 'hello-word') {
+                        console.log(autoLoadImport);
+                    }
+                    else {
+                        console.log(autoLoadImport);
+                    }
                     window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                     console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
                 }
@@ -164,7 +170,7 @@ export class Application extends EventManagerAware {
             let wcComponentPath;
             for (let cont = 0; module.getAutoloadsWc().length > cont; cont++) {
                 if (customElements.get(module.getAutoloadsWc()[cont].getName()) === undefined) {
-                    wcComponentPath = `${this.getModulePath()}/${module.getName()}/${module.getAutoloadsWc()[cont].getPath().getPath()}`;
+                    wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloadsWc()[cont].getPath().getPath()}`;
                     try {
                         let wcComponent = await import(wcComponentPath);
                         console.log(`Load web component "${module.getAutoloadsWc()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
@@ -185,15 +191,22 @@ export class Application extends EventManagerAware {
         if (module.getConfigEntryPoint()) {
             let configModule;
             let configModuleClass;
-            let configModulePath = `${this.getModulePath()}/${module.getName()}/${module.getConfigEntryPoint()}`;
+            let configModulePath = `${this.getModulePath(module)}/${module.getName()}/${module.getConfigEntryPoint()}`;
             console.log(`Init ${module.getName()}`);
             configModule = await import(configModulePath);
-            configModuleClass = new configModule.Repository();
+            // TODO wordaroun to check if is core module
+            if (configModule.Repository.toString().search('class Repository') === 0) {
+                configModuleClass = new configModule.Repository();
+            }
+            else {
+                let extModuleConfig = await configModule.Repository();
+                configModuleClass = new extModuleConfig();
+            }
             configModuleClass.setContainer(container);
             configModuleClass.init();
         }
     }
-    /**
+    /**)
      *
      * @param {Widget} widget
      * @return {Promise<void>}
@@ -288,8 +301,8 @@ export class Application extends EventManagerAware {
     /**
      * @return string
      */
-    getModulePath() {
-        return this.modulePath;
+    getModulePath(module) {
+        return (this.coreModules.includes(module.getName())) ? this.modulePath : this.getAdditionalModulePath();
     }
     /**
      * @param {string} additionalModulePath
