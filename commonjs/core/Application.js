@@ -169,12 +169,6 @@ class Application extends index_1.EventManagerAware {
                     autoLoadPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                     try {
                         autoLoadImport = yield Promise.resolve().then(() => require(autoLoadPath));
-                        if (module.getName() === 'hello-word') {
-                            console.log(autoLoadImport);
-                        }
-                        else {
-                            console.log(autoLoadImport);
-                        }
                         window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                         console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
                     }

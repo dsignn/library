@@ -233,13 +233,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
 
                 autoLoadPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                 try {
-
                     autoLoadImport = await import(autoLoadPath);
-                    if (module.getName() === 'hello-word') {
-                        console.log(autoLoadImport);
-                    } else {
-                        console.log(autoLoadImport);
-                    }
                     window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                     console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
 
