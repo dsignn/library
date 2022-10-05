@@ -6,5 +6,5 @@ export declare class Utils {
      *
      * @param environment
      */
-    static getHomeDir(environment: object): string;
+    static getHomeDir(environment: object, appDirectory: string): string;
 }
