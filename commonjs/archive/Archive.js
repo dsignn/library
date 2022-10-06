@@ -217,7 +217,7 @@ class Archive {
                         });
                         if (!storage) {
                             console.warn(`Storage ${collection} not found`);
-                            return;
+                            continue;
                         }
                         fs.readFile(`${this.tmpDir}${items[cont]}`, function (err, data) {
                             if (err) {
