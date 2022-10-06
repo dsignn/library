@@ -239,6 +239,10 @@ export class Archive {
 
             for (let cont=0; cont < items.length; cont++) {
 
+                
+                if (items[cont].indexOf("application") > 0) {
+                    continue;
+                }
 
                 if (items[cont].indexOf(".json") > 0) {
 
@@ -251,6 +255,7 @@ export class Archive {
                         console.warn(`Storage ${collection} not found`);
                         continue;
                     }
+
 
                     fs.readFile(`${this.tmpDir}${items[cont]}`, function(err, data) {
                         if (err) {
