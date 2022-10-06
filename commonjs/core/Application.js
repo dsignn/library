@@ -68,12 +68,12 @@ class Application extends index_1.EventManagerAware {
             }
             let admZip = require('adm-zip');
             let zip = new admZip(pathModule);
-            zip.extractAllTo(this.modulePath, true);
+            zip.extractAllTo(this.additionalModulePath, true);
             var zipEntries = zip.getEntries();
             if (!zipEntries[0].isDirectory) {
                 return 'File dont contain module directory';
             }
-            let configFile = `${this.modulePath}/${zipEntries[0].entryName}package.json`;
+            let configFile = `${this.additionalModulePath}/${zipEntries[0].entryName}package.json`;
             if (!fs.existsSync(configFile)) {
                 return 'File dont contain module directory';
             }
