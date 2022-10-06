@@ -18,7 +18,7 @@ export class Utils {
         const path = require('path');
         switch (os.type()) {
             case 'Linux':
-                directory = `${environment['HOME']}${path.sep}.config${path.sep}${appDirectory}}`;
+                directory = `${environment['HOME']}${path.sep}.config${path.sep}${appDirectory}`;
                 break;
             case 'Darwin':
                 directory = `${environment['HOME']}${path.sep}Library${path.sep}Application Support${path.sep}${appDirectory}`;
