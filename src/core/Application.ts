@@ -90,7 +90,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         // Load module
         for (let cont = 0; modules.length > cont; cont++) {
             await this._loadModule(modules[cont], container);
-            this.addModule(modules[cont]);
+            this._addModule(modules[cont]);
         }
 
         for (let cont = 0; this.modules.length > cont; cont++) {
@@ -110,7 +110,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      * @param {ContainerInterface} container 
      * @returns 
      */
-    public async importModule(pathModule: string, container: ContainerInterface) {
+    public async addModule(pathModule: string, container: ContainerInterface) {
      
         let fs = require('fs');
         if (!fs.existsSync(pathModule)) {
@@ -336,10 +336,11 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     }
 
     /**
+     * @private
      * @param {Module} module
      * @return {Application}
      */
-    public addModule(module:Module): Application {
+    public _addModule(module:Module): Application {
         this.modules.push(module);
         return this;
     }
@@ -349,20 +350,6 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     public getModules(): Array<Module> {
         return this.modules;
-    }
-
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    public removeModule(id: string): Application {
-        for (let cont = 0; this.modules.length > cont; cont) {
-            if (this.modules[cont].getId() === id) {
-                this.modules.splice(cont, 1);
-                break;
-            }
-        }
-        return this;
     }
 
     /**

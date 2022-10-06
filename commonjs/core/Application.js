@@ -42,7 +42,7 @@ class Application extends index_1.EventManagerAware {
             // Load module
             for (let cont = 0; modules.length > cont; cont++) {
                 yield this._loadModule(modules[cont], container);
-                this.addModule(modules[cont]);
+                this._addModule(modules[cont]);
             }
             for (let cont = 0; this.modules.length > cont; cont++) {
                 let widgets = this.modules[cont].getWidgets();
@@ -60,7 +60,7 @@ class Application extends index_1.EventManagerAware {
      * @param {ContainerInterface} container
      * @returns
      */
-    importModule(pathModule, container) {
+    addModule(pathModule, container) {
         return __awaiter(this, void 0, void 0, function* () {
             let fs = require('fs');
             if (!fs.existsSync(pathModule)) {
@@ -268,10 +268,11 @@ class Application extends index_1.EventManagerAware {
         return this.coreModules.includes(module.getName());
     }
     /**
+     * @private
      * @param {Module} module
      * @return {Application}
      */
-    addModule(module) {
+    _addModule(module) {
         this.modules.push(module);
         return this;
     }
@@ -280,19 +281,6 @@ class Application extends index_1.EventManagerAware {
      */
     getModules() {
         return this.modules;
-    }
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    removeModule(id) {
-        for (let cont = 0; this.modules.length > cont; cont) {
-            if (this.modules[cont].getId() === id) {
-                this.modules.splice(cont, 1);
-                break;
-            }
-        }
-        return this;
     }
     /**
      * @return {Array<WidgetInterface>}

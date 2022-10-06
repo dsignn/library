@@ -71,7 +71,7 @@ export declare class Application extends EventManagerAware implements EventManag
      * @param {ContainerInterface} container
      * @returns
      */
-    importModule(pathModule: string, container: ContainerInterface): Promise<string>;
+    addModule(pathModule: string, container: ContainerInterface): Promise<string>;
     /**
      *
      * @param module
@@ -117,19 +117,15 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     isCore(module: Module): boolean;
     /**
+     * @private
      * @param {Module} module
      * @return {Application}
      */
-    addModule(module: Module): Application;
+    _addModule(module: Module): Application;
     /**
      * @return {Array<Module>}
      */
     getModules(): Array<Module>;
-    /**
-     * @param {string} id
-     * @return Application
-     */
-    removeModule(id: string): Application;
     /**
      * @return {Array<WidgetInterface>}
      */
