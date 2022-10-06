@@ -76,12 +76,23 @@ export class Application extends EventManagerAware {
      * @param module
      */
     async deleteModule(module) {
-        let fs = require('fs');
-        let index = this.modules.findIndex((element) => {
-            return element.getName() === module.getName();
+        var fs = require('fs');
+        var pathModule = `${this.getAdditionalModulePath()}/${module.getName()}`;
+        var stat = fs.lstatSync(pathModule);
+        if (!stat.isDirectory()) {
+            console.warn(`Directory ${pathModule} not found`);
+            return;
+        }
+        fs.rmdir(pathModule, { recursive: true }, (err) => {
+            if (err) {
+                throw err;
+            }
+            let index = this.modules.findIndex((element) => {
+                return element.getName() === module.getName();
+            });
+            this.modules.splice(index, 1);
+            this.getEventManager().emit(Application.DELETE_MODULE, module);
         });
-        this.modules.splice(index, 1);
-        this.getEventManager().emit(Application.DELETE_MODULE, module);
     }
     ;
     /**

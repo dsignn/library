@@ -150,15 +150,28 @@ export class Application extends EventManagerAware implements EventManagerAwareI
      */
     public async deleteModule(module: Module) {
 
-        let fs = require('fs');
+        var fs = require('fs');
+        var pathModule = `${this.getAdditionalModulePath()}/${module.getName()}`;
+        var stat = fs.lstatSync(pathModule);
+        if (!stat.isDirectory()) {
+            console.warn(`Directory ${pathModule} not found`);
+            return;
+        }
 
-        let index = this.modules.findIndex((element) => {
-            return element.getName() === module.getName();
+        fs.rmdir(pathModule,  { recursive: true }, (err) => {
+
+            if (err) {
+                throw err
+            }
+
+            let index = this.modules.findIndex((element) => {
+                return element.getName() === module.getName();
+            });
+    
+            this.modules.splice(index, 1);
+
+            this.getEventManager().emit(Application.DELETE_MODULE, module);
         });
-
-        this.modules.splice(index, 1);
-
-        this.getEventManager().emit(Application.DELETE_MODULE, module);
     };
  
     /**
