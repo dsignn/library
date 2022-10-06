@@ -328,6 +328,14 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     }
 
     /**
+     * @param {Module} module 
+     * @returns {boolean}
+     */
+    isCore(module: Module): boolean {
+        return this.coreModules.includes(module.getName());
+    }
+
+    /**
      * @param {Module} module
      * @return {Application}
      */

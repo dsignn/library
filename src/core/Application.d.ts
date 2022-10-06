@@ -113,6 +113,11 @@ export declare class Application extends EventManagerAware implements EventManag
     private _loadWidget;
     /**
      * @param {Module} module
+     * @returns {boolean}
+     */
+    isCore(module: Module): boolean;
+    /**
+     * @param {Module} module
      * @return {Application}
      */
     addModule(module: Module): Application;

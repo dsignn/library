@@ -232,6 +232,13 @@ export class Application extends EventManagerAware {
     }
     /**
      * @param {Module} module
+     * @returns {boolean}
+     */
+    isCore(module) {
+        return this.coreModules.includes(module.getName());
+    }
+    /**
+     * @param {Module} module
      * @return {Application}
      */
     addModule(module) {
