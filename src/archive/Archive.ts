@@ -236,9 +236,7 @@ export class Archive {
 
         fs.readdir(this.tmpDir, (err, items) => {
 
-
             for (let cont=0; cont < items.length; cont++) {
-
                 
                 if (items[cont].indexOf("application") > 0) {
                     continue;

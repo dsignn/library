@@ -62,5 +62,12 @@ class DexieManager extends dexie_1.default {
         }
         return this;
     }
+    /**
+     * @param {number} version
+     */
+    setVersion(version) {
+        this.versionDb = version;
+        return this;
+    }
 }
 exports.DexieManager = DexieManager;

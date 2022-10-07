@@ -38,4 +38,8 @@ export declare class DexieManager extends Dexie {
      * @return DexieManager
      */
     removeStore(store: Store): this;
+    /**
+     * @param {number} version
+     */
+    setVersion(version: number): this;
 }

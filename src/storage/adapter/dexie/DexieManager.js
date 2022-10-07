@@ -59,5 +59,12 @@ export class DexieManager extends Dexie {
         }
         return this;
     }
+    /**
+     * @param {number} version
+     */
+    setVersion(version) {
+        this.versionDb = version;
+        return this;
+    }
 }
 //# sourceMappingURL=DexieManager.js.map

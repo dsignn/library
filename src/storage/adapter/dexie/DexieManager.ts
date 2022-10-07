@@ -72,4 +72,12 @@ export class DexieManager extends Dexie {
         }
         return this;
     }
+
+    /**
+     * @param {number} version 
+     */
+     setVersion(version: number) {
+        this.versionDb = version;
+        return this;
+    }
 }
