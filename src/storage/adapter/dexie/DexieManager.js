@@ -25,7 +25,15 @@ export class DexieManager extends Dexie {
      * Set schema and run db
      */
     generateSchema() {
-        this.version(this.versionDb).stores(this.getSchema());
+        return this.version(this.versionDb).stores(this.getSchema());
+    }
+    /**
+     * @param callback
+     */
+    upgradeSchema(callback) {
+        return this.version(this.versionDb)
+            .stores(this.getSchema())
+            .upgrade(callback);
     }
     /**
      *

@@ -22,7 +22,11 @@ export declare class DexieManager extends Dexie {
     /**
      * Set schema and run db
      */
-    generateSchema(): void;
+    generateSchema(): Dexie.Version;
+    /**
+     * @param callback
+     */
+    upgradeSchema(callback: any): Dexie.Version;
     /**
      *
      * @return {{}}
