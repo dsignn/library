@@ -26,7 +26,7 @@ export declare class DexieManager extends Dexie {
     /**
      * @param callback
      */
-    upgradeSchema(callback: any): Dexie.Version;
+    upgradeSchema(): Dexie.Version;
     /**
      *
      * @return {{}}

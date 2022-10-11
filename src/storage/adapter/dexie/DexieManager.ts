@@ -40,10 +40,14 @@ export class DexieManager extends Dexie {
     /**
      * @param callback 
      */
-    public upgradeSchema(callback: any) {
-        return this.version(this.versionDb)
+    public upgradeSchema() {
+        console.log('upgradeSchema', this.verno + 1, this.getSchema());
+        this.close();
+        return this.version(this.verno + 1)
             .stores(this.getSchema())
-            .upgrade(callback);
+            .upgrade((trans) => {
+                console.log('update version');
+            });
     }
 
     /**
