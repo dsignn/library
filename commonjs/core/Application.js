@@ -64,18 +64,18 @@ class Application extends index_1.EventManagerAware {
         return __awaiter(this, void 0, void 0, function* () {
             let fs = require('fs');
             if (!fs.existsSync(pathModule)) {
-                return 'File not found at ' + pathModule;
+                throw 'File not found at ' + pathModule;
             }
             let admZip = require('adm-zip');
             let zip = new admZip(pathModule);
             zip.extractAllTo(this.additionalModulePath, true);
             var zipEntries = zip.getEntries();
             if (!zipEntries[0].isDirectory) {
-                return 'File dont contain module directory';
+                throw 'File dont contain module directory';
             }
             let configFile = `${this.additionalModulePath}/${zipEntries[0].entryName}package.json`;
             if (!fs.existsSync(configFile)) {
-                return 'File dont contain module directory';
+                throw 'File dont contain module directory';
             }
             let module = this.moduleHydrator.hydrate(JSON.parse(fs.readFileSync(configFile)));
             let laod = yield this._loadModule(module, container);
