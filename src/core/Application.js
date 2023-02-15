@@ -269,7 +269,7 @@ export class Application extends EventManagerAware {
     getWidgets() {
         let data = [];
         for (let cont = 0; this.modules.length > cont; cont++) {
-            let widgets = this.modules[cont].getWidgets;
+            let widgets = this.modules[cont].getWidgets();
             for (let cont1 = 0; widgets.length > cont1; cont1++) {
                 data.push(widgets[cont1]);
             }

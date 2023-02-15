@@ -371,7 +371,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
     public getWidgets(): Array<WidgetInterface> {
         let data =  [];
         for (let cont = 0; this.modules.length > cont; cont++) {
-            let widgets = this.modules[cont].getWidgets;
+            let widgets = this.modules[cont].getWidgets();
             for (let cont1 = 0; widgets.length > cont1; cont1++) {
                 data.push(widgets[cont1]);
             }
