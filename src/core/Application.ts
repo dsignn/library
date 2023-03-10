@@ -319,7 +319,13 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         let path;
 
         if (widget.getWebComponent() && widget.getWebComponent().getName() && customElements.get(widget.getWebComponent().getName()) === undefined) {
-            path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
+
+            if (widget.getCore() === false) {
+                path = `${this.getAdditionalModulePath()}/${widget.getWebComponent().getPath().getPath()}`;
+            } else {           
+                path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
+            }
+
             try {
                 await import(path);
                 console.log(`Load entry point module "${widget.getWebComponent().getName()}" store in ${path}`, widget);
@@ -329,7 +335,13 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         }
 
         if (widget.getWebComponentData() && widget.getWebComponentData().getName() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
-            path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
+           
+            if (widget.getCore() === false) {
+                path = `${this.getAdditionalModulePath()}/${widget.getWebComponentData().getPath().getPath()}`;
+            } else {           
+                path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
+            }
+
             try {
                 await import(path);
                 console.log(`Load entry point module "${widget.getWebComponentData().getName()}" store in ${path}`, widget);

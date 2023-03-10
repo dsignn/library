@@ -22,6 +22,10 @@ export declare class Widget implements WidgetInterface {
      */
     private property;
     /**
+     * @type {boolean}
+     */
+    private core;
+    /**
      * @type {string}
      */
     private require;
@@ -89,4 +93,8 @@ export declare class Widget implements WidgetInterface {
      * @inheritDoc
      */
     setWebComponentData(webComponentData: ComponentInterface): WidgetInterface;
+    /**
+     * @inheritDoc
+     */
+    getCore(): boolean;
 }

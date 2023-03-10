@@ -41,6 +41,11 @@ export interface WidgetInterface {
     getProperty(): string;
 
     /**
+     * @return boolean
+     */
+    getCore(): boolean;
+
+    /**
      * @param {string} property
      */
     setProperty(property: string): WidgetInterface;

@@ -116,5 +116,11 @@ export class Widget {
         this.webComponentData = webComponentData;
         return this;
     }
+    /**
+     * @inheritDoc
+     */
+    getCore() {
+        return this.core;
+    }
 }
 //# sourceMappingURL=Widget.js.map

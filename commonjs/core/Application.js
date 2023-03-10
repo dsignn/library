@@ -249,7 +249,12 @@ class Application extends index_1.EventManagerAware {
             console.groupCollapsed(`Load Widget ${widget.getName()}`);
             let path;
             if (widget.getWebComponent() && widget.getWebComponent().getName() && customElements.get(widget.getWebComponent().getName()) === undefined) {
-                path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
+                if (widget.getCore() === false) {
+                    path = `${this.getAdditionalModulePath()}/${widget.getWebComponent().getPath().getPath()}`;
+                }
+                else {
+                    path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
+                }
                 try {
                     yield Promise.resolve().then(() => require(path));
                     console.log(`Load entry point module "${widget.getWebComponent().getName()}" store in ${path}`, widget);
@@ -259,7 +264,12 @@ class Application extends index_1.EventManagerAware {
                 }
             }
             if (widget.getWebComponentData() && widget.getWebComponentData().getName() && customElements.get(widget.getWebComponentData().getName()) === undefined) {
-                path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
+                if (widget.getCore() === false) {
+                    path = `${this.getAdditionalModulePath()}/${widget.getWebComponentData().getPath().getPath()}`;
+                }
+                else {
+                    path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
+                }
                 try {
                     yield Promise.resolve().then(() => require(path));
                     console.log(`Load entry point module "${widget.getWebComponentData().getName()}" store in ${path}`, widget);

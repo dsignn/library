@@ -28,6 +28,11 @@ export class Widget implements WidgetInterface {
     private property: string = null;
 
     /**
+     * @type {boolean}
+     */
+    private core: true;
+
+    /**
      * @type {string}
      */
     private require: boolean = false;
@@ -146,5 +151,12 @@ export class Widget implements WidgetInterface {
     public setWebComponentData(webComponentData: ComponentInterface): WidgetInterface {
         this.webComponentData = webComponentData;
         return this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public getCore(): boolean {
+        return this.core;
     }
 }
