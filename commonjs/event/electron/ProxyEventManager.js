@@ -49,7 +49,7 @@ class ProxyEventManager {
                 params
             }
         };
-        this.ipc.send(evtName, message);
+        this.ipc.send(this.nameProxy, message);
     }
     /**
      *

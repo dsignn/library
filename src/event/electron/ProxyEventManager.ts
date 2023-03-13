@@ -61,7 +61,7 @@ export class ProxyEventManager implements EventManagerInterface {
             }
         };
 
-       this.ipc.send(evtName, message);
+       this.ipc.send(this.nameProxy, message);
     }
 
     /**
