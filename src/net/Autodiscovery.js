@@ -67,7 +67,6 @@ export class Autodiscovery extends EventManagerAware {
             jsonMessage[this.identity] === this.channel) {
             return;
         }
-        console.log('INFO', info);
         info['timeout'] = Date.now();
         this.nodes[this.identity] = info;
     }
@@ -88,7 +87,7 @@ export class Autodiscovery extends EventManagerAware {
         };
         message[this.identity] = this.channel;
         this.udpClient.send(JSON.stringify(message), 0, JSON.stringify(message).length, Autodiscovery.BROADCASTER_PORT_RECEIVE, Autodiscovery.BROADCASTER_IP);
-        console.log('MESSAGE AUTODISCOVERY', JSON.stringify(message));
+        console.log('MESSAGE AUTODISCOVERY', Autodiscovery.BROADCASTER_IP, Autodiscovery.BROADCASTER_PORT_RECEIVE, JSON.stringify(message));
     }
     /**
      * @private
