@@ -16,7 +16,7 @@ class Autodiscovery extends index_1.EventManagerAware {
          */
         this.nodes = {};
         this.channel = channel;
-        this.identity = (Math.random() + 1).toString(36).substring(10);
+        this.identity = (Math.random() + 1).toString(36).substring(2);
         this.udpClient = this._createUdpClientBroadcaster(broadcasterPortReceive);
         setInterval(this._sendBroadcasterMessage.bind(this), Autodiscovery.KEEP_ALIVE);
         setInterval(this._checkNodeAlive.bind(this), Autodiscovery.TIME_TO_CONTROLL_NODE);

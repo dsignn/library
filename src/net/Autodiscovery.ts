@@ -65,7 +65,7 @@ export class Autodiscovery extends EventManagerAware {
         
         this.channel = channel;
 
-        this.identity = (Math.random() + 1).toString(36).substring(10);
+        this.identity = (Math.random() + 1).toString(36).substring(2);
 
         this.udpClient = this._createUdpClientBroadcaster(broadcasterPortReceive);
 
