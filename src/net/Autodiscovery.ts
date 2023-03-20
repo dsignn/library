@@ -147,7 +147,6 @@ export class Autodiscovery extends EventManagerAware {
             return;
         }
 
-        console.log('INFO', info);
         info['timeout'] =  Date.now();
         this.nodes[this.identity] = info;
     }
