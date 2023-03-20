@@ -1,6 +1,6 @@
 //const Autodiscorevery  = require("./../../../commonjs/net/Autodiscorevery.js").Autodiscorevery;
-const Autodiscovery = require('@dsign/library').Autodiscovery;
+const Autodiscovery = require('@dsign/library').net.Autodiscovery;
 
-console.log('client 1', Autodiscovery);
+console.log('Client 1');
 
-//let client = new Autodiscovery('toni');
+let client = new Autodiscovery('toni');

@@ -8,5 +8,5 @@ services:
       - .:/usr/src/app
     working_dir: '/usr/src/app'
     ports:
-      - "127.0.0.10:1111:1111"
+      - "127.0.0.10:4444:4444"
   

@@ -62,21 +62,29 @@ export class Autodiscovery extends EventManagerAware {
 
         let updClient = require('dgram').createSocket("udp4");
 
+        updClient.on('connect', this._onBroadcasterConnect.bind(this));
+
         updClient.on('listening', this._onBroadcasterListening.bind(this));
 
         updClient.on('message', this._onBroadcasterMessage.bind(this));
 
         updClient.on('error', this._onBroadcasterError.bind(this));
 
-        updClient.bind(broadcasterPortReceive ? Autodiscovery.BROADCASTER_PORT_RECEIVE : broadcasterPortReceive);
+        updClient.bind(broadcasterPortReceive ? broadcasterPortReceive :  Autodiscovery.BROADCASTER_PORT_RECEIVE);
 
         return updClient;
+    }
+
+
+    private _onBroadcasterConnect(data) {
+        console.log('CONNECTION AUTODISCOVERY', data);
     }
 
     /**
      * @private
      */
      private _onBroadcasterListening() {
+        console.log('LISTENING AUTODISCOVERY');
         this.udpClient.setBroadcast(true);
     }
 
@@ -87,7 +95,7 @@ export class Autodiscovery extends EventManagerAware {
      */
      private _onBroadcasterMessage(message, info) {
         let jsonMessage = JSON.parse(message.toString());
-        console.log('BROADCASTER RECEIVER', info.address, jsonMessage);
+        console.log('RECEIVER AUTODISCOVERY', info.address, jsonMessage);
        
     }
 
@@ -109,7 +117,8 @@ export class Autodiscovery extends EventManagerAware {
         let message = {
             autodiscovery: this.channel
         };
-        console.log( JSON.stringify(message));
+        console.log('MESSAGE AUTODISCOVERY', JSON.stringify(message));
+     
         this.udpClient.send(
             JSON.stringify(message),
             0, 

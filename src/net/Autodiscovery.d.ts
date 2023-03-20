@@ -37,6 +37,7 @@ export declare class Autodiscovery extends EventManagerAware {
      * @private
      */
     private _createUdpClientBroadcaster;
+    private _onBroadcasterConnect;
     /**
      * @private
      */
