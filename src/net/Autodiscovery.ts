@@ -179,7 +179,7 @@ export class Autodiscovery extends EventManagerAware {
             Autodiscovery.BROADCASTER_IP
         );
 
-        console.log('MESSAGE AUTODISCOVERY', JSON.stringify(message));
+        console.log('MESSAGE AUTODISCOVERY', Autodiscovery.BROADCASTER_IP, Autodiscovery.BROADCASTER_PORT_RECEIVE, JSON.stringify(message));
     }
 
     /**
