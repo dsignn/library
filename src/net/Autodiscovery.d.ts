@@ -4,9 +4,21 @@ import { EventManagerAware } from '../event/index';
  */
 export declare class Autodiscovery extends EventManagerAware {
     /**
-     * @type {string}
+     * Events
+     */
+    static ERROR_MESSAGE_FORMAT: string;
+    /**
+     * Messages
+     */
+    static TYPE_MESSAGE_AUTODISCOVERY: string;
+    /**
+     * @type {number}
      */
     static KEEP_ALIVE: number;
+    /**
+     * @type {number}
+     */
+    static TIME_TO_CONTROLL_NODE: number;
     /**
      * @type {number}
      */
@@ -24,9 +36,13 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     private channel;
     /**
-     * @param number
+   * @param string
      */
-    private intevalId;
+    private identity;
+    /**
+     * @param Object
+     */
+    private nodes;
     /**
      * @param channel: string
      */
@@ -54,7 +70,11 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     private _onBroadcasterError;
     /**
-     *
+     * @private
      */
     private _sendBroadcasterMessage;
+    /**
+     * @private
+     */
+    private _checkNodeAlive;
 }
