@@ -1,0 +1,12 @@
+version: "3"
+services:
+  client1:
+    container_name: client1
+    image: node:14
+    command: npm run client1
+    volumes:
+      - .:/usr/src/app
+    working_dir: '/usr/src/app'
+    ports:
+      - "127.0.0.10:1111:1111"
+  

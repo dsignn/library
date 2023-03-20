@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@dsign/library": "github:dsignn/library#master"
+  },
+  "scripts": {
+    "client1": "node client/client1.js",
+    "client2": "node client/client2.js",
+    "client3": "node client/client3.js"
+  }
+}

@@ -51,6 +51,7 @@ module.exports = {
         Localize : require('./commonjs/localize/Localize').Localize
     },
     net : {
+      Autodiscovery: require('./commonjs/net/Autodiscovery').Autodiscovery,
       P2p: require('./commonjs/net/P2p').P2p
     },
     path : {
