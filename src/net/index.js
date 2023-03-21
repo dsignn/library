@@ -1,2 +1,2 @@
-export * from './P2p';
+export * from './Autodiscovery';
 //# sourceMappingURL=index.js.map
