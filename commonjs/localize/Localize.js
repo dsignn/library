@@ -47,5 +47,5 @@ class Localize extends index_1.EventManagerAware {
         return this.languages;
     }
 }
-exports.Localize = Localize;
 Localize.CHANGE_LANGUAGE = 'change-language';
+exports.Localize = Localize;

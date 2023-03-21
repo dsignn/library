@@ -2,7 +2,7 @@ import { EventManagerAware } from "../../event/index";
 /**
  * @class
  */
-export class Acl extends EventManagerAware {
+class Acl extends EventManagerAware {
     /**
      * @param adapter
      */
@@ -56,4 +56,5 @@ export class Acl extends EventManagerAware {
     }
 }
 Acl.CHANGE_ROLE = 'change-role';
+export { Acl };
 //# sourceMappingURL=Acl.js.map

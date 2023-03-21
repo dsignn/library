@@ -1,7 +1,7 @@
 /**
  *
  */
-export class HybridStrategy {
+class HybridStrategy {
     /**
      * @param {string} hydrateType
      * @param {string} extractType
@@ -92,4 +92,5 @@ HybridStrategy.OBJECT_TYPE = "object";
  * @return {string}
  */
 HybridStrategy.FUNCTION_TYPE = "function";
+export { HybridStrategy };
 //# sourceMappingURL=HybridStrategy.js.map

@@ -3,7 +3,7 @@ import { BufferParse, ObjectParse } from "../parse";
 /**
  *
  */
-export class P2p extends EventManagerAware {
+class P2p extends EventManagerAware {
     /**
      * @param udpOptions
      * @param clientOption
@@ -236,4 +236,5 @@ P2p.ADAPTER_TCP = 'tcp';
  * @type {string}
  */
 P2p.BROADCASTER_IP = '255.255.255.255';
+export { P2p };
 //# sourceMappingURL=P2p.js.map

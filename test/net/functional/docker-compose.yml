@@ -7,8 +7,6 @@ services:
     volumes:
       - .:/usr/src/app
     working_dir: '/usr/src/app'
-    ports:
-      - "127.0.0.10:4444:4444"
   client2:
     container_name: client2
     image: node:14
@@ -16,6 +14,17 @@ services:
     volumes:
       - .:/usr/src/app
     working_dir: '/usr/src/app'
-    ports:
-      - "127.0.0.10:5555:4444"
-   
+  client3:
+    container_name: client3
+    image: node:14
+    command: npm run client3
+    volumes:
+      - .:/usr/src/app
+    working_dir: '/usr/src/app'
+  client4:
+    container_name: client4
+    image: node:14
+    command: npm run client1
+    volumes:
+      - .:/usr/src/app
+    working_dir: '/usr/src/app'

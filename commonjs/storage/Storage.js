@@ -155,7 +155,6 @@ class Storage {
         });
     }
 }
-exports.Storage = Storage;
 /**
  * Constants
  */
@@ -167,3 +166,4 @@ Storage.BEFORE_REMOVE = "after-remove";
 Storage.POST_REMOVE = "post-remove";
 Storage.BEFORE_GET = "after-get";
 Storage.POST_GET = "post-get";
+exports.Storage = Storage;

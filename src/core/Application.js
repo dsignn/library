@@ -3,7 +3,7 @@ import { EventManagerAware } from "../event/index";
  * @class
  * Application
  */
-export class Application extends EventManagerAware {
+class Application extends EventManagerAware {
     constructor() {
         super(...arguments);
         /**
@@ -395,4 +395,5 @@ Application.DELETE_MODULE = 'delete-module';
  * @type {string}
  */
 Application.IMPORT_MODULE = 'import-module';
+export { Application };
 //# sourceMappingURL=Application.js.map

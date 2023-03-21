@@ -77,8 +77,8 @@ class MongoDb {
         return !!this.db && !!this.db.topology && this.db.topology.isConnected();
     }
 }
-exports.MongoDb = MongoDb;
 /**
  * @type {string}
  */
 MongoDb.READY_CONNECTION = 'ready-connection';
+exports.MongoDb = MongoDb;

@@ -2,7 +2,7 @@ import { EventManagerAware } from "./../event/index";
 /**
  *
  */
-export class Localize extends EventManagerAware {
+class Localize extends EventManagerAware {
     /**
      * @param defaultLang
      * @param languages
@@ -45,4 +45,5 @@ export class Localize extends EventManagerAware {
     }
 }
 Localize.CHANGE_LANGUAGE = 'change-language';
+export { Localize };
 //# sourceMappingURL=Localize.js.map

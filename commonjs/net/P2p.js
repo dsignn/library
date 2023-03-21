@@ -227,7 +227,6 @@ class P2p extends index_1.EventManagerAware {
         this._loopAlive();
     }
 }
-exports.P2p = P2p;
 /**
  * @type {string}
  */
@@ -240,3 +239,4 @@ P2p.ADAPTER_TCP = 'tcp';
  * @type {string}
  */
 P2p.BROADCASTER_IP = '255.255.255.255';
+exports.P2p = P2p;

@@ -2,7 +2,7 @@ import { EventManager } from "../../../event/index";
 /**
  *
  */
-export class MongoDb {
+class MongoDb {
     /**
      *
      * @param {string} name
@@ -78,4 +78,5 @@ export class MongoDb {
  * @type {string}
  */
 MongoDb.READY_CONNECTION = 'ready-connection';
+export { MongoDb };
 //# sourceMappingURL=MongoDb.js.map

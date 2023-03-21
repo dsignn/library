@@ -12,37 +12,52 @@ class Autodiscovery extends index_1.EventManagerAware {
     constructor(channel, broadcasterPortReceive) {
         super();
         /**
+        * @type {boolean}
+        */
+        this.isUdpClietClose = true;
+        /**
          * @param Object
          */
         this.nodes = {};
         this.channel = channel;
         this.identity = (Math.random() + 1).toString(36).substring(2);
-        this.udpClient = this._createUdpClientBroadcaster(broadcasterPortReceive);
+        this.connect(broadcasterPortReceive);
         setInterval(this._sendBroadcasterMessage.bind(this), Autodiscovery.KEEP_ALIVE);
         setInterval(this._checkNodeAlive.bind(this), Autodiscovery.TIME_TO_CONTROLL_NODE);
     }
     /**
+     * @returns Array
+     */
+    getNodes() {
+        return Object.values(this.nodes);
+    }
+    disconnect() {
+        console.log('disconnect 1');
+        //this.udpClient.disconnect();
+        this.udpClient.close();
+    }
+    /**
      * @param broadcasterPortReceive: number
      * @return {module:dgram.Socket}
-     * @private
      */
-    _createUdpClientBroadcaster(broadcasterPortReceive) {
-        let updClient = require('dgram').createSocket("udp4");
-        updClient.on('connect', this._onBroadcasterConnect.bind(this));
-        updClient.on('listening', this._onBroadcasterListening.bind(this));
-        updClient.on('message', this._onBroadcasterMessage.bind(this));
-        updClient.on('error', this._onBroadcasterError.bind(this));
-        updClient.bind(broadcasterPortReceive ? broadcasterPortReceive : Autodiscovery.BROADCASTER_PORT_RECEIVE);
-        return updClient;
+    connect(broadcasterPortReceive) {
+        this.udpClient = require('dgram').createSocket("udp4");
+        this.udpClient.on('close', this._onBroadcasterClose.bind(this));
+        this.udpClient.on('listening', this._onBroadcasterListening.bind(this));
+        this.udpClient.on('message', this._onBroadcasterMessage.bind(this));
+        this.udpClient.on('error', this._onBroadcasterError.bind(this));
+        this.udpClient.bind(broadcasterPortReceive ? broadcasterPortReceive : Autodiscovery.BROADCASTER_PORT_RECEIVE);
     }
-    _onBroadcasterConnect(data) {
-        console.log('CONNECTION AUTODISCOVERY', data);
+    _onBroadcasterClose(data) {
+        console.log('CLOSE AUTODISCOVERY', data);
+        this.isUdpClietClose = true;
     }
     /**
      * @private
      */
     _onBroadcasterListening() {
         console.log('LISTENING AUTODISCOVERY');
+        this.isUdpClietClose = false;
         this.udpClient.setBroadcast(true);
     }
     /**
@@ -65,13 +80,19 @@ class Autodiscovery extends index_1.EventManagerAware {
         /**
          * Discard message send from this node
          */
-        if (jsonMessage.typeMessagge === Autodiscovery.TYPE_MESSAGE_AUTODISCOVERY &&
-            jsonMessage[this.identity] &&
-            jsonMessage[this.identity] === this.channel) {
+        if (jsonMessage.typeMessagge !== Autodiscovery.TYPE_MESSAGE_AUTODISCOVERY ||
+            (!jsonMessage['id'] || this.identity === jsonMessage['id']) ||
+            (jsonMessage['ch'] && jsonMessage['ch'] !== this.channel)) {
             return;
         }
         info['timeout'] = Date.now();
-        this.nodes[this.identity] = info;
+        info['id'] = jsonMessage['id'];
+        if (!this.nodes[jsonMessage['id']]) {
+            console.log('PRIMA VOLTA EVENTO');
+            this.getEventManager().emit(Autodiscovery.ADD_NODE_EVT, info);
+        }
+        console.log('RICEVI PACCHETTO', Object.values(this.nodes).length, info['id']);
+        this.nodes[jsonMessage['id']] = info;
     }
     /**
      * @param error
@@ -85,10 +106,14 @@ class Autodiscovery extends index_1.EventManagerAware {
      * @private
      */
     _sendBroadcasterMessage() {
+        if (this.isUdpClietClose) {
+            return;
+        }
         let message = {
             typeMessagge: Autodiscovery.TYPE_MESSAGE_AUTODISCOVERY,
         };
-        message[this.identity] = this.channel;
+        message['id'] = this.identity;
+        message['ch'] = this.channel;
         this.udpClient.send(JSON.stringify(message), 0, JSON.stringify(message).length, Autodiscovery.BROADCASTER_PORT_RECEIVE, Autodiscovery.BROADCASTER_IP);
         console.log('MESSAGE AUTODISCOVERY', Autodiscovery.BROADCASTER_IP, Autodiscovery.BROADCASTER_PORT_RECEIVE, JSON.stringify(message));
     }
@@ -98,15 +123,23 @@ class Autodiscovery extends index_1.EventManagerAware {
     _checkNodeAlive() {
         let time = Date.now();
         for (const property in this.nodes) {
-            console.log('CHECK ALIVE', JSON.stringify(this.nodes[property]), time, time - this.nodes[property]['timeout']);
+            /*
+            console.log(
+                'CHECK ALIVE',
+                time - this.nodes[property]['timeout'],
+                Object.values(this.nodes).length,
+                this.identity
+            );
+            */
             let inteval = time - this.nodes[property]['timeout'];
             if (inteval > Autodiscovery.KEEP_ALIVE) {
+                this.getEventManager().emit(Autodiscovery.REMOVE_NODE_EVT, this.nodes[property]);
+                console.log('RIMOZIONE VOLTA EVENTO');
                 delete this.nodes[property];
             }
         }
     }
 }
-exports.Autodiscovery = Autodiscovery;
 /**
  * Events
  */
@@ -115,6 +148,14 @@ Autodiscovery.ERROR_MESSAGE_FORMAT = 'error-message-format';
  * Messages
  */
 Autodiscovery.TYPE_MESSAGE_AUTODISCOVERY = 'autodiscovery';
+/**
+ * Messages
+ */
+Autodiscovery.ADD_NODE_EVT = 'add_node';
+/**
+ * Messages
+ */
+Autodiscovery.REMOVE_NODE_EVT = 'remove_node';
 /**
  * @type {number}
  */
@@ -131,3 +172,4 @@ Autodiscovery.BROADCASTER_PORT_RECEIVE = 4444;
  * @type {string}
  */
 Autodiscovery.BROADCASTER_IP = '255.255.255.255';
+exports.Autodiscovery = Autodiscovery;

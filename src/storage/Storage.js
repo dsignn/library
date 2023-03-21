@@ -2,7 +2,7 @@ import { EventManager } from "../event/EventManager";
 /**
  *
  */
-export class Storage {
+class Storage {
     /**
      * @param {StorageAdapterInterface} adapter
      */
@@ -163,4 +163,5 @@ Storage.BEFORE_REMOVE = "after-remove";
 Storage.POST_REMOVE = "post-remove";
 Storage.BEFORE_GET = "after-get";
 Storage.POST_GET = "post-get";
+export { Storage };
 //# sourceMappingURL=Storage.js.map

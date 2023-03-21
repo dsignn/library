@@ -19,8 +19,8 @@
     "jest": "^24.5.0",
     "mocha": "^6.0.2",
     "ts-jest": "^24.0.0",
-    "ts-node": "^8.0.3",
-    "typescript": "^3.3.4000"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
   },
   "scripts": {
     "tsc": "tsc -p commonjs && tsc -p .",

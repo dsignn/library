@@ -12,6 +12,14 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     static TYPE_MESSAGE_AUTODISCOVERY: string;
     /**
+     * Messages
+     */
+    static ADD_NODE_EVT: string;
+    /**
+     * Messages
+     */
+    static REMOVE_NODE_EVT: string;
+    /**
      * @type {number}
      */
     static KEEP_ALIVE: number;
@@ -32,6 +40,10 @@ export declare class Autodiscovery extends EventManagerAware {
     */
     private udpClient;
     /**
+    * @type {boolean}
+    */
+    private isUdpClietClose;
+    /**
      * @param string
      */
     private channel;
@@ -48,12 +60,16 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     constructor(channel: string, broadcasterPortReceive: number);
     /**
+     * @returns Array
+     */
+    getNodes(): any[];
+    disconnect(): void;
+    /**
      * @param broadcasterPortReceive: number
      * @return {module:dgram.Socket}
-     * @private
      */
-    private _createUdpClientBroadcaster;
-    private _onBroadcasterConnect;
+    private connect;
+    private _onBroadcasterClose;
     /**
      * @private
      */

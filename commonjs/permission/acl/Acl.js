@@ -58,5 +58,5 @@ class Acl extends index_1.EventManagerAware {
         this.adapter.allow(role, resource, privilege);
     }
 }
-exports.Acl = Acl;
 Acl.CHANGE_ROLE = 'change-role';
+exports.Acl = Acl;

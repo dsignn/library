@@ -158,7 +158,7 @@ class Application extends index_1.EventManagerAware {
             if (customElements && customElements.get(module.getEntryPoint().getName()) === undefined) {
                 wcEntryPoint = `${this.getModulePath(module)}/${module.getName()}/${module.getEntryPoint().getPath().getPath()}`;
                 try {
-                    yield Promise.resolve().then(() => require(wcEntryPoint));
+                    yield Promise.resolve(`${wcEntryPoint}`).then(s => require(s));
                     console.log(`Load entry point module "${module.getEntryPoint().getName()}" store in ${wcEntryPoint}`, module);
                 }
                 catch (err) {
@@ -179,7 +179,7 @@ class Application extends index_1.EventManagerAware {
                 for (let cont = 0; module.getAutoloads().length > cont; cont++) {
                     autoLoadPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloads()[cont].getPath().getPath()}`;
                     try {
-                        autoLoadImport = yield Promise.resolve().then(() => require(autoLoadPath));
+                        autoLoadImport = yield Promise.resolve(`${autoLoadPath}`).then(s => require(s));
                         window[module.getAutoloads()[cont].getName()] = autoLoadImport[module.getAutoloads()[cont].getName()];
                         console.log(`Load auto load class in ${autoLoadPath}`, autoLoadImport);
                     }
@@ -202,7 +202,7 @@ class Application extends index_1.EventManagerAware {
                     if (customElements.get(module.getAutoloadsWc()[cont].getName()) === undefined) {
                         wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAutoloadsWc()[cont].getPath().getPath()}`;
                         try {
-                            let wcComponent = yield Promise.resolve().then(() => require(wcComponentPath));
+                            let wcComponent = yield Promise.resolve(`${wcComponentPath}`).then(s => require(s));
                             console.log(`Load web component "${module.getAutoloadsWc()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
                         }
                         catch (err) {
@@ -225,7 +225,7 @@ class Application extends index_1.EventManagerAware {
                 let configModuleClass;
                 let configModulePath = `${this.getModulePath(module)}/${module.getName()}/${module.getConfigEntryPoint()}`;
                 console.log(`Init ${module.getName()}`);
-                configModule = yield Promise.resolve().then(() => require(configModulePath));
+                configModule = yield Promise.resolve(`${configModulePath}`).then(s => require(s));
                 // TODO wordaroun to check if is core module
                 if (configModule.Repository.toString().search('class Repository') === 0) {
                     configModuleClass = new configModule.Repository();
@@ -256,7 +256,7 @@ class Application extends index_1.EventManagerAware {
                     path = `${this.basePath}module/${widget.getWebComponent().getPath().getPath()}`;
                 }
                 try {
-                    yield Promise.resolve().then(() => require(path));
+                    yield Promise.resolve(`${path}`).then(s => require(s));
                     console.log(`Load entry point module "${widget.getWebComponent().getName()}" store in ${path}`, widget);
                 }
                 catch (err) {
@@ -271,7 +271,7 @@ class Application extends index_1.EventManagerAware {
                     path = `${this.basePath}module/${widget.getWebComponentData().getPath().getPath()}`;
                 }
                 try {
-                    yield Promise.resolve().then(() => require(path));
+                    yield Promise.resolve(`${path}`).then(s => require(s));
                     console.log(`Load entry point module "${widget.getWebComponentData().getName()}" store in ${path}`, widget);
                 }
                 catch (err) {
@@ -409,7 +409,6 @@ class Application extends index_1.EventManagerAware {
         return this;
     }
 }
-exports.Application = Application;
 /**
  * @type {string}
  */
@@ -426,3 +425,4 @@ Application.DELETE_MODULE = 'delete-module';
  * @type {string}
  */
 Application.IMPORT_MODULE = 'import-module';
+exports.Application = Application;
