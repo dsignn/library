@@ -22,8 +22,19 @@ class Autodiscovery extends index_1.EventManagerAware {
         this.channel = channel;
         this.identity = (Math.random() + 1).toString(36).substring(2);
         this.connect(broadcasterPortReceive);
-        setInterval(this._sendBroadcasterMessage.bind(this), Autodiscovery.KEEP_ALIVE);
         setInterval(this._checkNodeAlive.bind(this), Autodiscovery.TIME_TO_CONTROLL_NODE);
+    }
+    /**
+     * Start timer to send message to comunicate that a node has on the network
+     */
+    startBroadcastMessage() {
+        this.intervalIdSendMessage = setInterval(this._sendBroadcasterSendMessage.bind(this), Autodiscovery.KEEP_ALIVE);
+    }
+    /**
+     * Stop timer to send message
+     */
+    stopBroadcastMessage() {
+        clearInterval(this.intervalIdSendMessage);
     }
     /**
      * @returns Array
@@ -31,10 +42,18 @@ class Autodiscovery extends index_1.EventManagerAware {
     getNodes() {
         return Object.values(this.nodes);
     }
+    /**
+     * Disconnect node to autodiscovery process
+     */
     disconnect() {
-        console.log('disconnect 1');
-        //this.udpClient.disconnect();
         this.udpClient.close();
+        this.stopBroadcastMessage();
+    }
+    /**
+     * @returns {boolean}
+     */
+    isClose() {
+        return this.isUdpClietClose;
     }
     /**
      * @param broadcasterPortReceive: number
@@ -44,13 +63,15 @@ class Autodiscovery extends index_1.EventManagerAware {
         this.udpClient = require('dgram').createSocket("udp4");
         this.udpClient.on('close', this._onBroadcasterClose.bind(this));
         this.udpClient.on('listening', this._onBroadcasterListening.bind(this));
-        this.udpClient.on('message', this._onBroadcasterMessage.bind(this));
+        this.udpClient.on('message', this._onBroadcasterReceiveMessage.bind(this));
         this.udpClient.on('error', this._onBroadcasterError.bind(this));
         this.udpClient.bind(broadcasterPortReceive ? broadcasterPortReceive : Autodiscovery.BROADCASTER_PORT_RECEIVE);
+        this.startBroadcastMessage();
+        console.log('CONNECT AUTODISCOVERY');
     }
     _onBroadcasterClose(data) {
-        console.log('CLOSE AUTODISCOVERY', data);
         this.isUdpClietClose = true;
+        console.log('CLOSE AUTODISCOVERY', this.isUdpClietClose);
     }
     /**
      * @private
@@ -61,11 +82,24 @@ class Autodiscovery extends index_1.EventManagerAware {
         this.udpClient.setBroadcast(true);
     }
     /**
+     * @param error
+     * @private
+     */
+    _onBroadcasterError(error) {
+        // TODO capire cosa fare
+        console.log('BROADCASTER ERROR', error);
+        this.disconnect();
+        this.getEventManager().emit(Autodiscovery.ERROR_MESSAGE, error);
+    }
+    /**
      * @param message
      * @param info
      * @private
      */
-    _onBroadcasterMessage(message, info) {
+    _onBroadcasterReceiveMessage(message, info) {
+        if (this.isUdpClietClose) {
+            return;
+        }
         let jsonMessage;
         /**
          * Check the format of the message
@@ -88,24 +122,16 @@ class Autodiscovery extends index_1.EventManagerAware {
         info['timeout'] = Date.now();
         info['id'] = jsonMessage['id'];
         if (!this.nodes[jsonMessage['id']]) {
-            console.log('PRIMA VOLTA EVENTO');
+            console.log('ADD EVT');
             this.getEventManager().emit(Autodiscovery.ADD_NODE_EVT, info);
         }
-        console.log('RICEVI PACCHETTO', Object.values(this.nodes).length, info['id']);
         this.nodes[jsonMessage['id']] = info;
-    }
-    /**
-     * @param error
-     * @private
-     */
-    _onBroadcasterError(error) {
-        // TODO capire cosa fare
-        console.log('BROADCASTER ERROR', error);
+        console.log('RECEIVE MESSAGE AUTODISCOVERY', Object.values(this.nodes).length, info['id']);
     }
     /**
      * @private
      */
-    _sendBroadcasterMessage() {
+    _sendBroadcasterSendMessage() {
         if (this.isUdpClietClose) {
             return;
         }
@@ -115,7 +141,7 @@ class Autodiscovery extends index_1.EventManagerAware {
         message['id'] = this.identity;
         message['ch'] = this.channel;
         this.udpClient.send(JSON.stringify(message), 0, JSON.stringify(message).length, Autodiscovery.BROADCASTER_PORT_RECEIVE, Autodiscovery.BROADCASTER_IP);
-        console.log('MESSAGE AUTODISCOVERY', Autodiscovery.BROADCASTER_IP, Autodiscovery.BROADCASTER_PORT_RECEIVE, JSON.stringify(message));
+        console.log('SEND MESSAGE AUTODISCOVERY', Autodiscovery.BROADCASTER_IP, Autodiscovery.BROADCASTER_PORT_RECEIVE, JSON.stringify(message));
     }
     /**
      * @private
@@ -123,18 +149,10 @@ class Autodiscovery extends index_1.EventManagerAware {
     _checkNodeAlive() {
         let time = Date.now();
         for (const property in this.nodes) {
-            /*
-            console.log(
-                'CHECK ALIVE',
-                time - this.nodes[property]['timeout'],
-                Object.values(this.nodes).length,
-                this.identity
-            );
-            */
             let inteval = time - this.nodes[property]['timeout'];
             if (inteval > Autodiscovery.KEEP_ALIVE) {
                 this.getEventManager().emit(Autodiscovery.REMOVE_NODE_EVT, this.nodes[property]);
-                console.log('RIMOZIONE VOLTA EVENTO');
+                console.log('REMOVE EVT');
                 delete this.nodes[property];
             }
         }
@@ -144,6 +162,10 @@ class Autodiscovery extends index_1.EventManagerAware {
  * Events
  */
 Autodiscovery.ERROR_MESSAGE_FORMAT = 'error-message-format';
+/**
+ * Events
+ */
+Autodiscovery.ERROR_MESSAGE = 'error-message';
 /**
  * Messages
  */

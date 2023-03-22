@@ -8,6 +8,10 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     static ERROR_MESSAGE_FORMAT: string;
     /**
+     * Events
+     */
+    static ERROR_MESSAGE: string;
+    /**
      * Messages
      */
     static TYPE_MESSAGE_AUTODISCOVERY: string;
@@ -56,14 +60,33 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     private nodes;
     /**
+     * inteval to star the sending message
+     */
+    private intervalIdSendMessage;
+    /**
      * @param channel: string
      */
     constructor(channel: string, broadcasterPortReceive: number);
     /**
+     * Start timer to send message to comunicate that a node has on the network
+     */
+    startBroadcastMessage(): void;
+    /**
+     * Stop timer to send message
+     */
+    stopBroadcastMessage(): void;
+    /**
      * @returns Array
      */
     getNodes(): any[];
+    /**
+     * Disconnect node to autodiscovery process
+     */
     disconnect(): void;
+    /**
+     * @returns {boolean}
+     */
+    isClose(): boolean;
     /**
      * @param broadcasterPortReceive: number
      * @return {module:dgram.Socket}
@@ -75,20 +98,20 @@ export declare class Autodiscovery extends EventManagerAware {
      */
     private _onBroadcasterListening;
     /**
-     * @param message
-     * @param info
-     * @private
-     */
-    private _onBroadcasterMessage;
-    /**
      * @param error
      * @private
      */
     private _onBroadcasterError;
     /**
+     * @param message
+     * @param info
      * @private
      */
-    private _sendBroadcasterMessage;
+    private _onBroadcasterReceiveMessage;
+    /**
+     * @private
+     */
+    private _sendBroadcasterSendMessage;
     /**
      * @private
      */
