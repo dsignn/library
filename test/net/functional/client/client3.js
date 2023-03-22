@@ -16,5 +16,5 @@ setTimeout(
     ()  => {
         client.connect();
     },
-    120000
+    50000
 )
