@@ -196,7 +196,7 @@ class Archive {
                 .then(() => {
                 decompress(path, this.tmpDir)
                     .then((files) => {
-                    console.log('Finito decompress', files);
+                    console.log('Finito decompress');
                     fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, { overwrite: true })
                         .then(() => {
                         console.log('Finito spostare resource');
