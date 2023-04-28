@@ -82,7 +82,13 @@ export declare class Archive {
      * @param {string} path
      * @return {Promise<void>}
      */
-    restore(path: any): Promise<void>;
+    restore(path: any): Promise<unknown>;
+    /**
+     * @param tmpPath
+     * @param storage
+     * @return {Promise}
+     */
+    private _restoreStorage;
     /**
      * @param event
      * @param callback

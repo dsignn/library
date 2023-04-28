@@ -170,156 +170,76 @@ export class Archive {
      * @param {string} path
      * @return {Promise<void>}
      */
-    async restore(path) {
-        let fs = require('fs');
-        let fsExtra = require('fs-extra');
-        let admZip = require('adm-zip');
-        let evtData = { path: path };
-        this.eventManager.emit('star-progress-extract', evtData);
-        fsExtra.emptyDir(this.tmpDir)
-            .then(() => {
-            let zip = new admZip(path);
-            try {
-                let zip = new admZip(path);
-                zip.extractAllTo(this.tmpDir, true);
-            }
-            catch (error) {
-                this.eventManager.emit('error-extract', { path: error });
-                return;
-            }
-            fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, { overwrite: true })
+    restore(path) {
+        var decompress = require('decompress');
+        var fsExtra = require('fs-extra');
+        var fs = require('fs');
+        var evtData = { path: path };
+        return new Promise((resolve, reject) => {
+            console.log(`Inizio`);
+            this.eventManager.emit('star-progress-extract', evtData);
+            fsExtra.emptyDir(this.tmpDir)
                 .then(() => {
-                fs.readdir(this.tmpDir, (err, items) => {
-                    let promises = [];
-                    let promise;
-                    var totalStorage = 0;
-                    var counterStorage = 0;
-                    for (let cont = 0; cont < items.length; cont++) {
-                        if (items[cont].indexOf("application") >= 0) {
-                            continue;
-                        }
-                        if (items[cont].indexOf(".json") >= 0) {
-                            let collection = items[cont].split('.')[0];
-                            let storage = this.storageContainer.getAll().find((element) => {
-                                return element.getAdapter().getNameCollection() === collection;
-                            });
-                            if (!storage) {
-                                console.warn(`Storage ${collection} not found`);
-                                continue;
-                            }
-                        }
-                        totalStorage++;
-                    }
-                    for (let cont = 0; cont < items.length; cont++) {
-                        if (items[cont].indexOf("application") >= 0) {
-                            continue;
-                        }
-                        if (items[cont].indexOf(".json") > 0) {
-                            let collection = items[cont].split('.')[0];
-                            let storage = this.storageContainer.getAll().find((element) => {
-                                return element.getAdapter().getNameCollection() === collection;
-                            });
-                            if (!storage) {
-                                continue;
-                            }
-                            promise = fsExtra.readJson(`${this.tmpDir}${items[cont]}`)
-                                .then(function (jsonData) {
-                                if (jsonData.length > 0) {
-                                    let storagePromises = [];
-                                    for (let contI = 0; jsonData.length > contI; contI++) {
-                                        storagePromises.push(this.storage.update(this.storage.getHydrator().hydrate(jsonData[contI])));
-                                    }
-                                    Promise.all(storagePromises)
-                                        .then((data) => {
-                                        counterStorage++;
-                                        console.log(`Scritto tutti i dati nello storage`, counterStorage, totalStorage, this.storage.adapter.getNameCollection());
-                                        if (totalStorage === counterStorage) {
-                                            console.log('TONI');
-                                            this.self.eventManager.emit('close-extract', {});
-                                        }
-                                    }).catch((error) => {
-                                        this.self.eventManager.emit('error-extract', { path: error });
-                                    });
+                decompress(path, this.tmpDir)
+                    .then((files) => {
+                    console.log('Finito decompress', files);
+                    fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, { overwrite: true })
+                        .then(() => {
+                        console.log('Finito spostare resource');
+                        this.eventManager.emit('close-extract', {});
+                        fs.readdir(this.tmpDir, async (err, items) => {
+                            for (let cont = 0; cont < items.length; cont++) {
+                                let collection = items[cont].split('.')[0];
+                                let storage = this.storageContainer.getAll().find((element) => {
+                                    return element.getAdapter().getNameCollection() === collection;
+                                });
+                                if (!storage || items[cont].indexOf("application") >= 0) {
+                                    console.warn(`Skip collection ${collection}`);
+                                    continue;
                                 }
-                                else {
-                                    counterStorage++;
+                                try {
+                                    await this._restoreStorage(`${this.tmpDir}${items[cont]}`, storage);
                                 }
-                            }.bind({ "storage": storage, "self": this }));
-                        }
-                    }
-                    promises.push(promise);
-                    Promise.all(promises)
-                        .then((data) => {
-                    }).catch((error) => {
-                        this.eventManager.emit('error-extract', { path: error });
+                                catch (error) {
+                                    this.eventManager.emit('storage-error', { error: error });
+                                }
+                            }
+                            console.log(`Finito`);
+                            this.eventManager.emit('close-extract', {});
+                        });
                     });
+                }).catch((error) => {
+                    this.eventManager.emit('error-extract', { error: error });
+                    return;
                 });
-            })
-                .catch((error) => {
-                this.eventManager.emit('error-extract', { path: error });
-                return;
             });
         });
-        /*
-
-        /**
-         * async
-         
-        fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, {overwrite:true}, (err) => {
-            if (err) {
-                this.eventManager.emit('error-extract', err);
-                return;
+    }
+    /**
+     * @param tmpPath
+     * @param storage
+     * @return {Promise}
+     */
+    async _restoreStorage(tmpPath, storage) {
+        var fsExtra = require('fs-extra');
+        let jsonData = await fsExtra.readJson(tmpPath);
+        if (jsonData.length > 0) {
+            let promises = [];
+            for (let contI = 0; jsonData.length > contI; contI++) {
+                promises.push(storage.update(storage.getHydrator().hydrate(jsonData[contI])));
             }
-        });
-
-        fs.readdir(this.tmpDir, (err, items) => {
-
-            for (let cont=0; cont < items.length; cont++) {
-                
-                if (items[cont].indexOf("application") > 0) {
-                    continue;
-                }
-
-                if (items[cont].indexOf(".json") > 0) {
-
-                    let collection = items[cont].split('.')[0];
-                    let storage = this.storageContainer.getAll().find((element) => {
-                        return element.getAdapter().getNameCollection() === collection;
-                    });
-
-                    if (!storage) {
-                        console.warn(`Storage ${collection} not found`);
-                        continue;
-                    }
-
-
-                    fs.readFile(`${this.tmpDir}${items[cont]}`, function(err, data) {
-                        if (err) {
-                            throw err;
-                        }
-
-                        let jsonData = JSON.parse(data.toString());
-
-                        if (jsonData.length > 0) {
-
-                            let promises = [];
-                            for (let contI = 0; jsonData.length > contI; contI++) {
-                                promises.push(storage.update(this.getHydrator().hydrate(jsonData[contI])));
-                            }
-
-                            Promise.all(promises).then((data) => {
-                                console.log(`Update ${this.getAdapter().getNameCollection()}`, data);
-                            });
-                        }
-
-                    }.bind(storage));
-                }
+            try {
+                console.log('Finito', storage.getAdapter().getNameCollection());
+                let data = await Promise.all(promises);
+                return data;
             }
-        });
-
-
-        this.eventManager.emit('close-extract', evtData);
-        */
+            catch (error) {
+                throw error;
+            }
+        }
+        else {
+            return null;
+        }
     }
     /**
      * @param event
