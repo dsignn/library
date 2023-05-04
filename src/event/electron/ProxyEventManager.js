@@ -42,9 +42,7 @@ export class ProxyEventManager {
     emit(evtName, params, clearListener = false) {
         let message = {
             event: evtName,
-            data: {
-                params
-            }
+            data: params
         };
         this.ipc.send(this.nameProxy, message);
     }

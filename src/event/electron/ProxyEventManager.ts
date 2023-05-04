@@ -56,9 +56,7 @@ export class ProxyEventManager implements EventManagerInterface {
                    
         let message = {
             event: evtName,
-            data: {
-                params
-            }
+            data: params
         };
 
        this.ipc.send(this.nameProxy, message);
