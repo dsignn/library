@@ -10,7 +10,7 @@ class Utils {
      * @param environment
      */
     static getHomeDir(environment, appDirectory) {
-        if (!environment['HOME']) {
+        if (!environment['HOME'] || !environment['LOCALAPPDATA']) {
             throw 'Dont set home directory in environment object';
         }
         if (!appDirectory) {
@@ -27,7 +27,7 @@ class Utils {
                 directory = `${environment['HOME']}${path.sep}Library${path.sep}Application Support${path.sep}${appDirectory}`;
                 break;
             case 'Window_NT':
-                directory = `${environment['HOME']}${path.sep}AppData${path.sep}Local${path.sep}${appDirectory}`;
+                directory = `${environment['LOCALAPPDATA']}`;
                 break;
         }
         return directory;

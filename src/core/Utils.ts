@@ -9,7 +9,7 @@ export class Utils {
      */
     public static getHomeDir(environment: object, appDirectory: string): string {
 
-        if (!environment['HOME']) {
+        if (!environment['HOME'] || !environment['LOCALAPPDATA']) {
             throw 'Dont set home directory in environment object';
         }
 
@@ -29,7 +29,7 @@ export class Utils {
                 directory = `${environment['HOME']}${path.sep}Library${path.sep}Application Support${path.sep}${appDirectory}`;
                 break;
             case 'Window_NT':
-                directory = `${environment['HOME']}${path.sep}AppData${path.sep}Local${path.sep}${appDirectory}`;
+                directory = `${environment['LOCALAPPDATA']}`;
                 break;
         }
 
