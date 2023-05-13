@@ -7,7 +7,7 @@ export class Utils {
      * @param environment
      */
     static getHomeDir(environment, appDirectory) {
-        if (!environment['HOME'] || !environment['LOCALAPPDATA']) {
+        if (!environment['HOME'] && !environment['LOCALAPPDATA']) {
             throw 'Dont set home directory in environment object';
         }
         if (!appDirectory) {
@@ -23,7 +23,7 @@ export class Utils {
             case 'Darwin':
                 directory = `${environment['HOME']}${path.sep}Library${path.sep}Application Support${path.sep}${appDirectory}`;
                 break;
-            case 'Window_NT':
+            case 'Windows_NT':
                 directory = `${environment['LOCALAPPDATA']}`;
                 break;
         }
