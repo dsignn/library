@@ -24,7 +24,7 @@ export class Utils {
                 directory = `${environment['HOME']}${path.sep}Library${path.sep}Application Support${path.sep}${appDirectory}`;
                 break;
             case 'Windows_NT':
-                directory = `${environment['LOCALAPPDATA']}`;
+                directory = `${environment['LOCALAPPDATA']}${path.sep}${appDirectory}`;
                 break;
         }
         return directory;
