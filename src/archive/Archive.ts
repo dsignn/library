@@ -222,47 +222,65 @@ export class Archive {
             fsExtra.emptyDir(this.tmpDir)
                 .then(() => {
 
-                    decompress(path, this.tmpDir)
-                        .then((files) => {
-                            console.log('Finito decompress');
-                            fsExtra.move(`${this.tmpDir}resource`, this.resourceDir, {overwrite:true})
-                                .then(() => {
-                                    console.log('Finito spostare resource');
-                                    this.eventManager.emit('close-extract', {});
+                    let stat = fs.statSync(path);
 
-                                    fs.readdir(this.tmpDir, async (err, items) => {
+                    console.log('STAT', stat);
 
-                                        for (let cont = 0; cont < items.length; cont++) {
-                                        
-                                            let collection = items[cont].split('.')[0];
-                                            
-                                            let storage = this.storageContainer.getAll().find((element) => {
-                                                return element.getAdapter().getNameCollection() === collection;
-                                            });
-
-                                            if (!storage || items[cont].indexOf("application") >= 0) {
-                                                console.warn(`Skip collection ${collection}`);
-                                                continue;
-                                            }
-
-                                            try {
-                                                await this._restoreStorage(`${this.tmpDir}${items[cont]}`, storage);
-                                            } catch(error) {
-                                                this.eventManager.emit('storage-error', {error: error});
-                                            }
-                                        }
-                                        console.log(`Finito`);
-                                        this.eventManager.emit('close-extract', {});
-                                    });
-                                });
-
-                    }).catch((error) => {
-                        this.eventManager.emit('error-extract', {error: error});
-                        return;
-                    });
+                    if(stat.isDirectory()) {
+                        this._moveAndLoadData(path, true);
+                    } else {
+                        
+                        decompress(path, this.tmpDir)
+                            .then((files) => {
+                                
+                                console.log('Finito decompress');
+                                this._moveAndLoadData(this.tmpDir);
+                            });
+                    }
                 });
         });
 
+    }
+
+    /**
+     * @param tmpDir
+     */
+    _moveAndLoadData(tmpDir, copy = false) {
+        var fsExtra = require('fs-extra');
+        var fs = require('fs');
+        let method = copy ? 'copy' : 'move'; 
+        fsExtra[method](`${tmpDir}resource`, this.resourceDir, {overwrite:true})
+            .then(() => {
+                console.log('Finito spostare resource');
+                //this.eventManager.emit('close-extract', {});
+
+                fs.readdir(tmpDir, async (err, items) => {
+
+                    for (let cont = 0; cont < items.length; cont++) {
+                    
+                        let collection = items[cont].split('.')[0];
+                        
+                        let storage = this.storageContainer.getAll().find((element) => {
+                            return element.getAdapter().getNameCollection() === collection;
+                        });
+
+                        if (!storage || items[cont].indexOf("application") >= 0) {
+                            console.warn(`Skip collection ${collection}`);
+                            continue;
+                        }
+
+                        try {
+                            await this._restoreStorage(`${tmpDir}${items[cont]}`, storage);
+                        } catch(error) {
+                            this.eventManager.emit('storage-error', {error: error});
+                        }
+                    }
+                    console.log(`Finito`);
+                    this.eventManager.emit('close-extract', {});
+                });
+            }).catch((error) => {
+                this.eventManager.emit('storage-error', {error: error});
+            });
     }
 
     /**

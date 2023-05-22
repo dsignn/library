@@ -84,6 +84,10 @@ export declare class Archive {
      */
     restore(path: any): Promise<unknown>;
     /**
+     * @param tmpDir
+     */
+    _moveAndLoadData(tmpDir: any, copy?: boolean): void;
+    /**
      * @param tmpPath
      * @param storage
      * @return {Promise}
