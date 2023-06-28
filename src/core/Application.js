@@ -13,6 +13,7 @@ class Application extends EventManagerAware {
             'dashboard',
             'monitor',
             'resource',
+            'playlist',
             'timeslot',
             'admin'
         ];

@@ -25,6 +25,7 @@ class Application extends index_1.EventManagerAware {
             'dashboard',
             'monitor',
             'resource',
+            'playlist',
             'timeslot',
             'admin'
         ];

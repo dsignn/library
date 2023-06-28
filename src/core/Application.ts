@@ -67,6 +67,7 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         'dashboard',
         'monitor',
         'resource',
+        'playlist',
         'timeslot',
         'admin'
     ];
