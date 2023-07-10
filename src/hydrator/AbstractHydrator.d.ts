@@ -125,5 +125,15 @@ export declare abstract class AbstractHydrator implements HydratorInterface {
      * @param {string} name
      * @return {this}
      */
+    disableExtractProperty(name: string): this;
+    /**
+     * @param {string} name
+     * @return {this}
+     */
     enableHydrateProperty(name: string): this;
+    /**
+     * @param {string} name
+     * @return {this}
+     */
+    disableHydrateProperty(name: string): this;
 }

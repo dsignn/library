@@ -172,8 +172,29 @@ export class AbstractHydrator {
      * @param {string} name
      * @return {this}
      */
+    disableExtractProperty(name) {
+        if (this.enablePropertyToExtract[name]) {
+            delete this.enablePropertyToExtract[name];
+        }
+        ;
+        return this;
+    }
+    /**
+     * @param {string} name
+     * @return {this}
+     */
     enableHydrateProperty(name) {
         this.enablePropertyToHydrate[name] = true;
+        return this;
+    }
+    /**
+     * @param {string} name
+     * @return {this}
+     */
+    disableHydrateProperty(name) {
+        if (this.enablePropertyToHydrate[name]) {
+            delete this.enablePropertyToHydrate[name];
+        }
         return this;
     }
 }
