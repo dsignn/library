@@ -132,6 +132,7 @@ class Storage {
             this.adapter.save(data)
                 .then((data) => {
                 this.getEventManager().emit(Storage.POST_SAVE, entity);
+                entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                 resolve(entity);
             }).catch((err) => {
                 reject(err);
@@ -148,6 +149,7 @@ class Storage {
             this.adapter.update(data)
                 .then((data) => {
                 this.getEventManager().emit(Storage.POST_UPDATE, entity);
+                entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
                 resolve(entity);
             }).catch((err) => {
                 reject(err);
