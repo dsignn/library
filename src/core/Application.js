@@ -14,7 +14,6 @@ class Application extends EventManagerAware {
             'monitor',
             'resource',
             'playlist',
-            'timeslot',
             'admin'
         ];
         /**
@@ -96,6 +95,12 @@ class Application extends EventManagerAware {
         });
     }
     ;
+    /**
+     * @param listModules
+     */
+    setCoreModules(coreModules) {
+        this.coreModules = coreModules;
+    }
     /**
      * @param {Module} module
      * @param {ContainerInterface} container

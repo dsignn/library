@@ -68,7 +68,6 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         'monitor',
         'resource',
         'playlist',
-        'timeslot',
         'admin'
     ];
 
@@ -174,6 +173,13 @@ export class Application extends EventManagerAware implements EventManagerAwareI
             this.getEventManager().emit(Application.DELETE_MODULE, module);
         });
     };
+
+    /**
+     * @param listModules 
+     */
+    public setCoreModules(coreModules: Array<string>) {
+        this.coreModules = coreModules;
+    }
  
     /**
      * @param {Module} module

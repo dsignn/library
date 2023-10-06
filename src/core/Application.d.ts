@@ -78,6 +78,10 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     deleteModule(module: Module): Promise<void>;
     /**
+     * @param listModules
+     */
+    setCoreModules(coreModules: Array<string>): void;
+    /**
      * @param {Module} module
      * @param {ContainerInterface} container
      * @return {Promise<Module>}
