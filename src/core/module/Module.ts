@@ -60,6 +60,16 @@ export class Module {
     private widgets: Array<WidgetInterface> = [];
 
     /**
+     * @type {ComponentInterface}
+     */
+    private shortcutComponent: Array<ComponentInterface> = [];
+
+    /**
+     *  @type {object}
+     */
+    private adminViewComponent: Array<ComponentInterface> = [];
+
+    /**
      * @return {string}
      */
     public getId() {
@@ -156,6 +166,38 @@ export class Module {
     }
 
     /**
+     * @return {Array<ComponentInterface>}
+     */
+     public getShortcutComponent() {
+        return this.shortcutComponent;
+    }
+
+    /**
+     * @param {Array<ComponentInterface>} shortcutComponent
+     * @return {Module}
+     */
+    public setShortcutComponent(shortcutComponent: Array<ComponentInterface>): Module {
+        this.shortcutComponent = shortcutComponent;
+        return this
+    }
+
+    /**
+     * @return {Array<ComponentInterface>}
+     */
+    public getAdminViewComponent() {
+        return this.adminViewComponent;
+    }
+
+    /**
+     * @param {Array<ComponentInterface>} adminViewComponent
+     * @return {Module}
+     */
+    public setAdminViewComponent(adminViewComponent: Array<ComponentInterface>): Module {
+        this.adminViewComponent = adminViewComponent;
+        return this
+    }
+
+    /**
      * @return {ComponentInterface}
      */
     public getEntryPoint() {
@@ -198,4 +240,6 @@ export class Module {
         this.core = core;
         return this;
     }
+
+
 }

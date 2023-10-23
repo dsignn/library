@@ -46,6 +46,14 @@ export declare class Module {
      */
     private widgets;
     /**
+     * @type {ComponentInterface}
+     */
+    private shortcutComponent;
+    /**
+     *  @type {object}
+     */
+    private adminViewComponent;
+    /**
      * @return {string}
      */
     getId(): string;
@@ -99,6 +107,24 @@ export declare class Module {
      * @return {Module}
      */
     setAutoloadsWc(autoloadsWc: Array<ComponentInterface>): Module;
+    /**
+     * @return {Array<ComponentInterface>}
+     */
+    getShortcutComponent(): ComponentInterface[];
+    /**
+     * @param {Array<ComponentInterface>} shortcutComponent
+     * @return {Module}
+     */
+    setShortcutComponent(shortcutComponent: Array<ComponentInterface>): Module;
+    /**
+     * @return {Array<ComponentInterface>}
+     */
+    getAdminViewComponent(): ComponentInterface[];
+    /**
+     * @param {Array<ComponentInterface>} adminViewComponent
+     * @return {Module}
+     */
+    setAdminViewComponent(adminViewComponent: Array<ComponentInterface>): Module;
     /**
      * @return {ComponentInterface}
      */

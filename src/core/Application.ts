@@ -3,6 +3,7 @@ import {Module} from "./module/index";
 import {EventManagerAware, EventManagerAwareInterface, EventManagerInterface} from "../event/index";
 import {WidgetInterface} from "./widget/WidgetInterface";
 import { HydratorInterface } from "../hydrator";
+import { ComponentInterface } from "./ComponentInterface";
 
 /**
  * @class

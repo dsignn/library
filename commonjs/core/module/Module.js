@@ -48,6 +48,14 @@ class Module {
           * @type Array<WidgetInterface>
          */
         this.widgets = [];
+        /**
+         * @type {ComponentInterface}
+         */
+        this.shortcutComponent = [];
+        /**
+         *  @type {object}
+         */
+        this.adminViewComponent = [];
     }
     /**
      * @return {string}
@@ -131,6 +139,34 @@ class Module {
      */
     setAutoloadsWc(autoloadsWc) {
         this.autoloadsWc = autoloadsWc;
+        return this;
+    }
+    /**
+     * @return {Array<ComponentInterface>}
+     */
+    getShortcutComponent() {
+        return this.shortcutComponent;
+    }
+    /**
+     * @param {Array<ComponentInterface>} shortcutComponent
+     * @return {Module}
+     */
+    setShortcutComponent(shortcutComponent) {
+        this.shortcutComponent = shortcutComponent;
+        return this;
+    }
+    /**
+     * @return {Array<ComponentInterface>}
+     */
+    getAdminViewComponent() {
+        return this.adminViewComponent;
+    }
+    /**
+     * @param {Array<ComponentInterface>} adminViewComponent
+     * @return {Module}
+     */
+    setAdminViewComponent(adminViewComponent) {
+        this.adminViewComponent = adminViewComponent;
         return this;
     }
     /**
