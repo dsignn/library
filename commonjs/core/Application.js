@@ -146,6 +146,14 @@ class Application extends index_1.EventManagerAware {
             /**
              * Import auto load ws
              */
+            yield this._loadShortcutComponent(module);
+            /**
+             * Import auto load ws
+             */
+            yield this._loadAdminViewComponent(module);
+            /**
+             * Import auto load ws
+             */
             yield this._importConfigModule(module, container);
             console.groupEnd();
             return module;
@@ -213,6 +221,54 @@ class Application extends index_1.EventManagerAware {
                         }
                         catch (err) {
                             console.error(`Failed to load autoloads store in ${wcComponentPath}`, err);
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /**
+     *
+     * @param {Module} module
+     * @return {Promise<void>}
+     */
+    _loadShortcutComponent(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (module.getShortcutComponent().length > 0) {
+                let wcComponentPath;
+                for (let cont = 0; module.getShortcutComponent().length > cont; cont++) {
+                    if (customElements.get(module.getShortcutComponent()[cont].getName()) === undefined) {
+                        wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getShortcutComponent()[cont].getPath().getPath()}`;
+                        try {
+                            let wcComponent = yield Promise.resolve(`${wcComponentPath}`).then(s => require(s));
+                            console.log(`Load shortcut component "${module.getShortcutComponent()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                        }
+                        catch (err) {
+                            console.error(`Failed to load shortcut component  store in ${wcComponentPath}`, err);
+                        }
+                    }
+                }
+            }
+        });
+    }
+    /**
+     *
+     * @param {Widget} widget
+     * @return {Promise<void>}
+     */
+    _loadAdminViewComponent(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (module.getAdminViewComponent().length > 0) {
+                let wcComponentPath;
+                for (let cont = 0; module.getAdminViewComponent().length > cont; cont++) {
+                    if (customElements.get(module.getAdminViewComponent()[cont].getName()) === undefined) {
+                        wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAdminViewComponent()[cont].getPath().getPath()}`;
+                        try {
+                            let wcComponent = yield Promise.resolve(`${wcComponentPath}`).then(s => require(s));
+                            console.log(`Load admin view component "${module.getAdminViewComponent()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                        }
+                        catch (err) {
+                            console.error(`Failed to load admin view component  store in ${wcComponentPath}`, err);
                         }
                     }
                 }

@@ -104,6 +104,18 @@ export declare class Application extends EventManagerAware implements EventManag
      */
     _importAutoLoadWc(module: Module): Promise<void>;
     /**
+     *
+     * @param {Module} module
+     * @return {Promise<void>}
+     */
+    private _loadShortcutComponent;
+    /**
+     *
+     * @param {Widget} widget
+     * @return {Promise<void>}
+     */
+    private _loadAdminViewComponent;
+    /**
      * @param {Module} module
      * @param {Container} container
      * @private

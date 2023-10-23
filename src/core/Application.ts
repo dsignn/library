@@ -4,6 +4,7 @@ import {EventManagerAware, EventManagerAwareInterface, EventManagerInterface} fr
 import {WidgetInterface} from "./widget/WidgetInterface";
 import { HydratorInterface } from "../hydrator";
 import { ComponentInterface } from "./ComponentInterface";
+import { WebComponent } from "./webcomponent";
 
 /**
  * @class
@@ -213,6 +214,16 @@ export class Application extends EventManagerAware implements EventManagerAwareI
         /**
          * Import auto load ws
          */
+        await this._loadShortcutComponent(module);
+
+        /**
+         * Import auto load ws
+         */
+        await this._loadAdminViewComponent(module);
+
+        /**
+         * Import auto load ws
+         */
         await this._importConfigModule(module, container);
 
         console.groupEnd();
@@ -283,6 +294,52 @@ export class Application extends EventManagerAware implements EventManagerAwareI
                     }
                     catch (err) {
                         console.error(`Failed to load autoloads store in ${wcComponentPath}`, err);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * @param {Module} module
+     * @return {Promise<void>}
+     */
+    private async _loadShortcutComponent(module: Module) {
+        if (module.getShortcutComponent().length > 0) {
+            let wcComponentPath;
+            for (let cont = 0; module.getShortcutComponent().length > cont; cont++) {
+                if (customElements.get(module.getShortcutComponent()[cont].getName()) === undefined) {
+                    wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getShortcutComponent()[cont].getPath().getPath()}`;
+                    try {
+                        let wcComponent = await import(wcComponentPath);
+                        console.log(`Load shortcut component "${module.getShortcutComponent()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                    }
+                    catch (err) {
+                        console.error(`Failed to load shortcut component  store in ${wcComponentPath}`, err);
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     *
+     * @param {Widget} widget
+     * @return {Promise<void>}
+     */
+    private async _loadAdminViewComponent(module: Module) {
+        if (module.getAdminViewComponent().length > 0) {
+            let wcComponentPath;
+            for (let cont = 0; module.getAdminViewComponent().length > cont; cont++) {
+                if (customElements.get(module.getAdminViewComponent()[cont].getName()) === undefined) {
+                    wcComponentPath = `${this.getModulePath(module)}/${module.getName()}/${module.getAdminViewComponent()[cont].getPath().getPath()}`;
+                    try {
+                        let wcComponent = await import(wcComponentPath);
+                        console.log(`Load admin view component "${module.getAdminViewComponent()[cont].getName()}" store in ${wcComponentPath}`, wcComponent);
+                    }
+                    catch (err) {
+                        console.error(`Failed to load admin view component  store in ${wcComponentPath}`, err);
                     }
                 }
             }
