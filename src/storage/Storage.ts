@@ -182,8 +182,8 @@ export class Storage implements StorageInterface, StorageAdapterAwareInterface {
             this.adapter.save(data)
                 .then(
                     (data) => {
-                        this.getEventManager().emit(Storage.POST_SAVE, entity);
                         entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
+                        this.getEventManager().emit(Storage.POST_SAVE, entity);
                         resolve(entity);
                     }
                 ).catch(
@@ -204,8 +204,8 @@ export class Storage implements StorageInterface, StorageAdapterAwareInterface {
             this.adapter.update(data)
                 .then(
                     (data) => {
-                        this.getEventManager().emit(Storage.POST_UPDATE, entity);
                         entity = this.hydrator ? this.hydrator.hydrate(data) : entity;
+                        this.getEventManager().emit(Storage.POST_UPDATE, entity);
                         resolve(entity);
                     }
                 ).catch(
