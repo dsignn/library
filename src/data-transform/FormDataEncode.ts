@@ -22,7 +22,7 @@ export class FormDataEncode implements DataEncodeInterface {
                 case Array.isArray(data[prop]):
                     // Append array data
                     for (let cont = 0; data[prop].length > cont; cont++) {
-                        formData.append(`${prop}[]`, data[prop]);
+                        formData.append(`${prop}[]`, data[prop][cont]);
                     }
                     break;
                 case typeof data[prop] === 'object' && !(data[prop] instanceof File):
