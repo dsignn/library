@@ -117,32 +117,36 @@ export class XmlhAdapter implements StorageAdapterInterface {
      * @returns {string}
      */
     _buildQueryString(search: object): string {
-        const reducer = (obj, parentPrefix = null) => (prev, key) => {
+        const reducer =
+          (obj, parentPrefix = null) =>
+          (prev, key) => {
             const val = obj[key];
             key = encodeURIComponent(key);
             const prefix = parentPrefix ? `${parentPrefix}[${key}]` : key;
-      
-            if (val == null || typeof val === 'function') {
+
+            if (val == null || typeof val === "function") {
               prev.push(`${prefix}=`);
               return prev;
             }
-      
-            if (['number', 'boolean', 'string'].includes(typeof val)) {
+
+            if (["number", "boolean", "string"].includes(typeof val)) {
               prev.push(`${prefix}=${encodeURIComponent(val)}`);
               return prev;
             }
-      
-            prev.push(Object.keys(val).reduce(reducer(val, prefix), []).join('&'));
+
+            prev.push(
+              Object.keys(val).reduce(reducer(val, prefix), []).join("&")
+            );
             return prev;
-        };
+          };
 
-          let query = Object.keys(search).reduce(reducer(search), []).join('&');
+        let query = Object.keys(search).reduce(reducer(search), []).join("&");
 
-          if (query) {
-            query =  '?' + query;
-          }
-      
-          return query;
+        if (query) {
+          query = "?" + query;
+        }
+
+        return query;
     }
 
     /**
