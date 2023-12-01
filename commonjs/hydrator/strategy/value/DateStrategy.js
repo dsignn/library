@@ -6,6 +6,15 @@ exports.DateStrategy = void 0;
  */
 class DateStrategy {
     /**
+     * @param {} function
+     */
+    constructor(fn) {
+        /**
+         * @type {StorageAdapterInterface}
+         */
+        this.extractFn = fn;
+    }
+    /**
      * @param {string} property
      * @param data
      * @return {any}
@@ -21,9 +30,17 @@ class DateStrategy {
     extractValue(data) {
         let extract = data;
         if (data instanceof Date) {
-            extract = data.toString();
+            extract = this.extractFn ? this.extractFn(data) : this.defaultExtract(data);
         }
         return extract;
+    }
+    defaultExtract(date) {
+        if (date instanceof Date) {
+            return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        }
+        else {
+            return date;
+        }
     }
 }
 exports.DateStrategy = DateStrategy;

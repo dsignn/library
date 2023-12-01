@@ -5,6 +5,19 @@ import {ValueStrategyInteface} from "./ValueStrategyInteface";
  */
 export class DateStrategy implements ValueStrategyInteface {
 
+    protected extractFn: any;
+
+    /**
+     * @param {} function
+     */
+    constructor(fn: any) {
+        /**
+         * @type {StorageAdapterInterface}
+         */
+        this.extractFn = fn;
+    }
+    
+
     /**
      * @param {string} property
      * @param data
@@ -24,9 +37,18 @@ export class DateStrategy implements ValueStrategyInteface {
         let extract = data;
 
         if ( data instanceof Date) {
-            extract = data.toString();
+            extract = this.extractFn ? this.extractFn(data) : this.defaultExtract(data);
         }
 
         return extract;
+    }
+
+    defaultExtract(date: Date) {
+
+        if ( date instanceof Date) {
+            return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        } else {
+            return date;
+        }
     }
 }
